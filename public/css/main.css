@@ -30,6 +30,10 @@
   /* FOR FIREFOX SCROLL BAR */
 }
 
+a {
+  color: var(--color-text);
+}
+
 ::-webkit-scrollbar {
   width: 6px; /* Make it thin */
   height: 6px; /* If horizontal scrollbar appears */

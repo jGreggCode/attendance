@@ -2,9 +2,12 @@
 
 ini_set('session.use_only_cookies', 1);
 ini_set('session.use.strict_mode', 1);
+ini_set('session.gc_maxlifetime', 3600 * 24); // 24 hours
+ini_set('session.gc_probability', 1);
+ini_set('session.gc_divisor', 100);
 
 session_set_cookie_params([
-    'lifetime' => 60 * 30, // 30 minutes
+    'lifetime' => 3600 * 24, 
     'path' => '/',
     'domain' => $_SERVER['HTTP_HOST'],
     'secure' => isset($_SERVER['HTTPS']),
@@ -14,10 +17,20 @@ session_set_cookie_params([
 
 session_start();
 
+// Optional: Refresh the session cookie every request to keep it active
+setcookie(session_name(), session_id(), [
+  'expires' => time() + 3600 * 24,
+  'path' => '/',
+  'domain' => $_SERVER['HTTP_HOST'],
+  'secure' => isset($_SERVER['HTTPS']),
+  'httponly' => true,
+  'samesite' => 'Strict'
+]);
+
 if (!isset($_SESSION['last_regeneration'])) {
   regenerate_session_id();
 } else {
-  $interval = 60 * 30; // 30 minutes
+  $interval = 60 * 1; // 30 minutes
   if (time() - $_SESSION['last_regeneration'] >= $interval) {
     regenerate_session_id();
   }

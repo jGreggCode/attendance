@@ -15,6 +15,7 @@ function focusInput() {
   input.focus();
   // Make sure it keeps focus
   setInterval(() => input.focus(), 1000);
+  // Uncomment when plugging the RFID reader
   //setInterval(() => (input.value = ""), 3000);
 }
 
@@ -42,6 +43,10 @@ function tapUser() {
   var dateToday = $("#dateToday");
   var timeNow = $("#timeNow");
 
+  // Clear previous timeouts
+  clearTimeout(hideTimeout);
+  clearTimeout(hideAnimateTimeout);
+
   $.ajax({
     url: "../includes/controller/attendance.contr.php",
     method: "POST",
@@ -59,16 +64,14 @@ function tapUser() {
         })
       );
 
-      // Clear previous timeouts
-      clearTimeout(hideTimeout);
-      clearTimeout(hideAnimateTimeout);
-
       if (result.status === "error") {
         $("#errorMessage").html(result.message).fadeIn();
         setTimeout(function () {
           $("#errorMessage").fadeOut();
         }, 3000);
-        sectionUserInformation.removeClass("visible animate animate-out");
+        sectionUserInformation
+          .removeClass("visible animate animate-out")
+          .addClass("hidden");
         return;
       }
 

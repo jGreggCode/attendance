@@ -1,6 +1,9 @@
-<?php
-// // SESSION
-// require_once "includes/session/config.session.inc.php";
+<?php 
+// SESSION
+require_once "../includes/session/config.session.inc.php";
+if(isset($_SESSION['user'])){
+  header('Location: dashboard.php');
+} 
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +14,7 @@
     <link rel="stylesheet" href="../public/css/main.css" />
     <link rel="stylesheet" href="../public/css/admin.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
+    <!-- TOASTIFY  -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     <title>Login</title>
@@ -22,12 +25,6 @@
       <div class="spinner"></div>
       <p>Please wait, processing...</p>
     </div>
-
-    <?php 
-    if (isset($_SESSION['student'])) {
-      echo '<button type="button" id="buttonSignOut">Logout</button>';
-    } 
-    ?>
 
     <div class="container">
 
@@ -76,8 +73,8 @@
             </div>
             <div class="form-group" id="StudentPasswordGroup" >
               <i class="fas fa-lock"></i>
-              <input type="password" id="SIUserPassword" name="SIUserPassword" placeholder="Password" required >
-              <i class="fas fa-eye-slash toggle-password" id="togglePassword" style="cursor: pointer;"></i>
+              <input type="password" id="SIPassword" name="SIPassword" placeholder="Password" required >
+              <i class="fas fa-eye-slash toggle-password" id="SITogglePassword" style="cursor: pointer;"></i>
               </input>
             </div>
             <button id="buttonSignIn" type="button">Sign In</button>
@@ -92,13 +89,13 @@
       </div>
 
       <!-- Sign Up Section -->
-      <div class="section-signin" style="">
+      <div class="section-signin" style="display: none;">
         <form class="form-signin" enctype="multipart/form-data">
           <div class="form-header">
             <img src="../assets/saclilogo.png" alt="" height="80">
             <div class="form-header-text">
-              <h2>Welcome to SACLI - TMS</h2>
-              <p>Sign in to your account</p>
+              <h2>Hello Admin!</h2>
+              <p>Register an RFID / User</p>
             </div>
           </div>
           <div class="form-body">
@@ -204,7 +201,6 @@
     <!-- For Sign In & Sign Up AJAX -->
     <script src="../public/js/signin.js"></script>
     <script src="../public/js/signup.js"></script>
-    <script src="../public/js/signout.js"></script>
     <script src="../public/js/admin.js"></script>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

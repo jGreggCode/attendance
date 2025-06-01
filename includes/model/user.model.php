@@ -89,6 +89,44 @@ class User {
 
   }
 
+  public function getUser($user_id, $password) {
+    try {
+      $options = [
+        'cost' => 12,
+      ];
+
+      $stmt = $this->db->prepare('
+        SELECT password FROM users WHERE user_id = :user_id;
+      ');
+
+      $stmt->execute([
+        'user_id' => $user_id,
+      ]);
+
+      if ($stmt->rowCount() > 0) {
+        $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (password_verify($password, $row[0]['password'])) {
+          // Set the account details in the session
+          $this->getAccountDetails($user_id);
+
+          return ['status' => 'success', 'message' => 'Login Successful!'];
+        } else {
+          return ['status' => 'error', 'message' => 'Invalid Password!'];
+        }
+      } else {
+        return ['status' => 'error', 'message' => 'User Not Found!'];
+
+      }
+
+      $stmt = null; // Close the statement
+      return ['status' => 'success', 'message' => 'Account Created Successfully!'];
+    } catch (PDOException $th) {
+      $message = '<div>Database error: ' . $th->getMessage() . '</div>';
+      return ['status' => 'error', 'message' => $message];
+    }
+
+  }
+
   public function checkUser($user_id, $email) {
     $result;
     try {
@@ -110,6 +148,45 @@ class User {
     } catch (PDOException $e) {
       $message = 'Database error: ' . $e->getMessage();
       return ['status' => 'error', 'message' => $message];
+    }
+  }
+
+  function getAccountDetails($user_id) {
+    $stmt = $this->db->prepare('
+      SELECT * FROM users WHERE user_id = :user_id;
+    ');
+
+    $stmt->execute([
+      'user_id' => $user_id,
+    ]); 
+
+    // Start the session
+    require_once "../session/config.session.inc.php";
+
+    if($stmt->rowCount() > 0) {
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      $_SESSION['user'] = [
+        'id' => $row['id'],
+        'student_photo' => $row['student_photo'],
+        'rfid_code' => $row['rfid_code'],
+        'user_id' => $row['user_id'],
+        'first_name' => $row['first_name'],
+        'middle_name' => $row['middle_name'],
+        'last_name' => $row['last_name'],
+        'age' => $row['age'],
+        'birthday' => $row['birthday'],
+        'course' => $row['course'],
+        'year_level' => $row['year_level'],
+        'department' => $row['department'],
+        'user_type' => $row['user_type'],
+        'username' => $row['username'],
+        // 'password' => $row['password'], // ⚠️ Not safe to store in session
+        'email' => $row['email'],
+        'is_logged_in' => true // optional flag
+      ];
+
+      regenerate_session_id();
     }
   }
 

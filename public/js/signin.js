@@ -9,7 +9,7 @@ $(function () {
 function signin() {
   // Log when the function is called
   var username = $("#SIUsername").val();
-  var password = $("#SIUserPassword").val();
+  var password = $("#SIPassword").val();
 
   // Reset borders first
   $("#StudentIDGroup, #StudentPasswordGroup").css("border", "");
@@ -70,6 +70,10 @@ function signin() {
       setTimeout(function () {
         $("#errorMessage").fadeOut();
       }, 3000);
+
+      if (parsedData.status === "success") {
+        window.location = "dashboard.php";
+      }
     },
     error: function (jqXHR, textStatus, errorThrown) {
       console.error("AJAX Error: ", textStatus, errorThrown); // Log any errors
@@ -77,10 +81,6 @@ function signin() {
     complete: function () {
       // Hide the loading message once the request is complete
       $("#loadingMessage").fadeOut();
-
-      // Remove the value of the input fields
-      username.val("");
-      password.val("");
     },
   });
 }

@@ -8,6 +8,10 @@ $(function () {
   $("#togglePassword").on("click", function () {
     togglePasswordVisibility();
   });
+
+  $("#SITogglePassword").on("click", function () {
+    togglePasswordVisibility();
+  });
 });
 
 function selectFile() {
@@ -25,8 +29,8 @@ function selectFile() {
 function togglePasswordVisibility() {
   // Log when the function is called
   console.log("Toggle Password Visibility function called");
-  const passwordInput = document.getElementById("SIStudentPassword");
-  const toggleIcon = document.getElementById("togglePassword");
+  const passwordInput = document.getElementById("SIPassword");
+  const toggleIcon = document.getElementById("SITogglePassword");
 
   // Toggle the type attribute
   const type =
