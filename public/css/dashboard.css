@@ -126,23 +126,18 @@
 /* Dropdown styling */
 .profile-dropdown {
   position: absolute;
-  top: 42px; /* Adjust depending on img height */
+  top: 50px; /* Adjust depending on img height */
   right: 0;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  width: 180px;
+  width: 250px;
   padding: 15px;
   display: none;
   flex-direction: column;
   gap: 10px;
-  animation: fadeSlide 0.3s ease forwards;
+  animation: fadeSlide 0.4s ease forwards;
   z-index: 999;
-}
-
-.profile-info {
-  font-size: 14px;
-  color: #333;
 }
 
 .logout-btn {
@@ -164,7 +159,7 @@
 @keyframes fadeSlide {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateX(100px);
   }
   to {
     opacity: 1;
@@ -176,6 +171,12 @@
   padding-left: 15px;
   font-size: 0.8rem;
   color: #fff;
+}
+
+.right-nav .user .profile-info p {
+  padding-left: 0;
+  font-size: 1rem;
+  color: black;
 }
 
 .right-nav .user img {
@@ -326,12 +327,12 @@
   border-radius: 10px;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.5s ease, transform 0.3s ease-in-out;
 }
 
 .container .stats-content .stat:hover {
-  background-color: var(--dashbaord-color-button);
-
-  /* When Hover to stat change the colors */
+  background-color: var(--color-texthover);
+  transform: scale(1.1); /* When Hover to stat change the colors */
   i,
   .stat-content-text h2,
   .stat-content-text p,
@@ -361,4 +362,61 @@
 .container .stats-content .stat .stat-content-text p {
   color: rgb(150, 150, 150);
   font-weight: 500;
+}
+
+/* CHARTS */
+
+.charts-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+  margin-top: 50px;
+}
+
+.charts-content .charts-section {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+}
+
+.charts-content .charts-section .chart {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  min-height: 420px;
+  border-radius: 10px;
+}
+
+.charts-content .charts-section .chart .chart-icon {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.charts-content .charts-section .chart .chart-icon .setting {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: gray;
+}
+
+.charts-content .charts-section .chart #chart1 {
+  width: 800px;
+  height: 200px;
+}
+
+.charts-content .charts-section .chart h3 {
+  font-weight: 500;
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+
+.charts-content .charts-section #nothing {
+  width: 580px;
 }

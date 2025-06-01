@@ -25,16 +25,13 @@ class Attendance {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$result) {
-          return ['status' => 'error', 'message' => 'No attendance record found for today.'];
+          return ['status' => 'error', 'message' => 'No attendance record found for today.', 'data' => $result];
         } else {
-          return [
-            'status' => 'success',
-            'data' => $result
-          ];
+          return ['status' => 'success','data' => $result];
         }
       } catch (\Throwable $th) {
         $message = 'Database error: ' . $th->getMessage();
-        return ['status' => 'error', 'message' => $message];
+        return ['status' => 'error', 'message' => $message, 'data' => $result];
       }
         
     }
@@ -59,7 +56,8 @@ class Attendance {
         }
 
       } catch (\Throwable $th) {
-        
+        $message = 'Database error: ' . $th->getMessage() . '| usertype = ' . $userType ;
+        return ['status' => 'error', 'message' => $message];
       }
     }
 

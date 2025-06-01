@@ -27,6 +27,8 @@ if (isset($_SESSION['user'])) {
   $first_name = $_SESSION['user']['first_name'];
   $name_in_initial = $initials;
   $profile_photo = $_SESSION['user']['profile_photo'];
+  $user_type = $_SESSION['user']['user_type'];
+  $rfid = $_SESSION['user']['rfid_code'];
 } 
 ?>
 
@@ -40,7 +42,7 @@ if (isset($_SESSION['user'])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <title>SACLI - TMS Admin</title>
 </head>
-<body>
+<body style="background-color: #ededed;">
   <!-- LOADING -->
   <div id="loadingMessage" class="loading-message" style="display: none;">
     <div class="spinner"></div>
@@ -85,7 +87,9 @@ if (isset($_SESSION['user'])) {
           </div>
           <div class="profile-dropdown" id="profileDropdown">
           <div class="profile-info">
-            User Id: <?php echo $userid; ?>
+            <p>Welcome <?php echo $user_type; ?>!</p>
+            <p>User Id: <?php echo $userid; ?></p>
+            <p>RFID: <?php echo $rfid; ?></p>
           </div>
           <a id="buttonSignOut" class="logout-btn">Logout</a>
         </div>
@@ -179,6 +183,68 @@ if (isset($_SESSION['user'])) {
 
   </div>
 
+  <section class="charts-content">
+    <div class="charts-section">
+      <div class="chart">
+        <div class="chart-icon">
+          <i class="fa-solid fa-ellipsis setting"></i>
+        </div>
+        <h3>Total Attendance Report</h3>
+        <div id="chart1">
+
+        </div>
+      </div>
+      
+      <div class="chart">
+        <div class="chart-icon">
+          <i class="fa-solid fa-ellipsis setting"></i>
+        </div>
+        <h3>Students By Course</h3>
+        <div id="chart2">
+
+        </div>
+      </div>
+    </div>
+
+    <div class="charts-section" style="margin-bottom: 20px;">
+      <div class="chart">
+        <div class="chart-icon">
+          <i class="fa-solid fa-ellipsis setting"></i>
+        </div>
+        <h3>Students by Gender</h3>
+        <div id="pieChart">
+
+        </div>
+      </div>
+
+      <div class="chart" id="nothing">
+        <div class="chart-icon">
+          <i class="fa-solid fa-ellipsis setting"></i>
+        </div>
+        <h3>Top Attendance</h3>
+        <div id="">
+
+        </div>
+      </div>
+
+      <div class="chart">
+        <div class="chart-icon">
+          <i class="fa-solid fa-ellipsis setting"></i>
+        </div>
+        <h3>Weekly Absent</h3>
+        <div id="radarChart">
+
+        </div>
+      </div>
+
+      
+    </div>
+  </section>
+
+  
+  <!-- APEXCHART -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
   <script>
     const profile = document.getElementById("profile");
     const dropdown = document.getElementById("profileDropdown");
@@ -194,13 +260,11 @@ if (isset($_SESSION['user'])) {
     });
 
   </script>
-
-
   
-
   <!-- JQUERY VENDOR -->
   <script src="../public/vendor/jquery/jquery.min.js"></script>
   <!-- Page Javascript Code -->
+  <script src="../public/js/chart.js"></script>
   <script src="../public/js/signout.js"></script>
   <script src="../public/js/dashboard.js"></script>
 </body>

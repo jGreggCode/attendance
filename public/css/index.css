@@ -83,7 +83,7 @@
 }
 
 .rfid-input {
-  opacity: 0;
+  opacity: 2;
   position: absolute;
   z-index: -1;
 }

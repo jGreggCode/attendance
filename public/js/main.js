@@ -21,7 +21,7 @@ function focusInput() {
 
 function rfidScan() {
   const input = document.getElementById("rfid_input");
-  if (input.value.length >= 10) {
+  if (input.value.length === 10) {
     // Adjust based on RFID UID length
     //input.form.submit();
     tapUser();
