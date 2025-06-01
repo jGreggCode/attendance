@@ -17,6 +17,9 @@
   --color-text: #000; /* Text color */
   --color-text-secondary: #fff; /* Secondary text color */
   --color-background: #fffefe; /* Background color */
+  --dashboard-color: #121826;
+  --dashbaord-color-button: #2ed787;
+  --dashboard-color-white: #fffefe;
   --font-family: "Poppins", sans-serif; /* Font family */
 }
 

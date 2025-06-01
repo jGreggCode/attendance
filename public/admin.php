@@ -99,7 +99,7 @@ if(isset($_SESSION['user'])){
             </div>
           </div>
           <div class="form-body">
-          <div class="form-group">
+            <div class="form-group">
               <input type="text" id="SURfidCode" name="SURfidCode" placeholder="RFID" />
             </div>
             <div class="form-group">

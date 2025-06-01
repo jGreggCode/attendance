@@ -168,7 +168,7 @@ class User {
 
       $_SESSION['user'] = [
         'id' => $row['id'],
-        'student_photo' => $row['student_photo'],
+        'profile_photo' => $row['student_photo'],
         'rfid_code' => $row['rfid_code'],
         'user_id' => $row['user_id'],
         'first_name' => $row['first_name'],

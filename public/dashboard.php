@@ -4,6 +4,8 @@ require_once "../includes/session/config.session.inc.php";
 
 $userid = null;
 $first_name = null;
+$name_in_initial = null;
+$profile_photo = null;
 
 if(!isset($_SESSION['user'])){
   header('Location: admin.php');
@@ -11,8 +13,20 @@ if(!isset($_SESSION['user'])){
 }
 
 if (isset($_SESSION['user'])) {
+
+  $full_name = $_SESSION['user']['first_name'] . ' ' . $_SESSION['user']['last_name'];
+  // Split by space and get initials
+  $words = preg_split('/\s+/', trim($full_name));
+  $initials = '';
+
+  foreach ($words as $word) {
+    $initials .= strtoupper($word[0]);
+  }
+
   $userid = $_SESSION['user']['user_id'];
   $first_name = $_SESSION['user']['first_name'];
+  $name_in_initial = $initials;
+  $profile_photo = $_SESSION['user']['profile_photo'];
 } 
 ?>
 
@@ -31,6 +45,9 @@ if (isset($_SESSION['user'])) {
   <div id="loadingMessage" class="loading-message" style="display: none;">
     <div class="spinner"></div>
     <p>Please wait, processing...</p>
+  </div>
+
+  <div class="bacground-gradient"> 
   </div>
 
   <div class="container">
@@ -57,13 +74,15 @@ if (isset($_SESSION['user'])) {
             <i class="fa-solid fa-bell fa-lg" id="notification" style="cursor: pointer;"></i>
           </div>
           <div class="fav-icon">
-            <i class="fa-solid fa-cog fa-lg" id="setting" style="cursor: pointer;"></i>
+            <i class="fa-solid fa-gear fa-lg" id="setting" style="cursor: pointer;"></i>
           </div>
         </div>
         <div class="user">
-          <p>Welcome Admin</p>
-          <img src="../assets/Users/Gregg/gregg.jpeg" id="profile" height="32" alt="User Icon">
-
+          <img src="<?php echo $profile_photo; ?>" id="" height="28" alt="User Icon">
+          <p><?php echo $name_in_initial ?></p>
+          <div class="fav-icon">
+            <i class="fa-solid fa-angle-down fa-lg" id="profile" style="cursor: pointer;"></i>
+          </div>
           <div class="profile-dropdown" id="profileDropdown">
           <div class="profile-info">
             User Id: <?php echo $userid; ?>
@@ -75,6 +94,34 @@ if (isset($_SESSION['user'])) {
     </nav>
 
     <section class="main-content">
+      <div class="content">
+        <div class="welcome">
+          <div class="profile-icon">
+            <img src="<?php echo $profile_photo; ?>" id="" height="60" alt="Profile Photo">
+          </div>
+          <div class="profile-text">
+            <h3>Hello <?php echo $first_name ?>! 👋</h3>
+            <p>We hope you're having a great day.</p>
+          </div>
+        </div>
+        <form class="form-filter">
+          <div class="form-group custom-select-wrapper">
+            <select name="courses" id="courses">
+              <option value="selected" selected>Select Course </option>
+            </select>
+            <i class="fa-solid fa-angle-down fa-sm custom-select-icon" id="profile" style="cursor: pointer;"></i>
+          </div>
+          <div class="form-group custom-select-wrapper">
+            <select name="days" id="days">
+              <option value="30" selected>Last 30 days</option>
+              <option value="7">Last 7 days</option>
+              <option value="1">Today</option>
+            </select>
+            <i class="fa-solid fa-calendar-days fa-sm custom-select-icon" id="profile" style="cursor: pointer;"></i>
+          </div>
+          <button id="buttonFilter" type="button"><i class="fa-solid fa-filter"></i> Filter</button>
+        </form>
+      </div>
     </section>
   </div>
 
@@ -101,5 +148,6 @@ if (isset($_SESSION['user'])) {
   <script src="../public/vendor/jquery/jquery.min.js"></script>
   <!-- Page Javascript Code -->
   <script src="../public/js/signout.js"></script>
+  <script src="../public/js/dashboard.js"></script>
 </body>
 </html>
