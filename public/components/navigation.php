@@ -7,9 +7,13 @@
     <div class="nav-links">
       <ul>
         <li class="nav-link"><a class="active" href="">Overview</a></li>
-        <li class="nav-link"><a href="">Manage Attendance</a></li>
-        <li class="nav-link"><a href="">Student's List</a></li>
-        <li class="nav-link"><a href="">Reports</a></li>
+        <?php 
+          if ($user_type === "Admin") {?>
+            <li class="nav-link"><a href="">Manage Attendance</a></li>
+            <li class="nav-link"><a href="">Student's List</a></li>
+            <li class="nav-link"><a href="">Reports</a></li>
+          <?php } 
+        ?>
       </ul>
     </div>
   </div>

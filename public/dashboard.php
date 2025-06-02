@@ -7,7 +7,7 @@ $first_name = null;
 $name_in_initial = null;
 $profile_photo = null;
 
-if(!isset($_SESSION['user'])){
+if (!isset($_SESSION['user'])) {
   header('Location: admin.php');
   exit();
 }
@@ -29,11 +29,12 @@ if (isset($_SESSION['user'])) {
   $profile_photo = $_SESSION['user']['profile_photo'];
   $user_type = $_SESSION['user']['user_type'];
   $rfid = $_SESSION['user']['rfid_code'];
-} 
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,23 +43,25 @@ if (isset($_SESSION['user'])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <title>SACLI - TMS Admin</title>
 </head>
+
 <body style="background-color: #ededed;">
   <!-- LOADING -->
   <div id="loadingMessage" class="loading-message" style="display: none;">
     <div class="spinner"></div>
     <p>Please wait, processing...</p>
+
   </div>
 
-  <div class="bacground-gradient"> 
+  <div class="bacground-gradient">
   </div>
 
   <div class="container">
 
-    <?php 
+    <?php
     include_once 'components/navigation.php';
     ?>
 
-    <section class="main-content">
+    <section class="main-content employee-main-content">
       <div class="content">
         <div class="welcome">
           <div class="profile-icon">
@@ -88,7 +91,7 @@ if (isset($_SESSION['user'])) {
         </form>
       </div>
     </section>
-    
+
     <?php
     include_once 'components/stats.php';
     ?>
@@ -106,7 +109,7 @@ if (isset($_SESSION['user'])) {
           <div id="lineChart"></div>
         </div>
       </div>
-      
+
       <div class="chart">
         <div class="chart-icon">
           <i class="fa-solid fa-ellipsis setting"></i>
@@ -212,7 +215,7 @@ if (isset($_SESSION['user'])) {
   </section>
 
   <!-- FOOTER SECTION -->
-  <?php 
+  <?php
   include_once 'components/footer.php';
   ?>
 
@@ -240,4 +243,5 @@ if (isset($_SESSION['user'])) {
   <script src="../public/js/signout.js"></script>
   <script src="../public/js/dashboard.js"></script>
 </body>
+
 </html>
