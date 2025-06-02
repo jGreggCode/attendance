@@ -54,48 +54,9 @@ if (isset($_SESSION['user'])) {
 
   <div class="container">
 
-    <nav class="navigation">
-      <div class="left-nav">
-        <div class="logo">
-          <img src="../assets/saclilogo.png" height="32" alt="SACLI LOGO">
-          <p>SACLI - TMS</p>
-        </div>
-        <div class="nav-links">
-          <ul>
-            <li class="nav-link"><a class="active" href="">Overview</a></li>
-            <li class="nav-link"><a href="">Manage Attendance</a></li>
-            <li class="nav-link"><a href="">Student's List</a></li>
-            <li class="nav-link"><a href="">Reports</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="right-nav">
-        <div class="icons">
-          <div class="fav-icon">
-            <i class="fa-solid fa-bell fa-lg" id="notification" style="cursor: pointer;"></i>
-          </div>
-          <div class="fav-icon">
-            <i class="fa-solid fa-gear fa-lg" id="setting" style="cursor: pointer;"></i>
-          </div>
-        </div>
-        <div class="user">
-          <img src="<?php echo $profile_photo; ?>" id="" height="28" alt="User Icon">
-          <p><?php echo $name_in_initial ?></p>
-          <div class="fav-icon">
-            <i class="fa-solid fa-angle-down fa-lg" id="profile" style="cursor: pointer;"></i>
-          </div>
-          <div class="profile-dropdown" id="profileDropdown">
-          <div class="profile-info">
-            <p>Welcome <?php echo $user_type; ?>!</p>
-            <p>User Id: <?php echo $userid; ?></p>
-            <p>RFID: <?php echo $rfid; ?></p>
-          </div>
-          <a id="buttonSignOut" class="logout-btn">Logout</a>
-        </div>
-        </div>
-      </div>
-    </nav>
+    <?php 
+    include_once 'components/navigation.php';
+    ?>
 
     <section class="main-content">
       <div class="content">
@@ -128,58 +89,9 @@ if (isset($_SESSION['user'])) {
       </div>
     </section>
     
-    <section class="stats-content">
-      <div class="stats-section">
-        <div class="stat">
-          <div class="stat-icon">
-            <i class="fa-solid fa-ellipsis setting"></i>
-          </div>
-          <div>
-            <i class="fa-solid fa-graduation-cap"></i>
-          </div>
-          <div class="stat-content-text">
-            <h2>304</h2>
-            <p>TOTAL STUDENTS</p>
-          </div>
-        </div>
-        <div class="stat">
-          <div class="stat-icon">
-            <i class="fa-solid fa-ellipsis setting"></i>
-          </div>
-          <div>
-            <i class="fa-solid fa-user-tie"></i>
-          </div>
-          <div class="stat-content-text">
-            <h2>47</h2>
-            <p>TOTAL EMPLOYEE</p>
-          </div>
-        </div>
-        <div class="stat">
-          <div class="stat-icon">
-            <i class="fa-solid fa-ellipsis setting"></i>
-          </div>
-          <div>
-            <i class="fa-solid fa-right-to-bracket"></i>
-          </div>
-          <div class="stat-content-text">
-            <h2>250</h2>
-            <p>PRESENT TODAY</p>
-          </div>
-        </div>
-        <div class="stat">
-          <div class="stat-icon">
-            <i class="fa-solid fa-ellipsis setting"></i>
-          </div>
-          <div>
-            <i class="fa-solid fa-door-open"></i>
-          </div>
-          <div class="stat-content-text">
-            <h2>100</h2>
-            <p>LEFT CAMPUS</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <?php
+    include_once 'components/stats.php';
+    ?>
 
   </div>
 
@@ -190,8 +102,8 @@ if (isset($_SESSION['user'])) {
           <i class="fa-solid fa-ellipsis setting"></i>
         </div>
         <h3>Total Attendance Report</h3>
-        <div id="chart1">
-
+        <div class="chart-container">
+          <div id="lineChart"></div>
         </div>
       </div>
       
@@ -199,9 +111,9 @@ if (isset($_SESSION['user'])) {
         <div class="chart-icon">
           <i class="fa-solid fa-ellipsis setting"></i>
         </div>
-        <h3>Students By Course</h3>
-        <div id="chart2">
-
+        <h3>Students By Course <span id="barChartLoading" style="display: none;">Loading</span></h3>
+        <div class="chart-container">
+          <div id="barChart"></div>
         </div>
       </div>
     </div>
@@ -211,19 +123,79 @@ if (isset($_SESSION['user'])) {
         <div class="chart-icon">
           <i class="fa-solid fa-ellipsis setting"></i>
         </div>
-        <h3>Students by Gender</h3>
-        <div id="pieChart">
-
+        <h3>Students by Year</h3>
+        <div class="chart-container">
+          <div id="donutChart"></div>
         </div>
       </div>
 
-      <div class="chart" id="nothing">
+      <div class="chart">
         <div class="chart-icon">
           <i class="fa-solid fa-ellipsis setting"></i>
         </div>
-        <h3>Top Attendance</h3>
-        <div id="">
-
+        <h3>Top 5 Attendance</h3>
+        <!-- MAKE SURE TO LOOP THIS PART -->
+        <div class="chart-container top-attendace-list">
+          <div class="top-attenance">
+            <div class="attendance">
+              <div class="attendance-left">
+                <img src="../assets/Users/Gregg/gregg.jpeg" width="50" alt="">
+                <p>John Gregg V. Felicisimo</p>
+                <span>100%</span>
+              </div>
+              <div class="attendance-right">
+                <p>30 <span>days</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="top-attenance">
+            <div class="attendance">
+              <div class="attendance-left">
+                <img src="../assets/Users/Gregg/gregg.jpeg" width="50" alt="">
+                <p>Euncie M. Amponin</p>
+                <span>99%</span>
+              </div>
+              <div class="attendance-right">
+                <p>30 <span>days</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="top-attenance">
+            <div class="attendance">
+              <div class="attendance-left">
+                <img src="../assets/Users/Gregg/gregg.jpeg" width="50" alt="">
+                <p>Andrei Dumaop</p>
+                <span>98.3%</span>
+              </div>
+              <div class="attendance-right">
+                <p>30 <span>days</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="top-attenance">
+            <div class="attendance">
+              <div class="attendance-left">
+                <img src="../assets/Users/Gregg/gregg.jpeg" width="50" alt="">
+                <p>Mark Jovan Cananca</p>
+                <span>95.4%</span>
+              </div>
+              <div class="attendance-right">
+                <p>30 <span>days</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="top-attenance">
+            <div class="attendance">
+              <div class="attendance-left">
+                <img src="../assets/Users/Gregg/gregg.jpeg" width="50" alt="">
+                <p>Vincent Pabon</p>
+                <span>94%</span>
+              </div>
+              <div class="attendance-right">
+                <p>30 <span>days</span></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -232,18 +204,17 @@ if (isset($_SESSION['user'])) {
           <i class="fa-solid fa-ellipsis setting"></i>
         </div>
         <h3>Weekly Absent</h3>
-        <div id="radarChart">
-
+        <div class="chart-container">
+          <div id="radarChart"></div>
         </div>
       </div>
-
-      
     </div>
   </section>
 
-  
-  <!-- APEXCHART -->
-  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <!-- FOOTER SECTION -->
+  <?php 
+  include_once 'components/footer.php';
+  ?>
 
   <script>
     const profile = document.getElementById("profile");
@@ -260,7 +231,8 @@ if (isset($_SESSION['user'])) {
     });
 
   </script>
-  
+  <!-- APEXCHART -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <!-- JQUERY VENDOR -->
   <script src="../public/vendor/jquery/jquery.min.js"></script>
   <!-- Page Javascript Code -->

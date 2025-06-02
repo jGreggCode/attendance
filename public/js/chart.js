@@ -1,13 +1,72 @@
+const colors = [
+  "#3fae60", // mid green
+  "#216734", // dark forest green
+  "#2ed787", // mint green
+  "#6fbe45", // lime green
+  "#f3c911", // bright yellow
+  "#a48c20", // mustard
+  "#57b760", // leafy green
+  "#1f4f2a", // deep pine
+  "#8cd97f", // light pastel green
+  "#b6c94d", // yellow-green
+  "#e0a821", // gold
+  "#cadb2a", // citrus green
+  "#8fa42e", // olive green
+  "#78d466", // soft lime
+  "#5d7e1e", // army green
+  "#f1dd57", // soft yellow
+  "#a6d64c", // pea green
+  "#4a9f3d", // jungle green
+  "#2d8234", // moss green
+];
+
+var barChartCategories = [];
+var barChartData = [];
+
 $(function () {
-  var optionsChart = {
+  $("#barChartLoading").fadeIn();
+  $.ajax({
+    url: "../includes/fetching/fetch_courses.php",
+    type: "GET",
+    dataType: "json",
+    success: function (data) {
+      if (data.length > 0) {
+        data.forEach(function (course) {
+          // Push course_ini into chartCategories
+          barChartCategories.push(course.course_ini);
+        });
+
+        // Populate the options
+        data.forEach(function (course) {
+          $("#courses").append(`
+            <option value="${course.course_name_shorten}">
+              ${course.course_ini}
+            </option>
+          `);
+        });
+        console.log("chartCategories:", barChartCategories);
+      }
+    },
+    complete: function () {
+      $("#barChartLoading").fadeOut();
+    },
+    error: function (xhr, status, error) {
+      console.error("AJAX Error:", error);
+    },
+  });
+
+  var barOptions = {
     series: [
       {
-        data: [21, 22, 10, 28, 16, 21, 13, 30, 50],
+        data: [
+          21, 22, 10, 28, 16, 21, 13, 30, 50, 21, 22, 10, 28, 16, 21, 13, 30,
+          50, 20,
+        ],
       },
     ],
     chart: {
       width: 550,
-      height: 300,
+      height: "100%",
       type: "bar",
       fontFamily: "Poppins",
       foreColor: "#ababab",
@@ -20,7 +79,7 @@ $(function () {
         show: false,
       },
     },
-    colors: ["#3fae60", "#216734"],
+    colors: colors,
     plotOptions: {
       bar: {
         columnWidth: "45%",
@@ -34,38 +93,18 @@ $(function () {
       show: false,
     },
     xaxis: {
-      categories: [
-        "AB Comm",
-        "AB Psych",
-        "BSA",
-        "BSBA",
-        "BSCE",
-        "BS Crim",
-        ["BSHM", "BSHRM"],
-        "BSIE",
-        "BSIT",
-        "BSMA",
-        "BSMT",
-        "BS Mid",
-        "BSN",
-        "BSPT",
-        "BSTM",
-        "BSEd",
-        "Dentistry",
-        "Others:",
-        "TESDA",
-      ],
+      categories: barChartCategories,
       labels: {
         style: {
-          colors: ["#3fae60", "#216734"],
+          colors: colors,
           fontSize: "12px",
         },
       },
     },
   };
 
-  var options = {
-    colors: ["#3fae60", "#216734"],
+  var lineOptios = {
+    colors: colors,
     series: [
       {
         name: "Students",
@@ -77,7 +116,8 @@ $(function () {
       },
     ],
     chart: {
-      height: 300,
+      height: "100%",
+      width: 650,
       type: "line",
       fontFamily: "Poppins",
       foreColor: "#ababab",
@@ -126,29 +166,31 @@ $(function () {
     },
   };
 
-  var optionsPie = {
-    colors: ["#3fae60", "#216734"],
-    series: [204, 143],
+  var donutOptions = {
+    colors: colors,
+    series: [356, 421, 245, 200, 123, 50],
     chart: {
-      type: "donut",
-      width: 450,
+      height: "100%",
+      width: 380,
       fontFamily: "Poppins",
       foreColor: "#ababab",
+      type: "pie",
     },
-    plotOptions: {
-      pie: {
-        donut: {
-          size: "40%",
-        },
-      },
-      stroke: {
-        colors: undefined,
-      },
+    labels: [
+      "First Year",
+      "Second Year",
+      "Third Year",
+      "Fourth Year",
+      "Fifth Year",
+      "Sixth Year",
+    ],
+    legend: {
+      position: "bottom",
     },
-    labels: ["Female", "Male"],
   };
 
-  var optionsRadar = {
+  var radarOptions = {
+    colors: colors,
     series: [
       {
         name: "This Week",
@@ -176,16 +218,26 @@ $(function () {
     },
   };
 
-  var chart1 = new ApexCharts(document.querySelector("#chart1"), options);
-  var chart2 = new ApexCharts(document.querySelector("#chart2"), optionsChart);
-  var chart3 = new ApexCharts(document.querySelector("#pieChart"), optionsPie);
-  var chart4 = new ApexCharts(
-    document.querySelector("#radarChart"),
-    optionsRadar
+  var attendanceReport = new ApexCharts(
+    document.querySelector("#lineChart"),
+    lineOptios
+  );
+  var studentByCourseReport = new ApexCharts(
+    document.querySelector("#barChart"),
+    barOptions
   );
 
-  chart2.render();
-  chart1.render();
-  chart3.render();
-  chart4.render();
+  var genderReport = new ApexCharts(
+    document.querySelector("#donutChart"),
+    donutOptions
+  );
+  var absentReport = new ApexCharts(
+    document.querySelector("#radarChart"),
+    radarOptions
+  );
+
+  attendanceReport.render();
+  studentByCourseReport.render();
+  genderReport.render();
+  absentReport.render();
 });

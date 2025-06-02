@@ -391,7 +391,20 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   padding: 20px;
   min-height: 420px;
+  gap: 15px;
   border-radius: 10px;
+}
+
+.charts-content .charts-section .chart .chart-container {
+  height: 330px;
+}
+
+.charts-content .charts-section .chart .top-attendace-list {
+  width: 460px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 13px;
 }
 
 .charts-content .charts-section .chart .chart-icon {
@@ -406,17 +419,138 @@
   color: gray;
 }
 
-.charts-content .charts-section .chart #chart1 {
-  width: 800px;
-  height: 200px;
-}
-
 .charts-content .charts-section .chart h3 {
   font-weight: 500;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   margin-left: 10px;
 }
 
-.charts-content .charts-section #nothing {
-  width: 580px;
+.charts-content .charts-section .chart .top-attendance {
+  display: flex;
+  width: 100%;
+}
+
+.charts-content .charts-section .chart .attendance {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgb(230, 230, 230);
+}
+
+.charts-content .charts-section .chart .attendance-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.charts-content .charts-section .chart .attendance-left p {
+  font-weight: 500;
+}
+
+.charts-content .charts-section .chart .attendance-left span {
+  padding: 3px 8px;
+  font-weight: 500;
+  background-color: #e7e7e7;
+  border-radius: 10px;
+}
+
+.charts-content .charts-section .chart .attendance-left img {
+  object-fit: cover;
+  height: 50px;
+  border-radius: 50%;
+}
+
+/* FOOTER */
+
+footer.modern-footer {
+  background-color: var(--dashboard-color);
+  color: #fff;
+  padding: 20px 30px;
+  font-family: "Poppins", Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 20px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo {
+  height: 40px;
+}
+
+.brand-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: opacity 0.3s, transform 0.3s ease-in-out;
+}
+
+.footer-links a:hover {
+  transform: translateX(5px);
+  opacity: 0.8;
+}
+
+.footer-links i {
+  margin-right: 6px;
+}
+
+.footer-right {
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+/* ------------------- */
+/* 📱 Responsive Styles */
+/* ------------------- */
+
+@media (max-width: 992px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-left {
+    justify-content: center;
+  }
+
+  .footer-links {
+    margin: 10px 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .footer-right {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .brand-name {
+    font-size: 1.3rem;
+  }
 }
