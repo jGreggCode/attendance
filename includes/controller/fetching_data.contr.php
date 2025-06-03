@@ -20,19 +20,23 @@ if ($_SESSION['user']['user_type'] === 'Admin') {
 
   $courses = $fetchData->getAllCoursesWithCounts();
   $topAttendingStudent = $fetchData->getTopAttendingStudents();
+  $yearLevel = $fetchData->getStudentsByYear();
+  $absentsEachDay = $fetchData->getAbsentsEachDay();
 
   header('Content-Type: application/json');
   echo json_encode([
     'status' => 'sucess',
-    'message' => 'Data Collected, User Is Admin', 
+    'message' => 'Data Collected, User Is Admin',
     'employees' => $employees,
     'students' => $students,
     'present' => $present,
     'left' => $leftCampus,
     'topAttendingStudents' => $topAttendingStudent,
-    'course' => $courses
+    'course' => $courses,
+    'yearLevel' => $yearLevel,
+    'absentsEachDay' => $absentsEachDay
   ]);
   exit();
-} 
+}
 
 

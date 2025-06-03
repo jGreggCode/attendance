@@ -52,9 +52,6 @@ if (isset($_SESSION['user'])) {
 
   </div>
 
-  <div class="bacground-gradient">
-  </div>
-
   <div class="container">
 
     <?php
@@ -62,6 +59,8 @@ if (isset($_SESSION['user'])) {
     ?>
 
     <section class="main-content employee-main-content">
+
+
       <div class="content">
         <div class="welcome">
           <div class="profile-icon">
@@ -81,7 +80,7 @@ if (isset($_SESSION['user'])) {
           </div>
           <div class="form-group custom-select-wrapper">
             <select name="days" id="days">
-            <option value="30" selected>All time</option>
+              <option value="30" selected>All time</option>
               <option value="30">Last 30 days</option>
               <option value="7">Last 7 days</option>
               <option value="1">Today</option>

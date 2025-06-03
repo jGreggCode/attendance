@@ -23,6 +23,8 @@ const colors = [
 $(function () {
   var barChartCategories = [];
   let barChartCategoriesValue = [];
+  const yearLabels = [];
+  const yearValues = [];
 
   $.ajax({
     url: "../includes/controller/fetching_data.contr.php",
@@ -37,8 +39,10 @@ $(function () {
       var leftCount = data.left.left_today;
       var courseData = data.course;
       var topAttendingStudent = data.topAttendingStudents;
+      var yearLevel = data.yearLevel;
+      var absents = data.absentsEachDay;
 
-      console.log(topAttendingStudent);
+      console.log(absents);
 
       // Set Stats Values
       $("#numberOfStudents").text(studentCount);
@@ -73,7 +77,7 @@ $(function () {
           0
         )}. ${student.last_name}`;
         const days = student.total_attendance;
-        const image = student.profile_image || "../assets/Users/default.png"; // fallback
+        const image = student.student_photo || "../assets/Users/default.png"; // fallback
 
         const html = `
           <div class="top-attenance">
@@ -91,6 +95,47 @@ $(function () {
         `;
         topList.append(html);
       });
+
+      // Year level mapping (you can expand this if needed)
+      const yearMap = {
+        1: "First Year",
+        2: "Second Year",
+        3: "Third Year",
+        4: "Fourth Year",
+        5: "Fifth Year",
+        6: "Sixth Year",
+      };
+
+      // Fill in missing years with 0
+      Object.keys(yearMap).forEach((key) => {
+        const yearData = yearLevel.find((item) => item.year_level === key);
+        yearLabels.push(yearMap[key]);
+        yearValues.push(yearData ? parseInt(yearData.total) : 0);
+      });
+
+      buildDonutChart(yearLabels, yearValues);
+
+      // Convert full day name to 3-letter format and order
+      const orderedDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      const dayMap = {
+        Monday: "Mon",
+        Tuesday: "Tue",
+        Wednesday: "Wed",
+        Thursday: "Thu",
+        Friday: "Fri",
+        Saturday: "Sat",
+      };
+
+      // Build a map for fast lookup
+      const absentsMap = {};
+      absents.forEach((item) => {
+        absentsMap[dayMap[item.day]] = item.absent;
+      });
+
+      // Fill missing days with 0 and preserve order
+      const chartData = orderedDays.map((day) => absentsMap[day] || 0);
+
+      buildRadarChart(chartData);
     },
     complete: function () {},
     error: function (xhr, status, error) {
@@ -98,22 +143,20 @@ $(function () {
     },
   });
 
-  buildRadarChart();
-  buildDonutChart();
   buildLineChart();
 });
 
-function buildRadarChart() {
+function buildRadarChart(seriesData) {
   var radarOptions = {
     colors: colors,
     series: [
       {
         name: "This Week",
-        data: [80, 50, 30, 40, 100, 20],
+        data: seriesData, // dynamic data
       },
     ],
     chart: {
-      height: 330,
+      height: "100%",
       width: 300,
       type: "radar",
       fontFamily: "Poppins",
@@ -139,10 +182,10 @@ function buildRadarChart() {
   chart.render();
 }
 
-function buildDonutChart() {
+function buildDonutChart(labels, series) {
   var donutOptions = {
     colors: colors,
-    series: [356, 421, 245, 200, 123, 50],
+    series: series,
     chart: {
       height: "100%",
       width: 380,
@@ -150,14 +193,7 @@ function buildDonutChart() {
       foreColor: "#ababab",
       type: "pie",
     },
-    labels: [
-      "First Year",
-      "Second Year",
-      "Third Year",
-      "Fourth Year",
-      "Fifth Year",
-      "Sixth Year",
-    ],
+    labels: labels,
     legend: {
       position: "bottom",
     },
