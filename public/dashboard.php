@@ -75,13 +75,14 @@ if (isset($_SESSION['user'])) {
         <form class="form-filter">
           <div class="form-group custom-select-wrapper">
             <select name="courses" id="courses">
-              <option value="selected" selected>Select Course </option>
+              <option value="selected" selected hidden>Select Course </option>
             </select>
             <i class="fa-solid fa-angle-down fa-sm custom-select-icon" id="profile" style="cursor: pointer;"></i>
           </div>
           <div class="form-group custom-select-wrapper">
             <select name="days" id="days">
-              <option value="30" selected>Last 30 days</option>
+            <option value="30" selected>All time</option>
+              <option value="30">Last 30 days</option>
               <option value="7">Last 7 days</option>
               <option value="1">Today</option>
             </select>
@@ -139,7 +140,7 @@ if (isset($_SESSION['user'])) {
         <h3>Top 5 Attendance</h3>
         <!-- MAKE SURE TO LOOP THIS PART -->
         <div class="chart-container top-attendace-list">
-          <div class="top-attenance">
+          <!-- <div class="top-attenance">
             <div class="attendance">
               <div class="attendance-left">
                 <img src="../assets/Users/Gregg/gregg.jpeg" width="50" alt="">
@@ -198,7 +199,7 @@ if (isset($_SESSION['user'])) {
                 <p>30 <span>days</span></p>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -219,29 +220,14 @@ if (isset($_SESSION['user'])) {
   include_once 'components/footer.php';
   ?>
 
-  <script>
-    const profile = document.getElementById("profile");
-    const dropdown = document.getElementById("profileDropdown");
-
-    profile.addEventListener("click", function (e) {
-      e.stopPropagation(); // Prevent click from bubbling
-      dropdown.style.display = dropdown.style.display === "flex" ? "none" : "flex";
-    });
-
-    // Hide when clicking outside
-    document.addEventListener("click", function () {
-      dropdown.style.display = "none";
-    });
-
-  </script>
   <!-- APEXCHART -->
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <!-- JQUERY VENDOR -->
   <script src="../public/vendor/jquery/jquery.min.js"></script>
   <!-- Page Javascript Code -->
+  <script src="../public/js/dashboard.js"></script>
   <script src="../public/js/chart.js"></script>
   <script src="../public/js/signout.js"></script>
-  <script src="../public/js/dashboard.js"></script>
 </body>
 
 </html>

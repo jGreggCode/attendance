@@ -20,7 +20,7 @@
 
   <div class="container">
     <div class="background"> 
-      <img src="../assets/saclibg.jpg" alt="Background Image" />
+      <img src="../assets/saclinewbg.png" alt="Background Image" />
     </div>
 
     <div class="section-header">

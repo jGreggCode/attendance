@@ -82,8 +82,9 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
+/* RFID */
 .rfid-input {
-  opacity: 2;
+  opacity: 0;
   position: absolute;
   z-index: -1;
 }

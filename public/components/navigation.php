@@ -31,9 +31,9 @@
       <img src="<?php echo $profile_photo; ?>" id="" height="28" alt="User Icon">
       <p><?php echo $name_in_initial ?></p>
       <div class="fav-icon">
-        <i class="fa-solid fa-angle-down fa-lg" id="profile" style="cursor: pointer;"></i>
+        <i class="fa-solid fa-angle-down fa-lg profile" id="profile" style="cursor: pointer;"></i>
       </div>
-      <div class="profile-dropdown" id="profileDropdown">
+      <div class="profile-dropdown profileDropdown" id="profileDropdown">
       <div class="profile-info">
         <p>Welcome <?php echo $user_type; ?>!</p>
         <p>User Id: <?php echo $userid; ?></p>

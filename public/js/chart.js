@@ -20,89 +20,157 @@ const colors = [
   "#2d8234", // moss green
 ];
 
-var barChartCategories = [];
-var barChartData = [];
-
 $(function () {
-  $("#barChartLoading").fadeIn();
+  var barChartCategories = [];
+  let barChartCategoriesValue = [];
+
   $.ajax({
-    url: "../includes/fetching/fetch_courses.php",
+    url: "../includes/controller/fetching_data.contr.php",
     type: "GET",
     dataType: "json",
     success: function (data) {
-      if (data.length > 0) {
-        data.forEach(function (course) {
-          // Push course_ini into chartCategories
+      console.log("AJAX Response:", data); // Log the response
+
+      var studentCount = data.students.students_count;
+      var employeeCount = data.employees.employee_count;
+      var presentCount = data.present.present_today;
+      var leftCount = data.left.left_today;
+      var courseData = data.course;
+      var topAttendingStudent = data.topAttendingStudents;
+
+      console.log(topAttendingStudent);
+
+      // Set Stats Values
+      $("#numberOfStudents").text(studentCount);
+      $("#numberOfEmployees").text(employeeCount);
+      $("#numberOfPresentToday").text(presentCount);
+      $("#numberOfLeftCampus").text(leftCount);
+
+      if (courseData.length > 0) {
+        courseData.forEach(function (course) {
           barChartCategories.push(course.course_ini);
+          barChartCategoriesValue.push(course.student_count); // Add this line
         });
 
         // Populate the options
-        data.forEach(function (course) {
+        courseData.forEach(function (course) {
           $("#courses").append(`
             <option value="${course.course_name_shorten}">
               ${course.course_ini}
             </option>
           `);
         });
-        console.log("chartCategories:", barChartCategories);
+
+        // Build chart after data is ready
+        buildBarChart(barChartCategories, barChartCategoriesValue);
       }
+
+      const topList = $(".chart-container.top-attendace-list");
+      topList.empty(); // clear previous entries
+
+      topAttendingStudent.forEach((student) => {
+        const fullName = `${student.first_name} ${student.middle_name.charAt(
+          0
+        )}. ${student.last_name}`;
+        const days = student.total_attendance;
+        const image = student.profile_image || "../assets/Users/default.png"; // fallback
+
+        const html = `
+          <div class="top-attenance">
+            <div class="attendance">
+              <div class="attendance-left">
+                <img src="${image}" width="50" alt="">
+                <p>${fullName}</p>
+                <span>${days} days</span>
+              </div>
+              <div class="attendance-right">
+                <p>${days} <span>days</span></p>
+              </div>
+            </div>
+          </div>
+        `;
+        topList.append(html);
+      });
     },
-    complete: function () {
-      $("#barChartLoading").fadeOut();
-    },
+    complete: function () {},
     error: function (xhr, status, error) {
       console.error("AJAX Error:", error);
     },
   });
 
-  var barOptions = {
+  buildRadarChart();
+  buildDonutChart();
+  buildLineChart();
+});
+
+function buildRadarChart() {
+  var radarOptions = {
+    colors: colors,
     series: [
       {
-        data: [
-          21, 22, 10, 28, 16, 21, 13, 30, 50, 21, 22, 10, 28, 16, 21, 13, 30,
-          50, 20,
-        ],
+        name: "This Week",
+        data: [80, 50, 30, 40, 100, 20],
       },
     ],
     chart: {
-      width: 550,
-      height: "100%",
-      type: "bar",
+      height: 330,
+      width: 300,
+      type: "radar",
       fontFamily: "Poppins",
       foreColor: "#ababab",
-      events: {
-        click: function (chart, w, e) {
-          // console.log(chart, w, e)
-        },
-      },
       toolbar: {
         show: false,
       },
     },
-    colors: colors,
-    plotOptions: {
-      bar: {
-        columnWidth: "45%",
-        distributed: true,
-      },
+    yaxis: {
+      stepSize: 20,
     },
-    dataLabels: {
-      enabled: false,
+    xaxis: {
+      categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     },
     legend: {
       show: false,
     },
-    xaxis: {
-      categories: barChartCategories,
-      labels: {
-        style: {
-          colors: colors,
-          fontSize: "12px",
-        },
-      },
+  };
+  var chart = new ApexCharts(
+    document.querySelector("#radarChart"),
+    radarOptions
+  );
+  chart.render();
+}
+
+function buildDonutChart() {
+  var donutOptions = {
+    colors: colors,
+    series: [356, 421, 245, 200, 123, 50],
+    chart: {
+      height: "100%",
+      width: 380,
+      fontFamily: "Poppins",
+      foreColor: "#ababab",
+      type: "pie",
+    },
+    labels: [
+      "First Year",
+      "Second Year",
+      "Third Year",
+      "Fourth Year",
+      "Fifth Year",
+      "Sixth Year",
+    ],
+    legend: {
+      position: "bottom",
     },
   };
 
+  var chart = new ApexCharts(
+    document.querySelector("#donutChart"),
+    donutOptions
+  );
+  chart.render();
+}
+
+function buildLineChart() {
   var lineOptios = {
     colors: colors,
     series: [
@@ -166,78 +234,46 @@ $(function () {
     },
   };
 
-  var donutOptions = {
-    colors: colors,
-    series: [356, 421, 245, 200, 123, 50],
-    chart: {
-      height: "100%",
-      width: 380,
-      fontFamily: "Poppins",
-      foreColor: "#ababab",
-      type: "pie",
-    },
-    labels: [
-      "First Year",
-      "Second Year",
-      "Third Year",
-      "Fourth Year",
-      "Fifth Year",
-      "Sixth Year",
-    ],
-    legend: {
-      position: "bottom",
-    },
-  };
+  var chart = new ApexCharts(document.querySelector("#lineChart"), lineOptios);
+  chart.render();
+}
 
-  var radarOptions = {
-    colors: colors,
+function buildBarChart(categories, values) {
+  var barOptions = {
     series: [
       {
-        name: "This Week",
-        data: [80, 50, 30, 40, 100, 20],
+        name: "Students",
+        data: values,
       },
     ],
     chart: {
-      height: 330,
-      width: 300,
-      type: "radar",
+      width: 550,
+      height: "100%",
+      type: "bar",
       fontFamily: "Poppins",
       foreColor: "#ababab",
-      toolbar: {
-        show: false,
+      toolbar: { show: false },
+    },
+    colors: colors,
+    plotOptions: {
+      bar: {
+        columnWidth: "50%",
+        distributed: true,
       },
     },
-    yaxis: {
-      stepSize: 20,
-    },
+    dataLabels: { enabled: false },
+    legend: { show: false },
     xaxis: {
-      categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-    },
-    legend: {
-      show: false,
+      categories: categories,
+      labels: {
+        style: {
+          colors: colors,
+          fontSize: "12px",
+        },
+      },
     },
   };
 
-  var attendanceReport = new ApexCharts(
-    document.querySelector("#lineChart"),
-    lineOptios
-  );
-  var studentByCourseReport = new ApexCharts(
-    document.querySelector("#barChart"),
-    barOptions
-  );
-
-  var genderReport = new ApexCharts(
-    document.querySelector("#donutChart"),
-    donutOptions
-  );
-  var absentReport = new ApexCharts(
-    document.querySelector("#radarChart"),
-    radarOptions
-  );
-
-  attendanceReport.render();
-  studentByCourseReport.render();
-  genderReport.render();
-  absentReport.render();
-});
+  var chart = new ApexCharts(document.querySelector("#barChart"), barOptions);
+  chart.render();
+}

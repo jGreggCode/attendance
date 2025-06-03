@@ -153,11 +153,19 @@ if (isset($_SESSION['user'])) {
     </section>
   </div>
 
+  
+  <script src="../public/js/dashboard.js"></script>
 
   <?php
   include_once 'components/footer.php';
   ?>
 
+  <!-- JQUERY VENDOR -->
+  <script src="../public/vendor/jquery/jquery.min.js"></script>
+  <!-- Page Javascript Code -->
+  <script src="../public/js/chart.js"></script>
+  <script src="../public/js/signout.js"></script>
+  <script src="../public/js/dashboard.js"></script>
 
 </body>
 
