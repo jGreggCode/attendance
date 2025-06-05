@@ -1,7 +1,9 @@
 <?php
+// Copyright © 2025 John Gregg [Your Last Name]
+// All rights reserved. Unauthorized use is prohibited.
+
 require_once '../model/fetching_data.model.php';
 include_once "../database/dbh.inc.php";
-
 
 // Start the session 
 // Needed for Authentication

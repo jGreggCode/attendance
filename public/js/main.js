@@ -3,12 +3,47 @@ let hideTimeout;
 let hideAnimateTimeout;
 
 $(function () {
+  const liveTimeElement = document.getElementById("liveTime");
+
+  // Just in case the element doesn't exist
+  if (!liveTimeElement) {
+    console.error("Element with ID 'liveTime' not found.");
+    return;
+  }
+
   focusInput();
+
   // Listen to register button
   $("#rfid_input").on("input", function () {
     rfidScan();
   });
+
+  // Initial call and repeat every second
+  // Live clock
+  updateLiveTime(liveTimeElement);
+  setInterval(() => updateLiveTime(liveTimeElement), 1000);
 });
+
+function updateLiveTime(liveTimeElement) {
+  const now = new Date();
+
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+  const date = now.toLocaleDateString("en-US", options);
+  const time = now.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  });
+
+  liveTimeElement.textContent = `${date} - ${time}`;
+}
 
 function focusInput() {
   const input = document.getElementById("rfid_input");
@@ -38,7 +73,7 @@ function tapUser() {
   var userFullName = $("#userFullName");
   var userType = $("#userType");
   var userCourseAndYear = $("#userCourseAndYear");
-  var time = $("#time");
+  var tapMessage = $("#tap-message");
   var attendanceMessage = $("#attendanceMessage");
   var dateToday = $("#dateToday");
   var timeNow = $("#timeNow");
@@ -76,7 +111,7 @@ function tapUser() {
       }
 
       if (result.status === "warning") {
-        time.html(result.message);
+        tapMessage.html(result.message);
         timeNow.html(
           new Date().toLocaleTimeString("en-US", {
             hour: "2-digit",
@@ -91,11 +126,11 @@ function tapUser() {
       }
 
       if (result.status === "timein") {
-        time.html(result.time_in);
+        tapMessage.html(result.message);
       }
 
       if (result.status === "timeout") {
-        time.html(result.time_out);
+        tapMessage.html(result.message);
       }
 
       $("#userImage").attr("src", result.data.image_url);

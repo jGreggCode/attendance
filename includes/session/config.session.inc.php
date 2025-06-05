@@ -1,4 +1,6 @@
 <?php 
+// Copyright © 2025 John Gregg [Your Last Name]
+// All rights reserved. Unauthorized use is prohibited.
 
 ini_set('session.use_only_cookies', 1);
 ini_set('session.use.strict_mode', 1);

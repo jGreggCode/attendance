@@ -1,4 +1,7 @@
 <?php
+// Copyright © 2025 John Gregg [Your Last Name]
+// All rights reserved. Unauthorized use is prohibited.
+
 require_once '../database/dbh.inc.php';
 
 class User {
@@ -33,7 +36,7 @@ class User {
     }
   }
 
-  public function createUser($student_photo, $rfid_code, $user_id, $first_name, $middle_name, $last_name, $age, $birthday, $course, $year_level, $department, $user_type, $username, $password, $email) {
+  public function createUser($student_photo, $rfid_code, $user_id, $first_name, $middle_name, $last_name, $age, $birthday, $course, $year_level, $department, $user_type, $username, $password, $email, $phone_number) {
     try {
       // Concatenate and capitalize the full name
       $fullName = ucwords(strtolower(trim($first_name . ' ' . $middle_name . ' ' . $last_name)));
@@ -43,8 +46,8 @@ class User {
       ];
 
       $stmt = $this->db->prepare('
-        INSERT INTO users (student_photo, rfid_code, user_id, first_name, middle_name, last_name, age, birthday, course, year_level, department, user_type, username, password, email) 
-        VALUES (:student_photo, :rfid_code, :user_id, :first_name, :middle_name, :last_name, :age, :birthday, :course, :year_level, :department, :user_type, :username, :password, :email);
+        INSERT INTO users (student_photo, rfid_code, user_id, first_name, middle_name, last_name, age, birthday, course, year_level, department, user_type, username, password, email, phone_number) 
+        VALUES (:student_photo, :rfid_code, :user_id, :first_name, :middle_name, :last_name, :age, :birthday, :course, :year_level, :department, :user_type, :username, :password, :email, :phone_number);
       ');
 
       // If there is no username and password
@@ -77,7 +80,8 @@ class User {
         'user_type' => $user_type,
         'username' => $username,
         'password' => $emptyPassword, // More Secured Hashing
-        'email' => $email
+        'email' => $email,
+        'phone_number' => $phone_number
       ]);
 
       $stmt = null; // Close the statement
@@ -183,6 +187,7 @@ class User {
         'username' => $row['username'],
         // 'password' => $row['password'], // ⚠️ Not safe to store in session
         'email' => $row['email'],
+        'phone_number' => $row['phone_number'],
         'is_logged_in' => true // optional flag
       ];
 

@@ -1,3 +1,8 @@
+/* 
+  Copyright © 2025 John Gregg Felicisimo
+  All rights reserved. Unauthorized use is prohibited.
+*/
+
 /* BACKGROUND */
 .background {
   position: fixed;
@@ -32,6 +37,7 @@
 .section-header {
   display: flex;
   justify-content: center;
+  gap: 20px;
   padding: 10px 0;
   position: fixed;
   top: 0;
@@ -47,7 +53,23 @@
   width: 100%;
 }
 
+.section-header .header-right .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.section-header .header-right .logo img {
+  margin-right: 10px;
+}
+
 .section-header .header-left .logo .logo-text {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.section-header .header-right .logo .logo-text {
   color: var(--color-text-secondary);
   text-decoration: none;
 }
@@ -61,6 +83,11 @@
 
 .section-header .header-left .logo .logo-text,
 .section-header .header-left .logo .short-text {
+  line-height: 1;
+}
+
+.section-header .header-right .logo .logo-text,
+.section-header .header-right .logo .short-text {
   line-height: 1;
 }
 
@@ -108,6 +135,7 @@
   font-weight: bold;
 }
 
+/* SECTION USER INFO */
 .section-user-information {
   display: flex;
   flex-direction: column;
@@ -164,7 +192,7 @@
 .date-today {
   position: absolute;
   top: 0;
-  right: 0;
+  right: 10px;
   padding: 5px;
   font-size: 0.8rem;
 }
@@ -187,13 +215,38 @@
 .time-now {
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: 10px;
   padding: 5px;
   font-size: 0.8rem;
 }
 
 .user-message {
   font-size: 0.8rem;
+}
+
+/* FOOTER */
+.footer-clock {
+  position: fixed;
+  bottom: 12px;
+  width: 100%;
+  text-align: center;
+  z-index: 1000;
+}
+
+.footer-clock-time {
+  background-color: rgba(255, 255, 255, 0.9);
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.footer-clock-time .time-now p {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #1e293b; /* slate-800 */
+  letter-spacing: 0.5px;
 }
 
 /* Small Screen */

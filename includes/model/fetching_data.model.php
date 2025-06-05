@@ -1,4 +1,6 @@
 <?php
+// Copyright © 2025 John Gregg [Your Last Name]
+// All rights reserved. Unauthorized use is prohibited.
 
 declare(strict_types=1);
 
@@ -11,6 +13,60 @@ class FetchData
   public function __construct($db)
   {
     $this->db = $db;
+  }
+
+  public function getAttendanceSummary($rfid_code) {
+    try {
+      $stmt = $this->db->prepare('
+        SELECT 
+          COUNT(*) AS total_attendance,
+          SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(time_out, time_in)))) AS total_time,
+          TIME_FORMAT(SEC_TO_TIME(AVG(TIME_TO_SEC(time_in))), "%H:%i") AS avg_time_in,
+          TIME_FORMAT(SEC_TO_TIME(AVG(TIME_TO_SEC(time_out))), "%H:%i") AS avg_time_out
+        FROM attendance
+        WHERE rfid_code = :rfid_code
+          AND time_in IS NOT NULL
+          AND time_out IS NOT NULL
+      ');
+  
+      $stmt->execute(['rfid_code' => $rfid_code]);
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  
+      return [
+        'total_attendance' => (int) $result['total_attendance'],
+        'total_hours' => $result['total_time'] ?? '00:00:00',
+        'average_time_in' => $result['avg_time_in'] ?? 'N/A',
+        'average_time_out' => $result['avg_time_out'] ?? 'N/A',
+      ];
+  
+    } catch (\Throwable $th) {
+      return ['status' => 'error', 'message' => $th->getMessage(), 'data' => null];
+    }
+  }
+
+  public function getAttendance($rfid_code, $startDate, $endDate) {
+    try {
+      $stmt = $this->db->prepare('
+        SELECT a.date, a.time_in, a.time_out
+        FROM attendance a
+        WHERE a.rfid_code = :rfid_code
+          AND a.date BETWEEN :start_date AND :end_date
+        ORDER BY a.date DESC
+      ');
+
+      $stmt->execute([
+        'rfid_code' => $rfid_code,
+        'start_date' => $startDate,
+        'end_date' => $endDate
+      ]);
+
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      return $result;
+
+    } catch (\Throwable $th) {
+      return ['status' => 'error', 'message' => $th->getMessage(), 'data' => null];
+    }
   }
 
   public function getAbsentsEachDay()

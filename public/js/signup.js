@@ -25,6 +25,7 @@ function register() {
   var password = $("#SUPassword").val();
   var repassword = $("#SURePassword").val();
   var email = $("#SUEmail").val();
+  var phoneNumber = $("#SUPhoneNumber").val();
 
   if (!SUPhoto) {
     $("#suErrorMessage").html("Please upload a profile photo.").fadeIn();
@@ -62,6 +63,7 @@ function register() {
   formData.append("password", password);
   formData.append("repassword", repassword);
   formData.append("email", email);
+  formData.append("phone_number", phoneNumber);
 
   // Loading
   $("#loadingMessage").fadeIn();

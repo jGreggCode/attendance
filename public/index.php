@@ -1,3 +1,8 @@
+<!-- 
+  Copyright © 2025 John Gregg Felicisimo
+  All rights reserved. Unauthorized use is prohibited.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,8 +33,18 @@
         <div class="logo">
           <img src="../assets/saclilogo.png" alt="Sacli Logo" height="64">
           <div class="logo-text">
-            <h2>Saint Anne College Lucena INC.</h2>
+            <h2>ST. Anne College Lucena, INC.</h2>
             <p>Class Beyond Quezon</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="logo">
+          <img src="../assets/BSITSACLI.png" alt="BSIT Logo" height="58">
+          <div class="logo-text">
+            <h2>BS Information Technology</h2>
+            <p>ST. Anne College Of Lucena INC</p>
           </div>
         </div>
       </div>
@@ -58,24 +73,28 @@
             <h3 id="userFullName">John Gregg Virina Felicisimo</h3>
             <p id="userType">Student (2301-000512)</p>
             <p id="userCourseAndYear">BSIT III</p>
-            <p class="user-message" id="time">12:00 Am</p>
+            <p class="user-message" id="tap-message">You have already logged in</p>
           </div>
 
           <div class="time-now">
             <p id="timeNow"></p>
           </div>
           <div class="date-today">
-            <p id="dateToday">October 1, 2023</p>
+            <p id="dateToday"></p>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- ADMIN AND EMPLOYEE SIGNIN -->
-    <div class="section-signin">
-
-    </div>
   </div> 
+
+  <!-- TIME -->
+  <div class="footer-clock">
+    <div class="footer-clock-time">
+      <div class="time">
+        <p id="liveTime">June 6, 2025 (Wednesday) - 12:00 Am</p>
+      </div>
+    </div>
+  </div>
 
   <!-- JQUERY VENDOR -->
   <script src="./vendor/jquery/jquery.min.js"></script>

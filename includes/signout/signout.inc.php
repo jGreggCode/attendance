@@ -1,4 +1,6 @@
 <?php 
+// Copyright © 2025 John Gregg [Your Last Name]
+// All rights reserved. Unauthorized use is prohibited.
 
 // Start the session
 require_once "../session/config.session.inc.php";

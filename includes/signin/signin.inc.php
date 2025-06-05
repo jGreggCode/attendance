@@ -1,4 +1,6 @@
 <?php 
+// Copyright © 2025 John Gregg [Your Last Name]
+// All rights reserved. Unauthorized use is prohibited.
 
 declare(strict_types=1);
 

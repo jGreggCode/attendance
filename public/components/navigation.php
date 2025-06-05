@@ -1,16 +1,16 @@
 <nav class="navigation">
   <div class="left-nav">
     <div class="logo">
-      <img src="../assets/saclilogo.png" height="32" alt="SACLI LOGO">
-      <p>SACLI - TMS</p>
+      <img src="../assets/BSITSACLI.png" height="32" alt="SACLI LOGO">
+      <p>TMS</p>
     </div>
     <div class="nav-links">
       <ul>
-        <li class="nav-link"><a class="active" href="">Overview</a></li>
+        <li class="nav-link"><a class="active" href="dashboard.php">Overview</a></li>
         <?php 
           if ($user_type === "Admin") {?>
-            <li class="nav-link"><a href="">Manage Attendance</a></li>
-            <li class="nav-link"><a href="">Student's List</a></li>
+            <li class="nav-link"><a href="attendance.php">Manage Attendance</a></li>
+            <li class="nav-link"><a href="students.php">Student's List</a></li>
             <li class="nav-link"><a href="">Reports</a></li>
           <?php } 
         ?>

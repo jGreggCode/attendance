@@ -1,4 +1,7 @@
 <?php
+// Copyright © 2025 John Gregg [Your Last Name]
+// All rights reserved. Unauthorized use is prohibited.
+
 require_once '../model/user.model.php';
 require_once '../model/attendance.model.php';
 
@@ -7,7 +10,7 @@ date_default_timezone_set('Asia/Manila');
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rfid_code'])) {
     $rfid = $_POST['rfid_code'];
     $date = date('Y-m-d');
-    $time = date('H:i:s');
+    $time = date('h:i:s A');
 
     $userid = null;
     $username = null;
@@ -63,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rfid_code'])) {
         } else if ($result['status'] === 'success') {
             echo json_encode([
                 'status' => 'timein',
-                'message' => "Welcome $fullName!</h1><>Time In: $time",
+                'message' => "Hello there $userType! - Time In: $time",
                 'data' => $user
             ]);
         } else {
@@ -87,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rfid_code'])) {
         } else if ($result['status'] === 'success') {
             echo json_encode([
                 'status' => 'timeout',
-                'message' => "Goodbye $fullName!</h1><>Time Out: $time",
+                'message' => "Take care $userType! - Time Out: $time",
                 'data' => $user
             ]);
         } else {

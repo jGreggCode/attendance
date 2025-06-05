@@ -1,4 +1,6 @@
 <?php 
+// Copyright © 2025 John Gregg [Your Last Name]
+// All rights reserved. Unauthorized use is prohibited.
 
 declare(strict_types=1);
 
@@ -21,8 +23,9 @@ class SignUpController extends User {
   private $password;
   private $repassword;
   private $email;
+  private $phone_number;
 
-  public function __construct($db, $student_photo, $rfid_code, $user_id, $first_name, $middle_name, $last_name, $age, $birthday, $course, $year_level, $department, $user_type, $username, $password, $repassword, $email) {
+  public function __construct($db, $student_photo, $rfid_code, $user_id, $first_name, $middle_name, $last_name, $age, $birthday, $course, $year_level, $department, $user_type, $username, $password, $repassword, $email, $phone_number) {
     parent::__construct($db);
     $this->student_photo = $student_photo;
     $this->rfid_code = $rfid_code;
@@ -40,6 +43,7 @@ class SignUpController extends User {
     $this->password = $password;
     $this->repassword = $repassword;
     $this->email = $email;
+    $this->phone_number = $phone_number;
   }
 
   public function signupUser() {
@@ -69,7 +73,8 @@ class SignUpController extends User {
         $this->user_type,
         $this->username,
         $this->password,
-        $this->email
+        $this->email,
+        $this->phone_number
       );
       return $response;
     }
@@ -92,6 +97,7 @@ class SignUpController extends User {
       'department' => $this->department,
       'user_type' => $this->user_type,
       'email' => $this->email,
+      'phone_number' => $this->phone_number
     ];
 
     foreach ($requiredFields as $field => $value) {

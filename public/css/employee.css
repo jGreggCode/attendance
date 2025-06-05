@@ -1,3 +1,8 @@
+/* 
+  Copyright © 2025 John Gregg Felicisimo
+  All rights reserved. Unauthorized use is prohibited.
+*/
+
 .employee-main-content {
   padding: 10px 200px;
 }
@@ -20,6 +25,21 @@
   gap: 15px;
 }
 
+.content .form-filter #btnEditProfile {
+  cursor: pointer;
+  width: 140px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  background-color: var(--dashbaord-color-button);
+  transition: background-color 0.5s ease;
+}
+
+.content .form-filter #btnEditProfile:hover {
+  background-color: var(--color-button);
+}
+
 .content-employee .form-filter div span {
   width: 8px;
   background-color: var(--color-primary);
@@ -40,7 +60,7 @@
 }
 
 .content-employee .welcome .profile-text .profile-text-bottom h4 {
-  color: gray;
+  color: rgb(240, 240, 240);
 }
 
 .content-employee .welcome .profile-text .profile-text-bottom p {
@@ -57,19 +77,224 @@
   width: 100%;
   height: 500px;
   display: flex;
+  position: relative;
+  flex-direction: column;
   background: #fff;
   border-radius: 15px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-.emp-attendance .emp-attendance-content div .top {
+.emp-attendance .emp-attendance-content .top {
   display: flex;
   padding: 20px;
   gap: 8px;
 }
 
-.emp-attendance .emp-attendance-content div .top span {
+.emp-attendance .emp-attendance-content .top span {
   width: 8px;
   background-color: var(--color-primary);
   border-radius: 15px;
+}
+
+/* ATTENDANCE */
+
+.emp-attendance .emp-attendance-content .middle .calendar {
+  background-color: var(--color-primary);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+  margin: 0 20px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in,
+    transform 0.3s ease-in-out;
+}
+
+.emp-attendance .emp-attendance-content .middle {
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.emp-attendance .emp-attendance-content .middle .calendar:hover {
+  background-color: var(--color-texthover);
+  transform: scale(1.02);
+}
+
+.calendar-title,
+.calendar-schedule,
+.calendar-total-hours,
+.IN,
+.OUT {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.calendar-title h2 {
+  color: white;
+  font-size: 2rem;
+}
+
+.calendar-total-hours {
+  color: white;
+  font-size: 0.9rem;
+}
+
+.calendar-title,
+.calendar-schedule,
+.calendar-total-hours {
+  width: 350px;
+}
+
+.calendar-schedule {
+  justify-content: center;
+}
+
+.calendar-total-hours {
+  justify-content: flex-end;
+}
+
+.emp-attendance .emp-attendance-content .bottom {
+  border-top: 1px solid rgb(228, 228, 228);
+  position: absolute;
+  width: 100%;
+  bottom: 15px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.emp-attendance .emp-attendance-content .bottom button {
+  cursor: pointer;
+  padding: 5px 15px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--dashbaord-color-button);
+  transition: transform 0.3s ease;
+}
+
+.emp-attendance .emp-attendance-content .bottom button:active {
+  transform: scale(1.08);
+}
+
+/* MODAL BASE STYLES */
+.modal {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  /* Animation state */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 30px 25px;
+  border-radius: 10px;
+  width: 400px;
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+
+  /* Start hidden */
+  transform: translateY(-40px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.modal.show .modal-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* CLOSE BUTTON */
+.close-btn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+/* WARNING BOX */
+.restriction-notice {
+  margin-top: 20px;
+  background: #fff3cd;
+  border-left: 5px solid #ffc107;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  color: #856404;
+  font-size: 14px;
+}
+
+.request-link {
+  display: inline-block;
+  margin-top: 5px;
+  color: #007bff;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+/* FORM STYLES */
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.modal-content form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.modal-content form input {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.modal-content form button[type="submit"] {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modal-content form button[type="submit"]:hover {
+  background-color: #218838;
 }
