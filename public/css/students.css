@@ -1,0 +1,152 @@
+.student-header {
+  display: flex;
+  height: 100px;
+  background-image: url("../../assets/saclibg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.student-header .student-top {
+  width: 100%;
+}
+
+.student-header .student-top .left {
+  display: flex;
+  height: 100%;
+  margin: 0 100px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.student-add #addStdentBtn {
+  cursor: pointer;
+  width: 200px;
+  padding: 8px 10px;
+  border: none;
+  font-weight: 500;
+  color: white;
+  border-radius: 10px;
+  background-color: var(--color-primary);
+  transition: background-color 0.3s ease;
+}
+
+.student-add #addStdentBtn i {
+  padding-right: 5px;
+}
+
+.student-add #addStdentBtn:hover {
+  background-color: var(--color-texthover);
+}
+
+.form-group {
+  display: flex;
+  width: 180px;
+  align-items: center;
+  background-color: var(--dashboard-color);
+  border-radius: 8px;
+  padding: 0 8px;
+  transition: all 0.3s ease;
+  border: 1px solid #333333;
+  overflow: hidden;
+}
+
+.form-group:focus-within {
+  border-color: var(--color-primary);
+}
+
+.form-group select {
+  flex: 1;
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  font-size: 0.8rem;
+  appearance: none; /* Remove default arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 8px 5px 8px 5px;
+}
+
+.form-group select option {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #000;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-select-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* so clicks go through to the select */
+  color: #ffffff;
+}
+
+/* MIDDLE */
+.student-table-wrapper {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+.table-heading {
+  color: #28a745;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+table.dataTable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table.dataTable thead th {
+  background-color: #28a745;
+  color: #fff;
+  text-align: left;
+  padding: 10px;
+}
+
+table.dataTable tbody td {
+  padding: 10px;
+  color: #333;
+}
+
+table.dataTable tbody tr:nth-child(even) {
+  background-color: #f3fef4;
+}
+
+table.dataTable tbody tr:hover {
+  background-color: #d9f5dc;
+}
+
+.dataTables_filter input {
+  padding: 5px;
+  border: 1px solid #28a745;
+  border-radius: 4px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  background-color: #e6f9ea !important;
+  color: #28a745 !important;
+  border: 1px solid #28a745;
+  margin: 2px;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background-color: #28a745 !important;
+  color: white !important;
+}
+
+.dataTables_length select {
+  border-color: #28a745;
+  padding: 3px;
+}

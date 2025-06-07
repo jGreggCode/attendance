@@ -49,8 +49,10 @@ if (isset($_SESSION['user'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../public/css/main.css" />
   <link rel="stylesheet" href="../public/css/dashboard.css" />
-  <link rel="stylesheet" href="../public/css/employee.css" />
+  <link rel="stylesheet" href="../public/css/students.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
   <title>Student List</title>
 </head>
 
@@ -60,105 +62,57 @@ if (isset($_SESSION['user'])) {
   include_once 'components/navigation.php';
   ?>
 
-  <div class="container">
+  <?php
+  include_once 'components/navigation.php';
+  ?>
 
-    <?php
-    include_once 'components/navigation.php';
-    ?>
-
-    <section class="main-content employee-main-content">
-      <div class="content content-employee">
-        <form class="form-filter">
-          <div>
-            <span></span>
-            <h3>Profile Details</h3>
-          </div>
-          <div>
-            <div class="form-group custom-select-wrapper">
-              <select name="courses" id="courses">
-                <option value="selected" selected>This Year</option>
-              </select>
-              <i class="fa-solid fa-angle-down fa-sm custom-select-icon" id="profile" style="cursor: pointer;"></i>
-            </div>
-            <button id="btnEditProfile" type="button"><i class="fa-solid fa-pen-to-square"></i> Edit
-              Profile</button>
-              <!-- Edit Password Modal -->
-          </div>
-        </form>
-        <div class="welcome">
-          <div class="profile-icon">
-            <img src="<?php echo $profile_photo; ?>" id="" height="120" alt="Profile Photo">
-          </div>
-          <div class="profile-text">
-            <h3><?php echo $full_name . ' (' . $userid . ')' ?></h3>
-            <div class="profile-text-bottom">
-              <div class="profile-info">
-                <h4>Role</h4>
-                <p><?php echo $user_type; ?></p>
-              </div>
-              <div class="profile-info">
-                <h4>Email Address</h4>
-                <p><?php echo $email; ?></p>
-              </div>
-              <div class="profile-info">
-                <h4>Phone Number</h4>
-                <p><?php echo $phone_number; ?></p>
-              </div>
-            </div>
-          </div>
+  <!-- START -->
+  <div class="student-header">
+    <div class="student-top">
+      <div class="left">
+        <div class="form-group custom-select-wrapper">
+          <select name="courses" id="courses">
+            <option value="selected" selected hidden>Select Course</option>
+          </select>
+          <i class="fa-solid fa-angle-down fa-sm custom-select-icon" id="profile" style="cursor: pointer;"></i>
+        </div>
+        <div class="student-add">
+          <button id="addStdentBtn"><i class="fa-solid fa-user-plus"></i> Add a student</button>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <section class="stats-content">
-      <div class="stats-section">
-        <div class="stat">
-          <div>
-            <i class="fa-solid fa-arrow-right-to-bracket"></i>
-          </div>
-          <div class="stat-content-text">
-            <h2 id="totalAttendance">0</h2>
-            <p>TOTAL ATTENDANCE</p>
-          </div>
-        </div>
-        <div class="stat">
-          <div>
-            <i class="fa-solid fa-clock"></i>
-          </div>
-          <div class="stat-content-text">
-            <h2 id="avgTimeIn">00:00</h2>
-            <p>AVG Check In Time</p>
-          </div>
-        </div>
-        <div class="stat">
-          <div>
-            <i class="fa-solid fa-house"></i>
-          </div>
-          <div class="stat-content-text">
-            <h2 id="avgTimeOut">00:00</h2>
-            <p>AVG Check Out Time</p>
-          </div>
-        </div>
-        <div class="stat">
-          <div>
-            <i class="fa-solid fa-lightbulb"></i>
-          </div>
-          <div class="stat-content-text">
-            <h2 id="totalHours">0</h2>
-            <p>TOTAL HOURS</p>
-          </div>
-        </div>
-      </div>
-    </section>
+  <div class="student-middle">
+    <div class="student-table-wrapper">
+      <h2 class="table-heading">Student List</h2>
+      <table id="studentTable" class="display">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>RFID Code</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="student-botom">
+
+    </div>
+  </div>
 
   <?php
-  include_once 'components/footer.php';
+  // include_once 'components/footer.php';
   ?>
 
   <!-- JQUERY VENDOR -->
   <script src="../public/vendor/jquery/jquery.min.js"></script>
   <!-- Page Javascript Code -->
   <script src="../public/js/signout.js"></script>
-  <script src="../public/js/dashboard.js"></script>
+  <script src="../public/js/students.js"></script>
+
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 </body>
 </html>
