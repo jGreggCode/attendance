@@ -2,6 +2,16 @@
 
 ---
 
+## 📁 Project
+
+```
+/includes
+└── /database
+└── attendance.sql ← SQL file to import
+/public
+└── index.php ← Main entry point
+```
+
 ## ⚙️ Requirements
 
 Make sure you have the following installed:
@@ -28,7 +38,3 @@ This project is protected by a custom license.
 © 2025 John Gregg Felicisimo (jgdev). All rights reserved.
 Unauthorized use is strictly prohibited.
 For licensing inquiries, contact: jgreggfel@gmail.com
-
-```
-
-```
