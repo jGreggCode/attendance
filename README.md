@@ -2,11 +2,11 @@
 
 ## 📁 Project Structure Overview
 
-/includes
+````/includes
 └── /database
 └── attendance.sql ← Database dump
 /public
-└── index.php ← Main entry point
+└── index.php ← Main entry point```
 
 ---
 
@@ -32,7 +32,8 @@ If you encounter any issues, feel free to reach out or check the codebase for ad
 
 ## License
 
-This project is protected by a custom license.  
-© 2025 John Gregg Felicisimo (jgdev). All rights reserved.  
-Unauthorized use is strictly prohibited.  
+This project is protected by a custom license.
+© 2025 John Gregg Felicisimo (jgdev). All rights reserved.
+Unauthorized use is strictly prohibited.
 For licensing inquiries, contact: jgreggfel@gmail.com
+````
