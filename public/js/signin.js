@@ -8,8 +8,11 @@ $(function () {
 
 function signin() {
   // Log when the function is called
+  console.log("Starting signin process");
   var username = $("#SIUsername").val();
   var password = $("#SIPassword").val();
+
+  console.log("Username:", username); // Log username (without password for security)
 
   // Reset borders first
   $("#StudentIDGroup, #StudentPasswordGroup").css("border", "");
@@ -27,14 +30,19 @@ function signin() {
   }
 
   if (hasError) {
+    console.log("Form validation failed");
     return; // Stop if there are empty fields
   }
 
   // Loading
   $("#loadingMessage").fadeIn();
 
+  // Log the request URL
+  const requestUrl = "../includes/signin/signin.inc.php";
+  console.log("Making request to:", requestUrl);
+
   $.ajax({
-    url: "../includes/signin/signin.inc.php",
+    url: requestUrl,
     method: "POST",
     data: {
       username: username,
@@ -42,41 +50,53 @@ function signin() {
     },
     success: function (data) {
       console.log("AJAX Response:", data); // Log the response
-      // Parse the JSON string into a JavaScript object
-      var parsedData = JSON.parse(data);
+      try {
+        // Parse the JSON string into a JavaScript object
+        var parsedData = JSON.parse(data);
+        console.log("Parsed response:", parsedData);
 
-      console.log(parsedData.message);
+        message = parsedData.message;
 
-      message = parsedData.message;
+        Toastify({
+          text: message,
+          duration: 2000,
+          destination: "https://github.com/apvarun/toastify-js",
+          newWindow: true,
+          close: false,
+          gravity: "bottom",
+          position: "right",
+          stopOnFocus: true,
+          style: {
+            background: parsedData.status === "success" ? "#3fae60" : "#ff4444",
+            borderRadius: "20px",
+          },
+          onClick: function () {},
+        }).showToast();
 
-      //$("#errorMessage").html(message).fadeIn();
-
-      Toastify({
-        text: message,
-        duration: 2000,
-        destination: "https://github.com/apvarun/toastify-js",
-        newWindow: true,
-        close: false,
-        gravity: "bottom", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-          background: "#3fae60",
-          borderRadius: "20px",
-        },
-        onClick: function () {}, // Callback after click
-      }).showToast();
-
-      setTimeout(function () {
-        $("#errorMessage").fadeOut();
-      }, 3000);
-
-      if (parsedData.status === "success") {
-        window.location = "dashboard.php";
+        if (parsedData.status === "success") {
+          window.location = "dashboard.php";
+        }
+      } catch (e) {
+        console.error("Error parsing response:", e);
+        console.log("Raw response:", data);
       }
     },
     error: function (jqXHR, textStatus, errorThrown) {
-      console.error("AJAX Error: ", textStatus, errorThrown); // Log any errors
+      console.error("AJAX Error Details:");
+      console.error("Status:", textStatus);
+      console.error("Error:", errorThrown);
+      console.error("Response:", jqXHR.responseText);
+      
+      Toastify({
+        text: "Error connecting to server. Please try again.",
+        duration: 2000,
+        gravity: "bottom",
+        position: "right",
+        style: {
+          background: "#ff4444",
+          borderRadius: "20px",
+        },
+      }).showToast();
     },
     complete: function () {
       // Hide the loading message once the request is complete

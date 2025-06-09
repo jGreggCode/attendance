@@ -11,7 +11,8 @@ ini_set('session.gc_divisor', 100);
 session_set_cookie_params([
     'lifetime' => 3600 * 24, 
     'path' => '/',
-    'domain' => $_SERVER['HTTP_HOST'],
+    // 'domain' => $_SERVER['HTTP_HOST'],
+    'domain' => 'localhost',
     'secure' => isset($_SERVER['HTTPS']),
     'httponly' => true,
     'samesite' => 'Strict'
@@ -23,7 +24,8 @@ session_start();
 setcookie(session_name(), session_id(), [
   'expires' => time() + 3600 * 24,
   'path' => '/',
-  'domain' => $_SERVER['HTTP_HOST'],
+  // 'domain' => $_SERVER['HTTP_HOST'],
+  'domain' => 'localhost',
   'secure' => isset($_SERVER['HTTPS']),
   'httponly' => true,
   'samesite' => 'Strict'

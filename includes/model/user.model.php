@@ -95,12 +95,8 @@ class User {
 
   public function getUser($user_id, $password) {
     try {
-      $options = [
-        'cost' => 12,
-      ];
-
       $stmt = $this->db->prepare('
-        SELECT password FROM users WHERE user_id = :user_id;
+        SELECT * FROM users WHERE user_id = :user_id;
       ');
 
       $stmt->execute([
@@ -108,31 +104,24 @@ class User {
       ]);
 
       if ($stmt->rowCount() > 0) {
-        $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if (password_verify($password, $row[0]['password'])) {
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (password_verify($password, $row['password'])) {
           // Set the account details in the session
           $this->getAccountDetails($user_id);
-
           return ['status' => 'success', 'message' => 'Login Successful!'];
         } else {
           return ['status' => 'error', 'message' => 'Invalid Password!'];
         }
       } else {
         return ['status' => 'error', 'message' => 'User Not Found!'];
-
       }
-
-      $stmt = null; // Close the statement
-      return ['status' => 'success', 'message' => 'Account Created Successfully!'];
     } catch (PDOException $th) {
-      $message = '<div>Database error: ' . $th->getMessage() . '</div>';
-      return ['status' => 'error', 'message' => $message];
+      error_log('Database error in getUser: ' . $th->getMessage());
+      return ['status' => 'error', 'message' => 'An error occurred during login. Please try again.'];
     }
-
   }
 
   public function checkUser($user_id, $email) {
-    $result;
     try {
       $stmt = $this->db->prepare('SELECT user_id FROM users WHERE user_id = :user_id OR email = :email;');
       $stmt->execute([
@@ -140,18 +129,13 @@ class User {
         'email' => $email
       ]);
 
-      if ($stmt->rowCount() > 0) {
-        $result = true;
-      } else {
-        $result = false;
-      }
-
+      $result = $stmt->rowCount() > 0;
       $stmt = null; // Close the statement
       return $result;
 
     } catch (PDOException $e) {
-      $message = 'Database error: ' . $e->getMessage();
-      return ['status' => 'error', 'message' => $message];
+      error_log('Database error in checkUser: ' . $e->getMessage());
+      return false; // Return false on error instead of an array
     }
   }
 

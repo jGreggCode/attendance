@@ -8,7 +8,7 @@ define('ROOT_URL', 'http://localhost/attendance/public/');
 // Database parameters
 // Data source name
 define('DSN', 'mysql:host=localhost;dbname=saclitms');
-
+// 
 // Hostname
 define('DB_HOST', 'localhost');
 
