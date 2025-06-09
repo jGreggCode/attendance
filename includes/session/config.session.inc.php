@@ -8,10 +8,21 @@ ini_set('session.gc_maxlifetime', 3600 * 24); // 24 hours
 ini_set('session.gc_probability', 1);
 ini_set('session.gc_divisor', 100);
 
+if (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false) {
+  // For development environments
+  $domain = 'localhost';
+} else {
+  // For production: remove any port like :8080 if present
+  $domain = strpos($_SERVER['HTTP_HOST'], ':') !== false
+      ? substr($_SERVER['HTTP_HOST'], 0, strpos($_SERVER['HTTP_HOST'], ':'))
+      : $_SERVER['HTTP_HOST'];
+}
+
+
 session_set_cookie_params([
     'lifetime' => 3600 * 24, 
     'path' => '/',
-    'domain' => $_SERVER['HTTP_HOST'],
+    'domain' => $domain,
     'secure' => isset($_SERVER['HTTPS']),
     'httponly' => true,
     'samesite' => 'Strict'

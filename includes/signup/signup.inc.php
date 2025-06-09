@@ -68,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
     $password = $_POST["password"];
     $repassword = $_POST["repassword"];
     $email = $_POST["email"];
+    $phone_number = $_POST["phone_number"];
 
     // Initialize your database connection
     $db = $conn; 
@@ -75,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
     // Instantiate signup controller
     include_once "../database/dbh.inc.php";
     include_once "../controller/signup.contr.php";
-    $signup = new SignUpController($db, $student_photo, $rfid_code, $user_id, $first_name, $middle_name, $last_name, $age, $birthday, $course, $year_level, $department, $user_type, $username, $password, $repassword, $email);
+    $signup = new SignUpController($db, $student_photo, $rfid_code, $user_id, $first_name, $middle_name, $last_name, $age, $birthday, $course, $year_level, $department, $user_type, $username, $password, $repassword, $email, $phone_number);
     $response = $signup->signupUser();
 
     // Running Error handling
