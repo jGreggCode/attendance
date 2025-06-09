@@ -2,12 +2,12 @@
 
 ---
 
-## 📁 Project
+## 📁 Project Structure
 
 ```
 /includes
 └── /database
-└── attendance.sql ← SQL file to import
+└── saclitms.sql ← SQL file to import
 /public
 └── index.php ← Main entry point
 ```
@@ -26,9 +26,19 @@ Make sure you have the following installed:
 
 ### 1. Clone or Download the Project
 
-### 2. Import the Database (DB dump is under includes/database)
+```
+git clone https://github.com/jGreggCode/attendance.git
+```
+
+### 2. Import the Database
 
 ### 3. Configure database connection
+
+```
+/includes
+└── /database
+└── constant.php ← DB connection to configure
+```
 
 If you encounter any issues, feel free to reach out or check the codebase for additional documentation.
 
