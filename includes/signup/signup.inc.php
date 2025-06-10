@@ -10,11 +10,11 @@ error_reporting(E_ALL);
 require_once '../model/user.model.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
-  if (isset($_FILES['student_photo']) && $_FILES['student_photo']['error'] === UPLOAD_ERR_OK) {
-    $fileTmpPath = $_FILES['student_photo']['tmp_name'];
-    $fileName = $_FILES['student_photo']['name'];
-    $fileSize = $_FILES['student_photo']['size'];
-    $fileType = $_FILES['student_photo']['type'];
+  if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
+    $fileTmpPath = $_FILES['profile_image']['tmp_name'];
+    $fileName = $_FILES['profile_image']['name'];
+    $fileSize = $_FILES['profile_image']['size'];
+    $fileType = $_FILES['profile_image']['type'];
     $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
     $maxFileSize = 30 * 1024 * 1024; // 30MB
@@ -66,8 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
     $user_type = $_POST["user_type"];
     $username = $_POST["username"];
     $password = $_POST["password"];
-    $repassword = $_POST["repassword"];
+    // $repassword = $_POST["repassword"];
     $email = $_POST["email"];
+    $phone_number = $_POST["phone_number"];
 
     // Initialize your database connection
     $db = $conn; 
@@ -75,7 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
     // Instantiate signup controller
     include_once "../database/dbh.inc.php";
     include_once "../controller/signup.contr.php";
-    $signup = new SignUpController($db, $student_photo, $rfid_code, $user_id, $first_name, $middle_name, $last_name, $age, $birthday, $course, $year_level, $department, $user_type, $username, $password, $repassword, $email);
+    $signup = new SignUpController($db, $student_photo, $rfid_code, $user_id, $first_name, $middle_name, $last_name, $age, $birthday, $course, $year_level, $department, $user_type, $username, $password, $email, $phone_number);
+
     $response = $signup->signupUser();
 
     // Running Error handling

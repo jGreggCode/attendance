@@ -8,27 +8,18 @@ class User {
   private $db;
 
   public function __construct($db) {
-      $this->db = $db;
+    $this->db = $db;
   }
 
   public function getUserByRFID($rfid) {
     try {
-      $stmt = $this->db->prepare('
-        SELECT * FROM users WHERE rfid_code = :rfid_code
-      ');
-
-      $stmt->execute([
-        ':rfid_code' => $rfid
-      ]);
+      $stmt = $this->db->prepare('SELECT * FROM users WHERE rfid_code = :rfid_code');
+      $stmt->execute([':rfid_code' => $rfid]);
 
       if ($stmt->rowCount() === 0) {
         return ['status' => 'error', 'message' => 'No user found with this RFID code.', 'data' => null];
       } else {
-        return [
-          'status' => 'success',
-          'data' => $stmt->fetch(PDO::FETCH_ASSOC)
-        ];
-
+        return ['status' => 'success', 'data' => $stmt->fetch(PDO::FETCH_ASSOC)];
       }
     } catch (\Throwable $th) {
       $message = 'Database error: ' . $th->getMessage();
@@ -38,32 +29,16 @@ class User {
 
   public function createUser($student_photo, $rfid_code, $user_id, $first_name, $middle_name, $last_name, $age, $birthday, $course, $year_level, $department, $user_type, $username, $password, $email, $phone_number) {
     try {
-      // Concatenate and capitalize the full name
       $fullName = ucwords(strtolower(trim($first_name . ' ' . $middle_name . ' ' . $last_name)));
 
-      $options = [
-        'cost' => 12,
-      ];
+      $options = ['cost' => 12];
+      $hashedPassword = !empty($password) ? password_hash($password, PASSWORD_BCRYPT, $options) : null;
+      $username = !empty($username) ? $username : null;
 
       $stmt = $this->db->prepare('
         INSERT INTO users (student_photo, rfid_code, user_id, first_name, middle_name, last_name, age, birthday, course, year_level, department, user_type, username, password, email, phone_number) 
-        VALUES (:student_photo, :rfid_code, :user_id, :first_name, :middle_name, :last_name, :age, :birthday, :course, :year_level, :department, :user_type, :username, :password, :email, :phone_number);
+        VALUES (:student_photo, :rfid_code, :user_id, :first_name, :middle_name, :last_name, :age, :birthday, :course, :year_level, :department, :user_type, :username, :password, :email, :phone_number)
       ');
-
-      // If there is no username and password
-      // Meaning the user is a student
-      $emptyPassword = null;
-      $emptyUsername = null;
-
-      // Prevent empty password from hashing 
-      if (!empty($password)) {
-        $emptyPassword = password_hash($password, PASSWORD_BCRYPT, $options);
-      }
-
-      // Making the username value to null not just an empty value
-      if (empty($username)) {
-        $username = $emptyUsername;
-      } 
 
       $stmt->execute([
         'student_photo' => $student_photo,
@@ -79,97 +54,59 @@ class User {
         'department' => $department,
         'user_type' => $user_type,
         'username' => $username,
-        'password' => $emptyPassword, // More Secured Hashing
+        'password' => $hashedPassword,
         'email' => $email,
         'phone_number' => $phone_number
       ]);
 
-      $stmt = null; // Close the statement
       return ['status' => 'success', 'message' => 'Account Created Successfully!'];
     } catch (PDOException $th) {
       $message = 'Database error: ' . $th->getMessage();
       return ['status' => 'error', 'message' => $message];
     }
-
   }
 
   public function getUser($user_id, $password) {
     try {
-      $options = [
-        'cost' => 12,
-      ];
-
-      $stmt = $this->db->prepare('
-        SELECT password FROM users WHERE user_id = :user_id;
-      ');
-
-      $stmt->execute([
-        'user_id' => $user_id,
-      ]);
+      $stmt = $this->db->prepare('SELECT password FROM users WHERE user_id = :user_id');
+      $stmt->execute(['user_id' => $user_id]);
 
       if ($stmt->rowCount() > 0) {
-        $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        if (password_verify($password, $row[0]['password'])) {
-          // Set the account details in the session
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (password_verify($password, $row['password'])) {
           $this->getAccountDetails($user_id);
-
           return ['status' => 'success', 'message' => 'Login Successful!'];
         } else {
           return ['status' => 'error', 'message' => 'Invalid Password!'];
         }
       } else {
         return ['status' => 'error', 'message' => 'User Not Found!'];
-
       }
-
-      $stmt = null; // Close the statement
-      return ['status' => 'success', 'message' => 'Account Created Successfully!'];
     } catch (PDOException $th) {
-      $message = '<div>Database error: ' . $th->getMessage() . '</div>';
+      $message = 'Database error: ' . $th->getMessage();
       return ['status' => 'error', 'message' => $message];
     }
-
   }
 
   public function checkUser($user_id, $email) {
-    $result;
     try {
-      $stmt = $this->db->prepare('SELECT user_id FROM users WHERE user_id = :user_id OR email = :email;');
-      $stmt->execute([
-        'user_id' => $user_id,
-        'email' => $email
-      ]);
-
-      if ($stmt->rowCount() > 0) {
-        $result = true;
-      } else {
-        $result = false;
-      }
-
-      $stmt = null; // Close the statement
+      $stmt = $this->db->prepare('SELECT user_id FROM users WHERE user_id = :user_id OR email = :email');
+      $stmt->execute(['user_id' => $user_id, 'email' => $email]);
+      $result = $stmt->rowCount() > 0;
       return $result;
-
     } catch (PDOException $e) {
-      $message = 'Database error: ' . $e->getMessage();
-      return ['status' => 'error', 'message' => $message];
+      return ['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()];
     }
   }
 
-  function getAccountDetails($user_id) {
-    $stmt = $this->db->prepare('
-      SELECT * FROM users WHERE user_id = :user_id;
-    ');
+  public function getAccountDetails($user_id) {
+    $stmt = $this->db->prepare('SELECT * FROM users WHERE user_id = :user_id');
+    $stmt->execute(['user_id' => $user_id]);
 
-    $stmt->execute([
-      'user_id' => $user_id,
-    ]); 
-
-    // Start the session
     require_once "../session/config.session.inc.php";
 
-    if($stmt->rowCount() > 0) {
+    if ($stmt->rowCount() > 0) {
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
       $_SESSION['user'] = [
         'id' => $row['id'],
         'profile_photo' => $row['student_photo'],
@@ -185,14 +122,12 @@ class User {
         'department' => $row['department'],
         'user_type' => $row['user_type'],
         'username' => $row['username'],
-        // 'password' => $row['password'], // ⚠️ Not safe to store in session
         'email' => $row['email'],
         'phone_number' => $row['phone_number'],
-        'is_logged_in' => true // optional flag
+        'is_logged_in' => true
       ];
 
       regenerate_session_id();
     }
   }
-
 }

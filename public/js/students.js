@@ -1,3 +1,33 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const openBtn = document.getElementById("addStdentBtn");
+  const modal = document.getElementById("editProfileModal");
+  const closeBtn = modal.querySelector(".close-btn");
+
+  // Open modal
+  openBtn.addEventListener("click", () => {
+    modal.classList.add("show");
+  });
+
+  // Close modal via X
+  closeBtn.addEventListener("click", () => {
+    modal.classList.remove("show");
+  });
+
+  // Close when clicking outside modal-content
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.classList.remove("show");
+    }
+  });
+
+  // Optional: close with ESC key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      modal.classList.remove("show");
+    }
+  });
+});
+
 $(function () {
   $(document).ready(function () {
     $("#studentTable").DataTable({

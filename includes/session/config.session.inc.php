@@ -8,10 +8,12 @@ ini_set('session.gc_maxlifetime', 3600 * 24); // 24 hours
 ini_set('session.gc_probability', 1);
 ini_set('session.gc_divisor', 100);
 
+$domain = ($_SERVER['HTTP_HOST'] !== 'localhost') ? $_SERVER['HTTP_HOST'] : false;
+
 session_set_cookie_params([
     'lifetime' => 3600 * 24, 
     'path' => '/',
-    'domain' => $_SERVER['HTTP_HOST'],
+    'domain' => $domain,
     'secure' => isset($_SERVER['HTTPS']),
     'httponly' => true,
     'samesite' => 'Strict'

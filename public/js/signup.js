@@ -1,82 +1,81 @@
 $(function () {
   // Listen to register button
-  $("#buttonSignUp").on("click", function () {
+  $("#buttonSignUp").on("click", function (e) {
+    e.preventDefault();
     console.log("Register function called");
     register();
   });
 });
 
 function register() {
-  // Log when the function is called
+  // Get values using the correct IDs
+  var profileImage = $("#profile_image")[0].files[0];
+  var rfid = $("#rfid_code").val();
+  var userId = $("#user_id").val();
+  var firstName = $("#first_name").val();
+  var middleName = $("#middle_name").val();
+  var lastName = $("#last_name").val();
+  var age = $("#age").val();
+  var birthday = $("#birthday").val();
+  var course = $("#course").val();
+  var yearLevel = $("#year_level").val();
+  var department = $("#department").val();
+  var userType = $("#user_type").val();
+  var username = $("#username").val();
+  var email = $("#email").val();
+  var password = $("#password").val();
+  var phone_number = $("#phone_number").val();
 
-  var SUPhoto = $("#SUPhoto")[0].files[0];
-  var rfid_code = $("#SURfidCode").val();
-  var userId = $("#SUUserId").val();
-  var first_name = $("#SUFirstName").val();
-  var middle_name = $("#SUMiddleName").val();
-  var last_name = $("#SULastName").val();
-  var age = $("#SUAge").val();
-  var birthday = $("#SUBirthday").val();
-  var course = $("#SUCourse").val();
-  var year_level = $("#SUYearLevel").val();
-  var department = $("#SUDepartment").val();
-  var user_type = $("#SUUserType").val();
-  var username = $("#SUUsername").val();
-  var password = $("#SUPassword").val();
-  var repassword = $("#SURePassword").val();
-  var email = $("#SUEmail").val();
-  var phoneNumber = $("#SUPhoneNumber").val();
-
-  if (!SUPhoto) {
-    $("#suErrorMessage").html("Please upload a profile photo.").fadeIn();
-
+  // Check if profile image is uploaded
+  if (!profileImage) {
+    $("#suErrorMessage").html("Please upload a profile image.").fadeIn();
     setTimeout(function () {
       $("#suErrorMessage").fadeOut();
     }, 3000);
     return;
   }
 
-  // Check file size (max 30MB)
-  if (SUPhoto && SUPhoto.size > 30 * 1024 * 1024) {
+  // Validate file size (max 30MB)
+  if (profileImage && profileImage.size > 30 * 1024 * 1024) {
+    $("#suErrorMessage")
+      .html("File size exceeds 30MB. Please upload a smaller file.")
+      .fadeIn();
     setTimeout(function () {
-      $("#errorMessage")
-        .html("File size exceeds 30MB. Please upload a smaller file.")
-        .fadeIn();
+      $("#suErrorMessage").fadeOut();
     }, 3000);
     return;
   }
 
+  // Prepare data
   var formData = new FormData();
-  formData.append("student_photo", SUPhoto);
-  formData.append("rfid_code", rfid_code);
+  formData.append("profile_image", profileImage);
+  formData.append("rfid_code", rfid);
   formData.append("user_id", userId);
-  formData.append("first_name", first_name);
-  formData.append("middle_name", middle_name);
-  formData.append("last_name", last_name);
+  formData.append("first_name", firstName);
+  formData.append("middle_name", middleName);
+  formData.append("last_name", lastName);
   formData.append("age", age);
   formData.append("birthday", birthday);
   formData.append("course", course);
-  formData.append("year_level", year_level);
+  formData.append("year_level", yearLevel);
   formData.append("department", department);
-  formData.append("user_type", user_type);
+  formData.append("user_type", userType);
   formData.append("username", username);
   formData.append("password", password);
-  formData.append("repassword", repassword);
   formData.append("email", email);
-  formData.append("phone_number", phoneNumber);
+  formData.append("phone_number", phone_number);
 
-  // Loading
+  // Show loading
   $("#loadingMessage").fadeIn();
 
   $.ajax({
     url: "../includes/signup/signup.inc.php",
     method: "POST",
     data: formData,
-    contentType: false, // Important for file uploads
-    processData: false, // Important for file uploads
+    contentType: false,
+    processData: false,
     success: function (data) {
       console.log("AJAX Response:", data);
-      // Parse the JSON string into a JavaScript object
       var parsedData = JSON.parse(data);
       var message = parsedData.message;
 
@@ -92,15 +91,11 @@ function register() {
       }, 5000);
     },
     error: function (jqXHR, textStatus, errorThrown) {
-      console.error("AJAX Error: ", textStatus, errorThrown); // Log any errors
+      console.error("AJAX Error:", textStatus, errorThrown);
     },
     complete: function () {
-      // Hide the loading message once the request is complete
       $("#loadingMessage").fadeOut();
-
-      // Remove the value of the password input fields
-      $("#SUStudentPassword").val("");
-      $("#SUStudentRePassword").val("");
+      $("#password").val("");
     },
   });
 }

@@ -103,13 +103,71 @@ if (isset($_SESSION['user'])) {
     </div>
   </div>
 
+  <div id="editProfileModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+
+    <h2>Register RFID</h2>
+    <form id="editPasswordForm">
+      <label for="profile_image">Profile Image:</label>
+      <input type="file" id="profile_image" name="profile_image" required>
+
+      <label for="rfid">RFID:</label>
+      <input type="text" id="rfid" name="rfid" required>
+
+      <label for="user_id">User ID:</label>
+      <input type="text" id="user_id" name="user_id" required>
+
+      <label for="first_name">First Name:</label>
+      <input type="text" id="first_name" name="first_name" required>
+
+      <label for="middle_name">Middle Name:</label>
+      <input type="text" id="middle_name" name="middle_name" required>
+
+      <label for="last_name">Last Name:</label>
+      <input type="text" id="last_name" name="last_name" required>
+
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required>
+
+      <label for="birthday">Birthday:</label>
+      <input type="date" id="birthday" name="birthday" required>
+
+      <label for="course">Course:</label>
+      <input type="text" id="course" name="course" required>
+
+      <label for="year_level">Year Level:</label>
+      <input type="text" id="year_level" name="year_level" required>
+
+      <label for="department">Department:</label>
+      <input type="text" id="department" name="department" required>
+
+      <label for="user_type">User Type:</label>
+      <input type="text" id="user_type" name="user_type" required>
+
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <button id="buttonSignUp" type="button">Register</button>
+    </form>
+  </div>
+</div>
+
   <?php
-  // include_once 'components/footer.php';
+  include_once 'components/footer.php';
   ?>
 
   <!-- JQUERY VENDOR -->
   <script src="../public/vendor/jquery/jquery.min.js"></script>
   <!-- Page Javascript Code -->
+  <script src="../public/js/dashboard.js"></script>
+  <script src="../public/js/signup.js"></script>
   <script src="../public/js/signout.js"></script>
   <script src="../public/js/students.js"></script>
 

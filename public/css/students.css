@@ -150,3 +150,129 @@ table.dataTable tbody tr:hover {
   border-color: #28a745;
   padding: 3px;
 }
+
+/* MODAL BASE STYLES */
+.modal {
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  /* Animation state */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 30px 25px;
+  border-radius: 10px;
+  width: 400px;
+  position: relative;
+  font-family: "Poppins", sans-serif;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  max-height: 80vh; /* max visible height */
+  overflow-y: auto; /* enable scroll if needed */
+
+  /* Start hidden */
+  transform: translateY(-40px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Optional - prevent scrollbar from hiding content behind it */
+.modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.modal.show .modal-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* CLOSE BUTTON */
+.close-btn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+/* WARNING BOX */
+.restriction-notice {
+  margin-top: 20px;
+  background: #fff3cd;
+  border-left: 5px solid #ffc107;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  color: #856404;
+  font-size: 14px;
+}
+
+.request-link {
+  display: inline-block;
+  margin-top: 5px;
+  color: #007bff;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+/* FORM STYLES */
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.modal-content form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.modal-content form input {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.modal-content form button[type="submit"] {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.modal-content form button[type="submit"]:hover {
+  background-color: #218838;
+}

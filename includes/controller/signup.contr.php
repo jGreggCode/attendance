@@ -21,11 +21,10 @@ class SignUpController extends User {
   private $user_type;
   private $username;
   private $password;
-  private $repassword;
   private $email;
   private $phone_number;
 
-  public function __construct($db, $student_photo, $rfid_code, $user_id, $first_name, $middle_name, $last_name, $age, $birthday, $course, $year_level, $department, $user_type, $username, $password, $repassword, $email, $phone_number) {
+  public function __construct($db, $student_photo, $rfid_code, $user_id, $first_name, $middle_name, $last_name, $age, $birthday, $course, $year_level, $department, $user_type, $username, $password, $email, $phone_number) {
     parent::__construct($db);
     $this->student_photo = $student_photo;
     $this->rfid_code = $rfid_code;
@@ -41,7 +40,6 @@ class SignUpController extends User {
     $this->user_type = $user_type;
     $this->username = $username;
     $this->password = $password;
-    $this->repassword = $repassword;
     $this->email = $email;
     $this->phone_number = $phone_number;
   }
@@ -53,8 +51,6 @@ class SignUpController extends User {
       return $this->invalidUserID();
     } elseif ($this->invalidEmail() !== null) {
       return $this->invalidEmail();
-    } elseif ($this->passwordMatch() !== null) {
-      return $this->passwordMatch();
     } elseif ($this->userIdTaken() !== null) {
       return $this->userIdTaken();
     } else {
@@ -132,16 +128,16 @@ class SignUpController extends User {
     return $result;
   }
 
-  private function passwordMatch() {
-    $result = null;
+  // private function passwordMatch() {
+  //   $result = null;
 
-    if ($this->password !== $this->repassword) {
-      $message = 'Passwords Do Not Match!';
-      $result = ['status' => 'error', 'message' => $message];
-    } 
+  //   if ($this->password !== $this->repassword) {
+  //     $message = 'Passwords Do Not Match!';
+  //     $result = ['status' => 'error', 'message' => $message];
+  //   } 
 
-    return $result;
-  }
+  //   return $result;
+  // }
 
   private function userIdTaken() {
     $result = null;
