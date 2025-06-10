@@ -10,7 +10,7 @@ date_default_timezone_set('Asia/Manila');
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rfid_code'])) {
     $rfid = $_POST['rfid_code'];
     $date = date('Y-m-d');
-    $time = date('h:i:s A');
+    $time = date('h:i:s');
 
     $userid = null;
     $username = null;

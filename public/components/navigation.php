@@ -6,14 +6,14 @@
     </div>
     <div class="nav-links">
       <ul>
-        <li class="nav-link"><a class="active" href="dashboard.php">Overview</a></li>
         <?php 
           if ($user_type === "Admin") {?>
-            <li class="nav-link"><a href="attendance.php">Manage Attendance</a></li>
+            <li class="nav-link"><a class="active" href="dashboard.php">Overview</a></li>
             <li class="nav-link"><a href="students.php">Student's List</a></li>
             <li class="nav-link"><a href="">Reports</a></li>
           <?php } 
         ?>
+        <li class="nav-link"><a href="attendance.php">Attendance</a></li>
       </ul>
     </div>
   </div>

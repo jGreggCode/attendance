@@ -17,6 +17,11 @@ if (!isset($_SESSION['user'])) {
   exit();
 }
 
+if ($_SESSION['user']['user_type'] === 'Student') {
+  header('Location: attendance.php');
+  exit();
+}
+
 if (isset($_SESSION['user'])) {
 
   $full_name = $_SESSION['user']['first_name'] . ' ' . $_SESSION['user']['last_name'];

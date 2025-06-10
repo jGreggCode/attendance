@@ -53,6 +53,8 @@ if (isset($_SESSION['user'])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <!-- TOASTIFY  -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <title>Student List</title>
 </head>
 
@@ -93,6 +95,7 @@ if (isset($_SESSION['user'])) {
             <th>Full Name</th>
             <th>RFID Code</th>
             <th>Email</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -104,58 +107,61 @@ if (isset($_SESSION['user'])) {
   </div>
 
   <div id="editProfileModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn">&times;</span>
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
 
-    <h2>Register RFID</h2>
-    <form id="editPasswordForm">
-      <label for="profile_image">Profile Image:</label>
-      <input type="file" id="profile_image" name="profile_image" required>
+      <h2>Register RFID</h2>
+      <form id="editPasswordForm">
+        <label for="profile_image">Profile Image:</label>
+        <input type="file" id="profile_image" name="profile_image" required>
 
-      <label for="rfid">RFID:</label>
-      <input type="text" id="rfid" name="rfid" required>
+        <label for="rfid">RFID:</label>
+        <input type="text" id="rfid_code" name="rfid_code" maxlength="10" required>
 
-      <label for="user_id">User ID:</label>
-      <input type="text" id="user_id" name="user_id" required>
+        <label for="user_id">User ID:</label>
+        <input type="text" id="user_id" name="user_id" required>
 
-      <label for="first_name">First Name:</label>
-      <input type="text" id="first_name" name="first_name" required>
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" required>
 
-      <label for="middle_name">Middle Name:</label>
-      <input type="text" id="middle_name" name="middle_name" required>
+        <label for="middle_name">Middle Name:</label>
+        <input type="text" id="middle_name" name="middle_name" required>
 
-      <label for="last_name">Last Name:</label>
-      <input type="text" id="last_name" name="last_name" required>
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" required>
 
-      <label for="age">Age:</label>
-      <input type="number" id="age" name="age" required>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
 
-      <label for="birthday">Birthday:</label>
-      <input type="date" id="birthday" name="birthday" required>
+        <label for="birthday">Birthday:</label>
+        <input type="date" id="birthday" name="birthday" required>
 
-      <label for="course">Course:</label>
-      <input type="text" id="course" name="course" required>
+        <label for="course">Course:</label>
+        <input type="text" id="course" name="course" required>
 
-      <label for="year_level">Year Level:</label>
-      <input type="text" id="year_level" name="year_level" required>
+        <label for="year_level">Year Level:</label>
+        <input type="text" id="year_level" name="year_level" required>
 
-      <label for="department">Department:</label>
-      <input type="text" id="department" name="department" required>
+        <label for="department">Department:</label>
+        <input type="text" id="department" name="department" required>
 
-      <label for="user_type">User Type:</label>
-      <input type="text" id="user_type" name="user_type" required>
+        <label for="user_type">User Type:</label>
+        <input type="text" id="user_type" name="user_type" required>
 
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
 
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
 
-      <button id="buttonSignUp" type="button">Register</button>
-    </form>
+        <div class="error-message" id="suErrorMessage"></div>
+
+        <button id="buttonSignUp" type="button">Register</button>
+      </form>
+    </div>
   </div>
 </div>
 
@@ -172,5 +178,6 @@ if (isset($_SESSION['user'])) {
   <script src="../public/js/students.js"></script>
 
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 </html>

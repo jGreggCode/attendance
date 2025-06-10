@@ -10,7 +10,7 @@ $(function () {
 function register() {
   // Get values using the correct IDs
   var profileImage = $("#profile_image")[0].files[0];
-  var rfid = $("#rfid_code").val();
+  var rfid_code = $("#rfid_code").val();
   var userId = $("#user_id").val();
   var firstName = $("#first_name").val();
   var middleName = $("#middle_name").val();
@@ -49,7 +49,7 @@ function register() {
   // Prepare data
   var formData = new FormData();
   formData.append("profile_image", profileImage);
-  formData.append("rfid_code", rfid);
+  formData.append("rfid_code", rfid_code);
   formData.append("user_id", userId);
   formData.append("first_name", firstName);
   formData.append("middle_name", middleName);
@@ -82,7 +82,22 @@ function register() {
       if (parsedData.status === "error") {
         $("#suErrorMessage").html(message).fadeIn();
       } else {
-        $("#registerMessage").html(message).fadeIn();
+        Toastify({
+          text: message,
+          duration: 5000,
+          destination: "https://github.com/apvarun/toastify-js",
+          newWindow: true,
+          close: false,
+          gravity: "bottom", // `top` or `bottom`
+          position: "right", // `left`, `center` or `right`
+          stopOnFocus: true, // Prevents dismissing of toast on hover
+          style: {
+            background: "#3fae60",
+            borderRadius: "20px",
+          },
+          onClick: function () {}, // Callback after click
+        }).showToast();
+        $("#editProfileModal").removeClass("show");
       }
 
       setTimeout(function () {

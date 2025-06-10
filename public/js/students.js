@@ -40,11 +40,38 @@ $(function () {
         { data: "first_name" },
         { data: "rfid_code" },
         { data: "email" },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return `
+              <button class="edit-btn btn btn-sm btn-warning" data-id="${row.rfid_code}">Edit</button>
+              <button class="delete-btn btn btn-sm btn-danger" data-id="${row.rfid_code}">Delete</button>
+            `;
+          },
+          orderable: false,
+          searchable: false,
+        },
       ],
-      pageLength: 5,
+      pageLength: 10,
       language: {
         searchPlaceholder: "Search students...",
       },
+    });
+
+    // Click event examples (you can handle modals or AJAX here)
+    $("#studentTable").on("click", ".edit-btn", function () {
+      const studentId = $(this).data("id");
+      alert("Edit student ID: " + studentId);
+      // Open modal and load student data here
+    });
+
+    $("#studentTable").on("click", ".delete-btn", function () {
+      const studentId = $(this).data("id");
+      if (
+        confirm("Are you sure you want to delete student ID " + studentId + "?")
+      ) {
+        // AJAX to delete student here
+      }
     });
   });
 

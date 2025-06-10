@@ -260,7 +260,7 @@ table.dataTable tbody tr:hover {
   font-size: 14px;
 }
 
-.modal-content form button[type="submit"] {
+.modal-content form button {
   margin-top: 20px;
   width: 100%;
   padding: 10px;
@@ -273,6 +273,6 @@ table.dataTable tbody tr:hover {
   transition: background-color 0.3s;
 }
 
-.modal-content form button[type="submit"]:hover {
+.modal-content form button:hover {
   background-color: #218838;
 }
