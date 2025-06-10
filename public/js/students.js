@@ -29,6 +29,20 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 $(function () {
+  var rfid_code = $("#rfid_code").val();
+  var user_id = $("#user_id").val();
+  var first_name = $("#first_name").val();
+  var middle_name = $("#middle_name").val();
+  var last_name = $("#last_name").val();
+  var age = $("#age").val();
+  var birthday = $("#birthday").val();
+  var course = $("#course").val();
+  var year_level = $("#year_level").val();
+  var department = $("#department").val();
+  var user_type = $("#user_type").val();
+  var username = $("#username").val();
+  var email = $("#email").val();
+
   $(document).ready(function () {
     $("#studentTable").DataTable({
       ajax: {
@@ -52,7 +66,7 @@ $(function () {
           searchable: false,
         },
       ],
-      pageLength: 10,
+      pageLength: 5,
       language: {
         searchPlaceholder: "Search students...",
       },
@@ -60,9 +74,41 @@ $(function () {
 
     // Click event examples (you can handle modals or AJAX here)
     $("#studentTable").on("click", ".edit-btn", function () {
-      const studentId = $(this).data("id");
-      alert("Edit student ID: " + studentId);
-      // Open modal and load student data here
+      const user_id = $(this).data("id");
+
+      $.ajax({
+        url: "../includes/api/fetchInfo.php",
+        method: "GET",
+        data: {
+          user_id: user_id,
+        },
+        dataType: "json",
+        success: function (data) {
+          console.log("AJAX Response:", data); // Log the response
+
+          data = data.data;
+
+          $("#editProfileModal").addClass("show");
+
+          $("#rfid_code").val(data.rfid_code);
+          $("#user_id").val(data.user_id);
+          $("#first_name").val(data.first_name);
+          $("#middle_name").val(data.middle_name);
+          $("#last_name").val(data.last_name);
+          $("#age").val(data.age);
+          $("#birthday").val(data.birthday);
+          $("#course").val(data.course);
+          $("#year_level").val(data.year_level);
+          $("#department").val(data.department);
+          $("#user_type").val(data.user_type);
+          $("#username").val(data.username);
+          $("#email").val(data.email);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.error("AJAX Error: ", textStatus, errorThrown); // Log any errors
+        },
+        complete: function () {},
+      });
     });
 
     $("#studentTable").on("click", ".delete-btn", function () {

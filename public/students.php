@@ -110,7 +110,7 @@ if (isset($_SESSION['user'])) {
     <div class="modal-content">
       <span class="close-btn">&times;</span>
 
-      <h2>Register RFID</h2>
+      <h2 id="formTitle">Register RFID</h2>
       <form id="editPasswordForm">
         <label for="profile_image">Profile Image:</label>
         <input type="file" id="profile_image" name="profile_image" required>
