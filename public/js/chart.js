@@ -42,7 +42,7 @@ $(function () {
       var yearLevel = data.yearLevel;
       var absents = data.absentsEachDay;
 
-      console.log(absents);
+      console.log(yearLevel);
 
       // Set Stats Values
       $("#numberOfStudents").text(studentCount);

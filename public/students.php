@@ -159,7 +159,7 @@ if (isset($_SESSION['user'])) {
 
         <div class="error-message" id="suErrorMessage"></div>
 
-        <button id="buttonSignUp" type="button">Register</button>
+        <button id="buttonSignUp" type="button" data-action="register">Register</button>
       </form>
     </div>
   </div>

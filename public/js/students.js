@@ -92,6 +92,10 @@ $(function () {
     // Click event examples (you can handle modals or AJAX here)
     $("#studentTable").on("click", ".edit-btn", function () {
       const user_id = $(this).data("id");
+      $("#buttonSignUp").text("Update");
+      // ✅ Set action to "update"
+      $("#buttonSignUp").data("action", "update");
+      console.log("Action set to:", $("#buttonSignUp").data("action")); // Check it's set
 
       $.ajax({
         url: "../includes/api/fetchInfo.php",
@@ -102,7 +106,6 @@ $(function () {
         dataType: "json",
         success: function (data) {
           console.log("AJAX Response:", data); // Log the response
-
           data = data.data;
 
           $("#editProfileModal").addClass("show");
