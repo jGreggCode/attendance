@@ -24,7 +24,7 @@ $(function () {
 });
 
 function update() {
-  console.log("This is now update!");
+  console.log("You are now in update");
   // Get values using the correct IDs
   var profileImage = $("#profile_image")[0].files[0];
   var rfid_code = $("#rfid_code").val();
@@ -44,13 +44,13 @@ function update() {
   var phone_number = $("#phone_number").val();
 
   // Check if profile image is uploaded
-  if (!profileImage) {
-    $("#suErrorMessage").html("Please upload a profile image.").fadeIn();
-    setTimeout(function () {
-      $("#suErrorMessage").fadeOut();
-    }, 3000);
-    return;
-  }
+  // if (!profileImage) {
+  //   $("#suErrorMessage").html("Please upload a profile image.").fadeIn();
+  //   setTimeout(function () {
+  //     $("#suErrorMessage").fadeOut();
+  //   }, 3000);
+  //   return;
+  // }
 
   // Validate file size (max 30MB)
   if (profileImage && profileImage.size > 30 * 1024 * 1024) {

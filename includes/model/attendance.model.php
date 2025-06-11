@@ -16,20 +16,37 @@ class Attendance {
     public function getTodayAttendance($rfid, $date) {
       try {
         $stmt = $this->db->prepare('
-          SELECT * FROM attendance WHERE rfid_code = :rfid_code AND date = :date
+          SELECT academic_year, semester FROM users WHERE rfid_code = :rfid_code
         ');
-
         $stmt->execute([
           ':rfid_code' => $rfid,
-          ':date' => $date
         ]);
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!$result) {
-          return ['status' => 'error', 'message' => 'No attendance record found for today.', 'data' => $result];
+        if ($result) {
+          if ($result['academic_year'] === '2024-2025' && $result['semester'] == 2) {
+            $stmt = $this->db->prepare('
+              SELECT * FROM attendance WHERE rfid_code = :rfid_code AND date = :date
+            ');
+
+            $stmt->execute([
+              ':rfid_code' => $rfid,
+              ':date' => $date
+            ]);
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$result) {
+              return ['status' => 'warning', 'message' => 'No attendance record found for today.', 'data' => $result];
+            } else {
+              return ['status' => 'success', 'data' => $result];
+            }
+          } else {
+            return ['status' => 'error', 'message' => 'Your ID is outdated. Please visit the MIS.'];
+          }
         } else {
-          return ['status' => 'success','data' => $result];
+          return ['status' => 'error', 'message' => 'RFID not found.'];
         }
       } catch (\Throwable $th) {
         $message = 'Database error: ' . $th->getMessage();

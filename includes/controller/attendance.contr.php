@@ -52,60 +52,69 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rfid_code'])) {
 
     $attendance = new Attendance($db);
     $existing = $attendance->getTodayAttendance($rfid, $date);
+		if ($existing['status'] === 'error') {
+			echo json_encode([
+					'status' => 'error',
+					'message' => $existing['message'],
+					'data' => null
+			]);
+			exit();
+		} 
+
     $existing = $existing['data'];
 
     if (!$existing) {
-        $result = $attendance->logTimeIn($rfid, $userType, $date, $time);
-        if ($result['status'] === 'error') {
-            echo json_encode([
-                'status' => 'error',
-                'message' => $result['message'],
-                'data' => null
-            ]);
-            exit();
-        } else if ($result['status'] === 'success') {
-            echo json_encode([
-                'status' => 'timein',
-                'message' => "Hello there $userType! - Time In: $time",
-                'data' => $user
-            ]);
-        } else {
-            echo json_encode([
-                'status' => 'error',
-                'message' => 'Something went wrong while logging time in.',
-                'data' => null
-            ]);
-            exit();
-        }
-    } else if ($existing['time_out'] === null) {
-        $result = $attendance->logTimeOut($existing['id'], $time);
+			$result = $attendance->logTimeIn($rfid, $userType, $date, $time);
+			if ($result['status'] === 'error') {
+				echo json_encode([
+						'status' => 'error',
+						'message' => $result['message'],
+						'data' => null
+				]);
+				exit();
+			} else if ($result['status'] === 'success') {
+				echo json_encode([
+						'status' => 'timein',
+						'message' => "Hello there $userType! - Time In: $time",
+						'data' => $user
+				]);
+			} else {
+				echo json_encode([
+						'status' => 'error',
+						'message' => 'Something went wrong while logging time in.',
+						'data' => null
+				]);
+				exit();
+			}
+	} else if ($existing['time_out'] === null) {
+			$result = $attendance->logTimeOut($existing['id'], $time);
 
-        if ($result['status'] === 'error') {
-            echo json_encode([
-                'status' => 'error',
-                'message' => $result['message'],
-                'data' => null
-            ]);
-            exit();
-        } else if ($result['status'] === 'success') {
-            echo json_encode([
-                'status' => 'timeout',
-                'message' => "Take care $userType! - Time Out: $time",
-                'data' => $user
-            ]);
-        } else {
-            echo json_encode([
-                'status' => 'error',
-                'message' => 'Something went wrong while logging time out.',
-                'data' => null
-            ]);
-            exit();
-        }
-    } else {
-        echo json_encode([
-            'status' => 'warning',
-            'message' => 'You have already time in today.', 
-            'data' => $user
-        ]);
-    }
+			if ($result['status'] === 'error') {
+					echo json_encode([
+							'status' => 'error',
+							'message' => $result['message'],
+							'data' => null
+					]);
+					exit();
+			} else if ($result['status'] === 'success') {
+					echo json_encode([
+							'status' => 'timeout',
+							'message' => "Take care $userType! - Time Out: $time",
+							'data' => $user
+					]);
+			} else {
+					echo json_encode([
+							'status' => 'error',
+							'message' => 'Something went wrong while logging time out.',
+							'data' => null
+					]);
+					exit();
+			}
+	} else {
+			echo json_encode([
+					'status' => 'warning',
+					'message' => 'You have already time in today.', 
+					'data' => $user
+			]);
+	}
 }

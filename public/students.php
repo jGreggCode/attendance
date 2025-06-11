@@ -74,7 +74,7 @@ if (isset($_SESSION['user'])) {
       <div class="left">
         <div class="form-group custom-select-wrapper">
           <select name="courses" id="courses">
-            <option value="selected" selected hidden>Select Course</option>
+            <option value="selected" selected>All</option>
           </select>
           <i class="fa-solid fa-angle-down fa-sm custom-select-icon" id="profile" style="cursor: pointer;"></i>
         </div>
@@ -88,21 +88,22 @@ if (isset($_SESSION['user'])) {
   <div class="student-middle">
     <div class="student-table-wrapper">
       <h2 class="table-heading">Student List</h2>
-      <table id="studentTable" class="display">
+      <table id="studentTable" class="display" style="width: 100%;">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Full Name</th>
-            <th>RFID Code</th>
+            <th>Photo</th>
+            <th>User ID</th>
+            <th>RFID</th>
+            <th>Name</th>
             <th>Email</th>
-            <th>Action</th>
+            <th>Course</th>
+            <th>Academic Year</th>
+            <th>Semester</th>
+            <th>Year Level</th>
+            <th>Actions</th>
           </tr>
         </thead>
-        <tbody></tbody>
       </table>
-    </div>
-    <div class="student-botom">
-
     </div>
   </div>
 

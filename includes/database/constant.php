@@ -16,7 +16,7 @@ define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 
 // DB password
-define('DB_PASSWORD', 'jgadmin'); // Remove if DB has no password
+define('DB_PASSWORD', ''); // Remove if DB has no password
 
 // DB name
 define('DB_NAME', 'saclitms');

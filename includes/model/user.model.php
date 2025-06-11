@@ -2,6 +2,11 @@
 // Copyright © 2025 John Gregg [Your Last Name]
 // All rights reserved. Unauthorized use is prohibited.
 
+declare(strict_types=1);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once '../database/dbh.inc.php';
 
 class User {
@@ -65,6 +70,69 @@ class User {
       return ['status' => 'error', 'message' => $message];
     }
   }
+
+  public function updateUser($student_photo, $rfid_code, $user_id, $first_name, $middle_name, $last_name, $age, $birthday, $course, $year_level, $department, $user_type, $username, $email, $phone_number) {
+    try {
+        $fullName = ucwords(strtolower(trim($first_name . ' ' . $middle_name . ' ' . $last_name)));
+        $username = !empty($username) ? $username : null;
+
+        // Base query (no password update)
+        $query = '
+            UPDATE users SET
+                rfid_code = :rfid_code,
+                first_name = :first_name,
+                middle_name = :middle_name,
+                last_name = :last_name,
+                age = :age,
+                birthday = :birthday,
+                course = :course,
+                year_level = :year_level,
+                department = :department,
+                user_type = :user_type,
+                username = :username,
+                email = :email,
+                phone_number = :phone_number';
+
+        // Include student photo only if provided
+        if (!empty($student_photo)) {
+            $query .= ', student_photo = :student_photo';
+        }
+
+        $query .= ' WHERE user_id = :user_id';
+
+        $stmt = $this->db->prepare($query);
+
+        // Bind parameters
+        $params = [
+            'rfid_code' => $rfid_code,
+            'first_name' => $first_name,
+            'middle_name' => $middle_name,
+            'last_name' => $last_name,
+            'age' => $age,
+            'birthday' => $birthday,
+            'course' => $course,
+            'year_level' => $year_level,
+            'department' => $department,
+            'user_type' => $user_type,
+            'username' => $username,
+            'email' => $email,
+            'phone_number' => $phone_number,
+            'user_id' => $user_id
+        ];
+
+        // Add image if available
+        if (!empty($student_photo)) {
+            $params['student_photo'] = $student_photo;
+        }
+
+        $stmt->execute($params);
+
+        return ['status' => 'success', 'message' => 'Account updated successfully!'];
+
+    } catch (PDOException $e) {
+        return ['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()];
+    }
+  } 
 
   public function getUser($user_id, $password) {
     try {
