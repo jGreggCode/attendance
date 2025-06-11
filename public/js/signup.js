@@ -3,6 +3,7 @@ $(function () {
   $("#buttonSignUp").on("click", function (e) {
     e.preventDefault();
     console.log("Register function called");
+
     register();
   });
 });

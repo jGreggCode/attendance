@@ -29,6 +29,23 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 $(function () {
+  $("#addStdentBtn").on("click", function () {
+    $("#formTitle").text("Register Account");
+    $("#rfid_code").val("");
+    $("#user_id").val("");
+    $("#first_name").val("");
+    $("#middle_name").val("");
+    $("#last_name").val("");
+    $("#age").val("");
+    $("#birthday").val("");
+    $("#course").val("");
+    $("#year_level").val("");
+    $("#department").val("");
+    $("#user_type").val("");
+    $("#username").val("");
+    $("#email").val("");
+  });
+
   var rfid_code = $("#rfid_code").val();
   var user_id = $("#user_id").val();
   var first_name = $("#first_name").val();
@@ -89,6 +106,7 @@ $(function () {
           data = data.data;
 
           $("#editProfileModal").addClass("show");
+          $("#formTitle").text("Edit (" + data.user_id + ")");
 
           $("#rfid_code").val(data.rfid_code);
           $("#user_id").val(data.user_id);
