@@ -71,12 +71,13 @@ class User {
     }
   }
 
-  public function updateUser($student_photo, $rfid_code, $user_id, $first_name, $middle_name, $last_name, $age, $birthday, $course, $year_level, $department, $user_type, $username, $email, $phone_number) {
+  public function updateUser($student_photo, $rfid_code, $user_id, $first_name, $middle_name, $last_name, $age, $birthday, $course, $year_level, $department, $user_type, $username, $password, $email, $phone_number) {
     try {
-        $fullName = ucwords(strtolower(trim($first_name . ' ' . $middle_name . ' ' . $last_name)));
         $username = !empty($username) ? $username : null;
+        $options = ['cost' => 12];
+        $hashedPassword = null;
 
-        // Base query (no password update)
+        // Base update query
         $query = '
             UPDATE users SET
                 rfid_code = :rfid_code,
@@ -93,9 +94,15 @@ class User {
                 email = :email,
                 phone_number = :phone_number';
 
-        // Include student photo only if provided
+        // Optional photo update
         if (!empty($student_photo)) {
             $query .= ', student_photo = :student_photo';
+        }
+
+        // Optional password update
+        if (!empty($password)) {
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT, $options);
+            $query .= ', password = :password';
         }
 
         $query .= ' WHERE user_id = :user_id';
@@ -120,9 +127,13 @@ class User {
             'user_id' => $user_id
         ];
 
-        // Add image if available
         if (!empty($student_photo)) {
             $params['student_photo'] = $student_photo;
+        }
+
+        if (!empty($password)) {
+            // Hash the password securely
+            $params['password'] = $hashedPassword;
         }
 
         $stmt->execute($params);
@@ -132,7 +143,43 @@ class User {
     } catch (PDOException $e) {
         return ['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()];
     }
-  } 
+  }
+
+  public function changeUserPassword($user_id, $current_password, $new_password) {
+    try {
+        // Fetch the existing hashed password
+        $stmt = $this->db->prepare('SELECT password FROM users WHERE user_id = :user_id');
+        $stmt->execute(['user_id' => $user_id]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user) {
+            return ['status' => 'error', 'message' => 'User not found.'];
+        }
+
+        // Verify the current password
+        if (!password_verify($current_password, $user['password'])) {
+            return ['status' => 'error', 'message' => 'Current password is incorrect.'];
+        }
+
+        // Hash the new password
+        $options = ['cost' => 12];
+        $hashedPassword = password_hash($new_password, PASSWORD_BCRYPT, $options);
+
+        // Update the password
+        $updateStmt = $this->db->prepare('UPDATE users SET password = :password WHERE user_id = :user_id');
+        $updateStmt->execute([
+            'password' => $hashedPassword,
+            'user_id' => $user_id
+        ]);
+
+        return ['status' => 'success', 'message' => 'Password updated successfully.'];
+
+    } catch (PDOException $e) {
+        return ['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()];
+    }
+  }
+
+
 
   public function getUser($user_id, $password) {
     try {

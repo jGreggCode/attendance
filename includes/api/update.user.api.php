@@ -103,6 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
     $department, 
     $user_type, 
     $username, 
+    $password,
     $email, 
     $phone_number
   );

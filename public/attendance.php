@@ -51,6 +51,8 @@ if (isset($_SESSION['user'])) {
   <link rel="stylesheet" href="../public/css/dashboard.css" />
   <link rel="stylesheet" href="../public/css/employee.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- TOASTIFY  -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <title>SACLI - TMS Employee</title>
 </head>
 
@@ -204,6 +206,7 @@ if (isset($_SESSION['user'])) {
       <span class="close-btn">&times;</span>
 
       <div class="restriction-notice">
+        <p id="user_id" style="display: none;"><?php echo $userid; ?></p>
         <p>⚠️ Profile editing is blocked due to a restriction.</p>
         <a href="#" class="request-link">Click here to request an update from the admin.</a>
       </div>
@@ -219,7 +222,7 @@ if (isset($_SESSION['user'])) {
         <label for="confirm_password">Confirm Password:</label>
         <input type="password" id="confirm_password" name="confirm_password" required>
 
-        <button type="submit">Save Changes</button>
+        <button id="changePassword">Save Changes</button>
       </form>
     </div>
   </div>
@@ -232,6 +235,8 @@ if (isset($_SESSION['user'])) {
   <script src="../public/vendor/jquery/jquery.min.js"></script>
   <!-- Page Javascript Code -->
   <script src="../public/js/signout.js"></script>
+  <script src="../public/js/changePass.js"></script>
   <script src="../public/js/dashboard.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 </html>

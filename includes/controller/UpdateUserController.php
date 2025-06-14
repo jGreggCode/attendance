@@ -23,10 +23,11 @@ class UpdateUserController extends User {
   private $department;
   private $user_type;
   private $username;
+  private $password;
   private $email;
   private $phone_number;
 
-  public function __construct($db, $student_photo, $rfid_code, $user_id, $first_name, $middle_name, $last_name, $age, $birthday, $course, $year_level, $department, $user_type, $username, $email, $phone_number) {
+  public function __construct($db, $student_photo, $rfid_code, $user_id, $first_name, $middle_name, $last_name, $age, $birthday, $course, $year_level, $department, $user_type, $username, $password, $email, $phone_number) {
     parent::__construct($db);
     $this->student_photo = $student_photo;
     $this->rfid_code = $rfid_code;
@@ -41,6 +42,7 @@ class UpdateUserController extends User {
     $this->department = $department;
     $this->user_type = $user_type;
     $this->username = $username;
+    $this->password = $password;
     $this->email = $email;
     $this->phone_number = $phone_number;
   }
@@ -67,6 +69,7 @@ class UpdateUserController extends User {
         $this->department,
         $this->user_type,
         $this->username,
+        $this->password,
         $this->email,
         $this->phone_number
       );
