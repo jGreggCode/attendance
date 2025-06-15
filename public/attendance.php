@@ -76,12 +76,13 @@ if (isset($_SESSION['user'])) {
             <h3>Profile Details</h3>
           </div>
           <div>
-            <div class="form-group custom-select-wrapper">
+            <!-- <div class="form-group custom-select-wrapper">
               <select name="courses" id="courses">
                 <option value="selected" selected>This Year</option>
               </select>
               <i class="fa-solid fa-angle-down fa-sm custom-select-icon" id="profile" style="cursor: pointer;"></i>
-            </div>
+            </div> -->
+            <a href="employees.php" class="button attendance-link">Manage All Attendance</a>
             <button id="btnEditProfile" type="button"><i class="fa-solid fa-pen-to-square"></i> Edit
               Profile</button>
               <!-- Edit Password Modal -->
