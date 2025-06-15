@@ -82,7 +82,7 @@ if (isset($_SESSION['user'])) {
               </select>
               <i class="fa-solid fa-angle-down fa-sm custom-select-icon" id="profile" style="cursor: pointer;"></i>
             </div> -->
-            <a href="employees.php" class="button attendance-link">Manage All Attendance</a>
+            <a href="allattendance.php" class="button attendance-link">Manage All Attendance</a>
             <button id="btnEditProfile" type="button"><i class="fa-solid fa-pen-to-square"></i> Edit
               Profile</button>
               <!-- Edit Password Modal -->

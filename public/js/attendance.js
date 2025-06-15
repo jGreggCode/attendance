@@ -1,18 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
   let studentTable;
 
-  async function fetchStudents(course) {
+  async function fetchAttendance() {
     try {
-      const response = await fetch("atten.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({ course }),
-      });
-
+      const response = await fetch("atten.php");
       if (!response.ok) throw new Error("Failed to fetch data.");
-
       const result = await response.json();
       return result.data || [];
     } catch (error) {
@@ -26,76 +18,50 @@ document.addEventListener("DOMContentLoaded", () => {
       $("#studentTable").DataTable().destroy();
     }
 
-    const course = document.querySelector("#courses")?.value || "";
-    const data = await fetchStudents(course);
+    const data = await fetchAttendance();
 
     studentTable = $("#studentTable").DataTable({
       data: data,
       columns: [
-        {
-          data: "student_photo",
-          render: (data) => {
-            const photoUrl =
-              data && data.trim() !== "" ? data : "default_photo.png";
-            return `
-              <div style="display: flex; justify-content: center; align-items: center;">
-                <img src="${photoUrl}" alt="Photo" style="width: 40px; object-fit: cover;">
-              </div>`;
-          },
-          orderable: false,
-          searchable: false,
-        },
-        { data: "user_id" },
         { data: "rfid_code" },
-        {
-          data: null,
-          render: (row) =>
-            `${row.first_name} ${row.middle_name} ${row.last_name}`,
-        },
-        { data: "email" },
-        { data: "course" },
-        { data: "academic_year" },
-        { data: "semester" },
-        { data: "year_level" },
+        { data: "user_type" },
+        { data: "date" },
+        { data: "time_in" },
+        { data: "time_out" },
         {
           data: null,
           render: (row) => `
-            <button class="action-btn btn btn-sm btn-edit" data-id="${row.rfid_code}">Edit</button>
-            <button class="action-btn btn btn-sm btn-delete" data-id="${row.rfid_code}">Delete</button>`,
+            <button class="btn btn-sm btn-edit" data-id="${row.id}">Edit</button>
+            <button class="btn btn-sm btn-delete" data-id="${row.id}">Delete</button>`,
           orderable: false,
           searchable: false,
         },
       ],
       pageLength: 10,
       language: {
-        searchPlaceholder: "Search students...",
+        searchPlaceholder: "Search attendance...",
       },
     });
   }
 
-  // Initialize on load
+  // Initialize table on page load
   initStudentTable();
 
-  // Reload on dropdown change
-  document.querySelector("#courses")?.addEventListener("change", () => {
-    initStudentTable();
-  });
-
-  // Event bindings
+  // Event bindings for edit/delete buttons
   document.querySelector("#studentTable").addEventListener("click", (e) => {
     const editBtn = e.target.closest(".btn-edit");
     const deleteBtn = e.target.closest(".btn-delete");
 
     if (editBtn) {
       const id = editBtn.dataset.id;
-      console.log("Edit clicked", id);
-      // your modal logic here
+      console.log("Edit clicked:", id);
+      // show modal logic here
     }
 
     if (deleteBtn) {
       const id = deleteBtn.dataset.id;
-      console.log("Delete clicked", id);
-      // your modal logic here
+      console.log("Delete clicked:", id);
+      // confirm delete logic here
     }
   });
 });

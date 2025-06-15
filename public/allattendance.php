@@ -87,17 +87,16 @@ if (isset($_SESSION['user'])) {
 
   <div class="student-middle">
     <div class="student-table-wrapper">
-      <h2 class="table-heading">Student List</h2>
+      <h2 class="table-heading">Manage All Attendance</h2>
       <table id="studentTable" class="display" style="width: 100%;">
         <thead>
           <tr>
-            <th>Photo</th>
-            <th>User ID</th>
             <th>RFID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Department</th>
-            <th>Actions</th>
+            <th>User Type</th>
+            <th>Date</th>
+            <th>Time In</th>
+            <th>Time Out</th>
+            <th>Action</th>
           </tr>
         </thead>
       </table>
