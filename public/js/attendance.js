@@ -31,8 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
         {
           data: null,
           render: (row) => `
-            <button class="btn btn-sm btn-edit" data-id="${row.id}">Edit</button>
-            <button class="btn btn-sm btn-delete" data-id="${row.id}">Delete</button>`,
+            <button class="btn btn-sm btn-edit editAttendanceBtn" data-id="${row.rfid_code}">Edit</button>
+            `,
           orderable: false,
           searchable: false,
         },
@@ -56,12 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const id = editBtn.dataset.id;
       console.log("Edit clicked:", id);
       // show modal logic here
-    }
-
-    if (deleteBtn) {
-      const id = deleteBtn.dataset.id;
-      console.log("Delete clicked:", id);
-      // confirm delete logic here
     }
   });
 });

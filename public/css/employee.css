@@ -76,15 +76,13 @@
 
 .emp-attendance {
   display: flex;
-  padding: 10px 300px;
   margin-top: 20px;
+  justify-content: center;
 }
 
 .emp-attendance .emp-attendance-content {
-  width: 100%;
-  height: 500px;
+  width: 1250px;
   display: flex;
-  position: relative;
   flex-direction: column;
   background: #fff;
   border-radius: 15px;
@@ -105,24 +103,24 @@
 
 /* ATTENDANCE */
 
+.emp-attendance .emp-attendance-content .middle {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  gap: 0px;
+}
+
 .emp-attendance .emp-attendance-content .middle .calendar {
   background-color: var(--color-primary);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-  height: 50px;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 30px;
-  margin: 0 20px;
-  border-radius: 20px;
-  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in,
-    transform 0.3s ease-in-out;
-}
-
-.emp-attendance .emp-attendance-content .middle {
-  height: 370px;
+  gap: 20px;
+  padding: 15px 0;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  justify-content: space-evenly;
+  align-items: center;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in,
+    transform 0.3s ease-in-out;
 }
 
 .emp-attendance .emp-attendance-content .middle .calendar:hover {
@@ -132,12 +130,31 @@
 
 .calendar-title,
 .calendar-schedule,
-.calendar-total-hours,
-.IN,
-.OUT {
+.calendar-total-hours {
   display: flex;
-  gap: 15px;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+}
+
+.calendar-schedule div {
+  display: flex;
+  justify-content: center;
+  column-gap: 40px;
+}
+
+.calendar-schedule div .IN,
+.calendar-schedule div .OUT {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.IN p,
+.OUT p {
+  color: white;
+  font-weight: bold;
 }
 
 .calendar-title h2 {
@@ -146,29 +163,14 @@
 }
 
 .calendar-total-hours {
-  color: white;
   font-size: 0.9rem;
 }
 
-.calendar-title,
-.calendar-schedule,
-.calendar-total-hours {
-  width: 350px;
-}
-
-.calendar-schedule {
-  justify-content: center;
-}
-
-.calendar-total-hours {
-  justify-content: flex-end;
-}
-
 .emp-attendance .emp-attendance-content .bottom {
+  margin-top: 15px;
+  margin-bottom: 15px;
   border-top: 1px solid rgb(228, 228, 228);
-  position: absolute;
   width: 100%;
-  bottom: 15px;
 }
 
 .buttons {

@@ -103,55 +103,21 @@ if (isset($_SESSION['user'])) {
     </div>
   </div>
 
-  <div id="editProfileModal" class="modal">
+  <div id="editAttendanceModal" class="modal">
     <div class="modal-content">
       <span class="close-btn">&times;</span>
 
-      <h2 id="formTitle">Register RFID</h2>
+      <h2 id="formTitle">Edit Attendance</h2>
       <form id="editPasswordForm">
-        <label for="profile_image">Profile Image:</label>
-        <input type="file" id="profile_image" name="profile_image" required>
 
-        <label for="rfid">RFID:</label>
-        <input type="text" id="rfid_code" name="rfid_code" maxlength="10" required>
-
-        <label for="user_id">User ID:</label>
-        <input type="text" id="user_id" name="user_id" required>
-
-        <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" required>
-
-        <label for="middle_name">Middle Name:</label>
-        <input type="text" id="middle_name" name="middle_name" required>
-
-        <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" required>
+        <label for="profile_image">Time In:</label>
+        <input type="time" id="time_in" name="time_in" required>
         
-        <label for="phone_number">Phone No:</label>
-        <input type="text" id="phone_number" name="phone_number" required>
+        <label for="profile_image">Time Out:</label>
+        <input type="time" id="time_out" name="time_out" required>
 
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" required>
-
-        <label for="birthday">Birthday:</label>
-        <input type="date" id="birthday" name="birthday" required>
-
-        <label for="department">Department:</label>
-        <input type="text" id="department" name="department" required>
-
-        <label for="user_type">User Type:</label>
-        <input type="text" id="user_type" name="user_type" required>
-
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-
-        <div class="error-message" id="suErrorMessage"></div>
+        <label for="profile_image">Reason:</label>
+        <input type="text" id="reason" name="reason" required>
 
         <button id="buttonSignUp" type="button" data-action="register">Register</button>
       </form>

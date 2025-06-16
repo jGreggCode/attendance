@@ -1,35 +1,46 @@
-$(function () {
-  // Listen to register button
-  $("#buttonSignOut").on("click", function () {
-    console.log("Sign Out function called");
-    signOut();
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  const buttonSignOut = document.getElementById("buttonSignOut");
+  if (buttonSignOut) {
+    buttonSignOut.addEventListener("click", () => {
+      console.log("Sign Out function called");
+      signOut();
+    });
+  }
 });
 
-function signOut() {
-  // Loading
-  $("#loadingMessage").fadeIn();
+async function signOut() {
+  const loadingMessage = document.getElementById("loadingMessage");
+  const loginMessage = document.getElementById("loginMessage");
 
-  $.ajax({
-    url: "../includes/signout/signout.inc.php",
-    success: function (data) {
-      console.log("AJAX Response:", data); // Log the response
-      $("#loginMessage").html(data).fadeIn();
+  try {
+    // Show loading
+    if (loadingMessage) loadingMessage.style.display = "block";
 
-      // Parse the JSON string into a JavaScript object
-      var parsedData = JSON.parse(data);
+    const response = await fetch("../includes/signout/signout.inc.php");
+    const text = await response.text();
 
-      console.log(parsedData.message);
+    console.log("Fetch Response:", text);
 
-      if (data.indexOf("Logged out successfully!") >= 0) {
-        window.location = "admin.php";
+    if (loginMessage) {
+      loginMessage.innerHTML = text;
+      loginMessage.style.display = "block";
+    }
+
+    // Try parsing JSON if it's expected
+    try {
+      const data = JSON.parse(text);
+      console.log(data.message);
+
+      if (data.message.includes("Logged out successfully!")) {
+        window.location.href = "index.php";
       }
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      console.error("AJAX Error: ", textStatus, errorThrown); // Log any errors
-    },
-    complete: function () {
-      $("#loadingMessage").fadeOut();
-    },
-  });
+    } catch (err) {
+      console.warn("Not JSON or parse failed:", err);
+    }
+  } catch (error) {
+    console.error("Fetch Error:", error);
+  } finally {
+    // Hide loading
+    if (loadingMessage) loadingMessage.style.display = "none";
+  }
 }

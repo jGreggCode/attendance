@@ -1,22 +1,8 @@
-// === Dropdown Toggle for Profile ===
-document.addEventListener("DOMContentLoaded", () => {
-  const profile = document.querySelector(".profile");
-  const dropdown = document.querySelector(".profileDropdown");
-
-  if (profile && dropdown) {
-    profile.addEventListener("click", (e) => {
-      e.stopPropagation();
-      dropdown.style.display =
-        dropdown.style.display === "flex" ? "none" : "flex";
-    });
-
-    document.addEventListener("click", () => {
-      dropdown.style.display = "none";
-    });
-  }
-});
+import { setupProfileDropdownToggle } from "./utils/dropdown-logout.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  setupProfileDropdownToggle();
+  // EDIT PROFILE
   const openBtn = document.getElementById("btnEditProfile");
   const modal = document.getElementById("editProfileModal");
   const closeBtn = modal.querySelector(".close-btn");
@@ -46,66 +32,65 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// === Main jQuery Functionality ===
-$(function () {
+document.addEventListener("DOMContentLoaded", () => {
   // ====== NAVIGATION ACTIVE LINK ======
   highlightCurrentNav();
 
   function highlightCurrentNav() {
     const currentPage = window.location.pathname.split("/").pop();
+    const navLinks = document.querySelectorAll(".nav-link a");
 
-    $(".nav-link a").each(function () {
-      const linkPage = $(this).attr("href");
-      $(this).toggleClass("active", linkPage === currentPage);
-    });
+    navLinks.forEach((link) => {
+      const linkPage = link.getAttribute("href");
+      link.classList.toggle("active", linkPage === currentPage);
 
-    $(".nav-link a").on("click", function () {
-      $(".nav-link a").removeClass("active");
-      $(this).addClass("active");
+      link.addEventListener("click", () => {
+        navLinks.forEach((l) => l.classList.remove("active"));
+        link.classList.add("active");
+      });
     });
   }
 
   // ====== GLOBAL VARIABLES ======
-  const itemsPerPage = 5;
+  const itemsPerPage = 4;
   let currentPage = 1;
   let attendanceData = [];
   let summary = [];
 
-  // ====== AJAX FETCH ======
+  // ====== FETCH ATTENDANCE DATA ======
   fetchAttendanceData();
 
-  function fetchAttendanceData() {
-    $.ajax({
-      url: "../includes/controller/fetch_attendance.contr.php",
-      method: "GET",
-      dataType: "json",
-      success: function (data) {
-        attendanceData = data.attendance;
-        summary = data.attendanceSum;
-        renderCalendar();
-      },
-      error: function (xhr, status, error) {
-        console.error("Error fetching attendance data:", error);
-      },
-    });
+  async function fetchAttendanceData() {
+    try {
+      const response = await fetch(
+        "../includes/controller/fetch_attendance.contr.php"
+      );
+      const data = await response.json();
+
+      attendanceData = data.attendance;
+      summary = data.attendanceSum;
+      renderCalendar();
+    } catch (error) {
+      console.error("Error fetching attendance data:", error);
+    }
   }
 
-  // ====== CALENDAR RENDERING ======
+  // ====== RENDER CALENDAR ======
   function renderCalendar() {
-    const avg_time_in = $("#avgTimeIn");
-    const avg_time_out = $("#avgTimeOut");
-    const total_attendance = $("#totalAttendance");
-    const total_hours = $("#totalHours");
+    const avgTimeIn = document.getElementById("avgTimeIn");
+    const avgTimeOut = document.getElementById("avgTimeOut");
+    const totalAttendance = document.getElementById("totalAttendance");
+    const totalHours = document.getElementById("totalHours");
 
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const currentItems = attendanceData.slice(start, end);
 
-    const $calendarContainer = $(".middle");
-    $calendarContainer.empty();
+    const calendarContainer = document.querySelector(".middle");
+    calendarContainer.innerHTML = "";
 
     if (currentItems.length === 0) {
-      $calendarContainer.html("<p>No attendance records found.</p>");
+      calendarContainer.innerHTML = "<p>No attendance records found.</p>";
       return;
     }
 
@@ -118,54 +103,67 @@ $(function () {
         day: "2-digit",
       });
 
-      $calendarContainer.append(`
+      const calendarItem = `
         <div class="calendar">
           <div class="calendar-title">
-            <h2>${start + index + 1}.</h2>
-            <h3>${displayDate} | ${dayName}</h3>
+            <h3>${displayDate}</h3>
+            <h4>${dayName}</h4>
           </div>
-
           <div class="calendar-schedule">
-            <div class="IN">
-              <h3>IN</h3>
-              <p>${item.time_in || "N/A"}</p>
-            </div>
-            <div class="OUT">
-              <h3>OUT</h3>
-              <p>${item.time_out || "N/A"}</p>
+            <div>
+              <div class="IN">
+                <h3>IN</h3>
+                <p>${convertTo12Hour(item.time_in) || "N/A"}</p>
+              </div>
+              <div class="OUT">
+                <h3>OUT</h3>
+                <p>${convertTo12Hour(item.time_out) || "N/A"}</p>
+              </div>
             </div>
           </div>
-
           <div class="calendar-total-hours">
             <h3>${calculateHours(item.time_in, item.time_out)}</h3>
           </div>
         </div>
-      `);
+      `;
+
+      calendarContainer.insertAdjacentHTML("beforeend", calendarItem);
     });
 
     // Display summary stats
-    avg_time_in.text(summary.average_time_in);
-    avg_time_out.text(summary.average_time_out);
-    total_attendance.text(summary.total_attendance);
-    total_hours.text(summary.total_hours);
+    avgTimeIn.textContent = summary.average_time_in;
+    avgTimeOut.textContent = summary.average_time_out;
+    totalAttendance.textContent = summary.total_attendance;
+    totalHours.textContent = summary.total_hours;
   }
 
-  // ====== PAGINATION BUTTONS ======
-  $("#prevBtn").on("click", function () {
+  function convertTo12Hour(time) {
+    if (time === null) {
+      return null;
+    }
+    const [hours, minutes] = time.split(":");
+    const h = parseInt(hours);
+    const suffix = h >= 12 ? "PM" : "AM";
+    const hour12 = ((h + 11) % 12) + 1;
+    return `${hour12}:${minutes} ${suffix}`;
+  }
+
+  // ====== PAGINATION ======
+  document.getElementById("prevBtn").addEventListener("click", () => {
     if (currentPage > 1) {
       currentPage--;
       renderCalendar();
     }
   });
 
-  $("#nextBtn").on("click", function () {
+  document.getElementById("nextBtn").addEventListener("click", () => {
     if (currentPage * itemsPerPage < attendanceData.length) {
       currentPage++;
       renderCalendar();
     }
   });
 
-  // ====== HELPER: CALCULATE HOURS ======
+  // ====== CALCULATE HOURS ======
   function calculateHours(timeIn, timeOut) {
     if (
       !timeIn ||

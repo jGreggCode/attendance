@@ -96,7 +96,7 @@ if (isset($_SESSION['user'])) {
             <th>RFID</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Course</th>
+            <th>Program</th>
             <th>Academic Year</th>
             <th>Semester</th>
             <th>Year Level</th>
@@ -137,7 +137,7 @@ if (isset($_SESSION['user'])) {
         <label for="birthday">Birthday:</label>
         <input type="date" id="birthday" name="birthday" required>
 
-        <label for="course">Course:</label>
+        <label for="course">Program:</label>
         <input type="text" id="course" name="course" required>
 
         <label for="year_level">Year Level:</label>

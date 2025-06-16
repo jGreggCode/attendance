@@ -10,7 +10,8 @@
           if ($user_type === "Admin") {?>
             <li class="nav-link"><a class="active" href="dashboard.php">Overview</a></li>
             <li class="nav-link"><a href="students.php">Student's List</a></li>
-            <li class="nav-link"><a href="">Reports</a></li>
+            <li class="nav-link"><a href="#">Employee's List</a></li>
+            <!-- <li class="nav-link"><a href="">Reports</a></li> -->
           <?php } 
         ?>
         <li class="nav-link"><a href="attendance.php">Attendance</a></li>

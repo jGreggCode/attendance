@@ -1,86 +1,72 @@
-$(function () {
-  // Listen to register button
-  $("#buttonSignIn").on("click", function () {
+import { showToast } from "./utils/toast.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("buttonSignIn").addEventListener("click", () => {
     console.log("Sign In function called");
     signin();
   });
 });
 
-function signin() {
-  // Log when the function is called
-  var username = $("#SIUsername").val();
-  var password = $("#SIPassword").val();
+async function signin() {
+  const signinUserId = document.getElementById("SIUsername").value;
+  const signinPassword = document.getElementById("SIPassword").value;
 
-  // Reset borders first
-  $("#StudentIDGroup, #StudentPasswordGroup").css("border", "");
+  // Reset borders
+  document.getElementById("StudentIDGroup").style.border = "";
+  document.getElementById("StudentPasswordGroup").style.border = "";
 
   let hasError = false;
 
-  if (username === "") {
-    $("#StudentIDGroup").css("border", "1px solid red");
+  if (signinUserId === "") {
+    document.getElementById("StudentIDGroup").style.border = "1px solid red";
     hasError = true;
   }
 
-  if (password === "") {
-    $("#StudentPasswordGroup").css("border", "1px solid red");
+  if (signinPassword === "") {
+    document.getElementById("StudentPasswordGroup").style.border =
+      "1px solid red";
     hasError = true;
   }
 
-  if (hasError) {
-    return; // Stop if there are empty fields
+  if (hasError) return;
+
+  // Show loading
+  document.getElementById("loadingMessage").style.display = "flex";
+
+  try {
+    const res = await fetch("../includes/signin/signin.inc.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        signinUserId,
+        signinPassword,
+      }),
+    });
+
+    const data = await res.json();
+    console.log("Fetch Response:", data);
+
+    const message = data.message;
+
+    if (data.status === "success") {
+      showToast(message, "success", 2000);
+      setTimeout(() => {
+        window.location.href = "dashboard.php";
+      }, 2000);
+    } else if (data.status === "warning") {
+      showToast(message, "warning", 5000);
+    } else if (data.status === "error") {
+      showToast(message, "error", 4000);
+    }
+
+    setTimeout(() => {
+      errorMessage.style.display = "none";
+    }, 3000);
+  } catch (err) {
+    console.error("Fetch Error:", err);
+  } finally {
+    document.getElementById("loadingMessage").style.display = "none";
   }
-
-  // Loading
-  $("#loadingMessage").fadeIn();
-
-  $.ajax({
-    url: "../includes/signin/signin.inc.php",
-    method: "POST",
-    data: {
-      username: username,
-      password: password,
-    },
-    success: function (data) {
-      console.log("AJAX Response:", data); // Log the response
-      // Parse the JSON string into a JavaScript object
-      var parsedData = JSON.parse(data);
-
-      console.log(parsedData.message);
-
-      message = parsedData.message;
-
-      //$("#errorMessage").html(message).fadeIn();
-
-      Toastify({
-        text: message,
-        duration: 2000,
-        destination: "https://github.com/apvarun/toastify-js",
-        newWindow: true,
-        close: false,
-        gravity: "bottom", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-          background: "#3fae60",
-          borderRadius: "20px",
-        },
-        onClick: function () {}, // Callback after click
-      }).showToast();
-
-      setTimeout(function () {
-        $("#errorMessage").fadeOut();
-      }, 3000);
-
-      if (parsedData.status === "success") {
-        window.location = "dashboard.php";
-      }
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      console.error("AJAX Error: ", textStatus, errorThrown); // Log any errors
-    },
-    complete: function () {
-      // Hide the loading message once the request is complete
-      $("#loadingMessage").fadeOut();
-    },
-  });
 }

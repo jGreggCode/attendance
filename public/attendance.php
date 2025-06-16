@@ -47,6 +47,12 @@ if (isset($_SESSION['user'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- WEB ICON -->
+  <link
+    rel="shortcut icon"
+    href="../assets/saclilogo.png"
+    type="image/x-icon"
+  />
   <link rel="stylesheet" href="../public/css/main.css" />
   <link rel="stylesheet" href="../public/css/dashboard.css" />
   <link rel="stylesheet" href="../public/css/employee.css" />
@@ -82,7 +88,12 @@ if (isset($_SESSION['user'])) {
               </select>
               <i class="fa-solid fa-angle-down fa-sm custom-select-icon" id="profile" style="cursor: pointer;"></i>
             </div> -->
-            <a href="allattendance.php" class="button attendance-link">Manage All Attendance</a>
+            <?php 
+            if ($user_type === "Admin") {
+              ?> <a href="allattendance.php" class="button attendance-link">Manage All Attendance</a> <?php
+            }
+            ?>
+            
             <button id="btnEditProfile" type="button"><i class="fa-solid fa-pen-to-square"></i> Edit
               Profile</button>
               <!-- Edit Password Modal -->
@@ -167,25 +178,25 @@ if (isset($_SESSION['user'])) {
           <div class="calendar" id="calendar">
 
             <div class="calendar-title">
-              <h2>1.</h2>
               <h3>June 03, 2025 | Tuesday</h3>
             </div>
 
             <div class="calendar-schedule">
-              <div class="IN">
-                <h3>IN</h3>
-                <p>7:00 AM</p>
-              </div>
-              <div class="OUT">
-                <h3>OUT</h3>
-                <p>5:00 PM</p>
+              <div>
+                <div class="IN">
+                  <h3>IN</h3>
+                  <p>7:00 AM</p>
+                </div>
+                <div class="OUT">
+                  <h3>OUT</h3>
+                  <p>5:00 PM</p>
+                </div>
               </div>
             </div>
 
             <div class="calendar-total-hours">
               <h3>8 Hours</h3>
             </div>
-
           </div>
         </div>
 
@@ -237,7 +248,7 @@ if (isset($_SESSION['user'])) {
   <!-- Page Javascript Code -->
   <script src="../public/js/signout.js"></script>
   <script src="../public/js/changePass.js"></script>
-  <script src="../public/js/dashboard.js"></script>
+  <script type="module" src="../public/js/dashboard.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </body>
 </html>

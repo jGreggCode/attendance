@@ -13,7 +13,7 @@ $name_in_initial = null;
 $profile_photo = null;
 
 if (!isset($_SESSION['user'])) {
-  header('Location: admin.php');
+  header('Location: index.php');
   exit();
 }
 
@@ -48,6 +48,12 @@ if (isset($_SESSION['user'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- WEB ICON -->
+  <link
+    rel="shortcut icon"
+    href="../assets/saclilogo.png"
+    type="image/x-icon"
+  />
   <link rel="stylesheet" href="../public/css/main.css" />
   <link rel="stylesheet" href="../public/css/dashboard.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -228,14 +234,10 @@ if (isset($_SESSION['user'])) {
   <?php
   include_once 'components/footer.php';
   ?>
-
   <!-- APEXCHART -->
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-  <!-- JQUERY VENDOR -->
-  <script src="../public/vendor/jquery/jquery.min.js"></script>
-  <!-- Page Javascript Code -->
-  <script src="../public/js/dashboard.js"></script>
-  <script src="../public/js/chart.js"></script>
+
+  <script type="module" src="../public/js/dash.js"></script>
   <script src="../public/js/signout.js"></script>
 </body>
 

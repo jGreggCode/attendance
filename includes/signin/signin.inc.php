@@ -6,11 +6,11 @@ declare(strict_types=1);
 
 require_once '../model/user.model.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['signinUserId'])) {
   
   // Grabbing data from the form
-  $username = $_POST["username"];
-  $password = $_POST["password"];
+  $username = $_POST["signinUserId"];
+  $password = $_POST["signinPassword"];
 
   // Initialize your database connection
   $db = $conn; 
