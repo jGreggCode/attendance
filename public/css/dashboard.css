@@ -314,7 +314,7 @@
 }
 
 .container .stats-content .stat {
-  cursor: pointer;
+  cursor: default;
   display: flex;
   position: relative;
   align-items: center;

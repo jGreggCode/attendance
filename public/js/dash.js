@@ -70,27 +70,36 @@ document.addEventListener("DOMContentLoaded", () => {
         ".chart-container.top-attendace-list"
       );
       topList.innerHTML = "";
-      topAttendingStudents.forEach((student) => {
-        const fullName = `${student.first_name} ${student.middle_name.charAt(
-          0
-        )}. ${student.last_name}`;
-        const image = student.student_photo || "../assets/User-placeholder.png";
+
+      if (topAttendingStudents.length === 0) {
         const div = document.createElement("div");
-        div.className = "top-attenance";
-        div.innerHTML = `
-          <div class="attendance">
-            <div class="attendance-left">
-              <img src="${image}" width="50" alt="">
-              <p>${fullName}</p>
-              <span>${student.total_attendance} days</span>
-            </div>
-            <div class="attendance-right">
-              <p>${student.total_attendance} <span>days</span></p>
-            </div>
-          </div>
-        `;
+        div.className = "no-attendance";
+        div.innerHTML = `<p style="text-align:center; font-weight:600;">No Attendance Record Found</p>`;
         topList.appendChild(div);
-      });
+      } else {
+        topAttendingStudents.forEach((student) => {
+          const fullName = `${student.first_name} ${student.middle_name.charAt(
+            0
+          )}. ${student.last_name}`;
+          const image =
+            student.student_photo || "../assets/User-placeholder.png";
+          const div = document.createElement("div");
+          div.className = "top-attenance";
+          div.innerHTML = `
+      <div class="attendance">
+        <div class="attendance-left">
+          <img src="${image}" width="50" alt="">
+          <p>${fullName}</p>
+          <span>${student.total_attendance} days</span>
+        </div>
+        <div class="attendance-right">
+          <p>${student.total_attendance} <span>days</span></p>
+        </div>
+      </div>
+    `;
+          topList.appendChild(div);
+        });
+      }
 
       const yearLabels = Object.values(yearMap);
       const yearValues = Object.keys(yearMap).map((key) => {

@@ -136,7 +136,7 @@ class FetchData
         u.first_name,
         u.middle_name,
         u.last_name,
-        u.student_photo, -- assume you have this column for image path
+        u.student_photo, 
         COUNT(a.rfid_code) AS total_attendance
         FROM attendance a
         JOIN users u ON a.rfid_code = u.rfid_code
