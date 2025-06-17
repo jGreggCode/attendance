@@ -4,7 +4,7 @@
 '''
 
 ## Make sure you install the modules
-## pip install mysql-connector-python faker
+## pip3 install mysql-connector-python faker
 import mysql.connector
 from faker import Faker
 import random
@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="jgadmin",  # Replace if you set a password
+    password="",  # Replace if you set a password
     database="saclitms"
 )
 cursor = conn.cursor()

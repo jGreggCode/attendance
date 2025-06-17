@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 conn = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="jgadmin",  # Replace if you set a password
+    password="",  # Replace if you set a password
     database="saclitms"
 )
 cursor = conn.cursor()
