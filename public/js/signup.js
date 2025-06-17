@@ -1,24 +1,26 @@
-$(function () {
-  // Listen to register button
-  $("#addStdentBtn").on("click", function () {
-    // ✅ Set action to "update"
-    $("#buttonSignUp").text("Register");
-    $("#buttonSignUp").data("action", "register");
-    console.log("Action set to:", $("#buttonSignUp").data("action")); // Check it's set
+document.addEventListener("DOMContentLoaded", () => {
+  const addStudentBtn = document.getElementById("addStdentBtn");
+  const signUpBtn = document.getElementById("buttonSignUp");
+
+  // Default to register mode
+  addStudentBtn.addEventListener("click", () => {
+    signUpBtn.textContent = "Register";
+    signUpBtn.dataset.action = "register";
+
+    console.log(signUpBtn.dataset.action);
   });
 
-  $("#buttonSignUp").on("click", function (e) {
+  // Handle form action (register or update)
+  signUpBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    console.log("Register function called");
+    const action = signUpBtn.dataset.action;
 
-    const action = $(this).data("action");
-
-    console.log("The action is: " + action);
+    console.log(signUpBtn.dataset.action);
 
     if (action === "register") {
       register();
     } else if (action === "update") {
-      update(); // Your update function
+      update();
     }
   });
 });
@@ -133,6 +135,7 @@ function update() {
 }
 
 function register() {
+  console.log("You are now in register");
   // Get values using the correct IDs
   var profileImage = $("#profile_image")[0].files[0];
   var rfid_code = $("#rfid_code").val();

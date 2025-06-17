@@ -164,10 +164,9 @@ if (isset($_SESSION['user'])) {
   <!-- JQUERY VENDOR -->
   <script src="../public/vendor/jquery/jquery.min.js"></script>
   <!-- Page Javascript Code -->
-  <script type="module" src="../public/js/dashboard.js"></script>
   <script src="../public/js/signup.js"></script>
   <script src="../public/js/signout.js"></script>
-  <script src="../public/js/employees.js"></script>
+  <script type="module" src="../public/js/employees.js"></script>
 
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

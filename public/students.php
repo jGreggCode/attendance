@@ -140,6 +140,12 @@ if (isset($_SESSION['user'])) {
         <label for="course">Program:</label>
         <input type="text" id="course" name="course" required>
 
+        <label for="">What is this</label>
+        <select name="" id="">
+          <option value="">BS IT</option>
+          <option value="">WOW</option>
+        </select>
+
         <label for="year_level">Year Level:</label>
         <input type="text" id="year_level" name="year_level" required>
 
@@ -173,10 +179,10 @@ if (isset($_SESSION['user'])) {
   <!-- JQUERY VENDOR -->
   <script src="../public/vendor/jquery/jquery.min.js"></script>
   <!-- Page Javascript Code -->
-  <script src="../public/js/dashboard.js"></script>
+  <!-- <script src="../public/js/dashboard.js"></script> -->
   <script src="../public/js/signup.js"></script>
   <script src="../public/js/signout.js"></script>
-  <script src="../public/js/students.js"></script>
+  <script type="module" src="../public/js/students.js"></script>
 
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

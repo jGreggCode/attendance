@@ -296,13 +296,18 @@ table.dataTable tbody tr:hover {
   font-weight: 600;
 }
 
-.modal-content form input {
+.modal-content form input,
+.modal-content form select {
   width: 100%;
   padding: 8px 10px;
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
+}
+
+.modal-content form select::before {
+  content: "";
 }
 
 .modal-content form button {
