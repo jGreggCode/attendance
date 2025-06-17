@@ -30,7 +30,6 @@ Using Git (recommended):
 
 ```
 git clone https://github.com/jGreggCode/attendance.git
-
 ```
 
 Or download the ZIP from GitHub and extract it.
@@ -43,8 +42,40 @@ Or download the ZIP from GitHub and extract it.
 
 ```
 includes/database/saclitms.sql
+```
+
+### 🗃️ 2.1 Populate the Database (Optional)
+
+If you don't want to manually insert data into the database, you can optionally auto-populate it using the Python scripts provided.
+
+📂 Available Scripts
+Located inside the includes/utils/ folder:
+
+- **populate-employee.py** – generates sample Employee data
+- **populate-users.py** – generates sample Student data
+
+⚙️ Requirements
+
+Make sure you have Python installed.
+Then, install the required Python modules:
 
 ```
+pip3 install mysql-connector-python faker
+```
+
+🚀 How to Run the Script
+
+| ⚠️ Important: Ensure your users table is empty before running the scripts to avoid duplicate data or constraint errors.
+
+```
+python3 populate-users.py
+# or
+python3 populate-employee.py
+```
+
+This will insert randomly generated data directly into your MySQL database.
+
+| ⚠️ Warning: The dummy records are for testing/development use only.
 
 ## ⚙️ 3. Configure the Database Connection
 
