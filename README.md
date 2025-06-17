@@ -127,5 +127,7 @@ This project is protected by a custom license.
 © 2025 John Gregg Felicisimo (jgdev). All rights reserved.
 Unauthorized reproduction, modification, or distribution is strictly prohibited.
 
-📩 For questions:
-jgreggfel@gmail.com
+> ⚠️ This project is licensed under an **All Rights Reserved** license.  
+> Viewing is allowed, but **usage, distribution, or modification is strictly prohibited** without permission.
+
+> Contact me at 📩 jgreggfel@gmail.com if you’d like to request access, usage rights or have any questions.
