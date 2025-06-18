@@ -27,93 +27,101 @@
     <title>SACLI - Attendance</title>
   </head>
   <body>
-    <div class="container">
-      <div class="background">
-        <img src="../assets/saclinewbg.png" alt="Background Image" />
-      </div>
-
-      <div class="section-header">
-        <div class="header-left">
-          <div class="logo">
-            <img src="../assets/saclilogo.png" alt="Sacli Logo" height="64" />
-            <div class="logo-text">
-              <h2>ST. Anne College Lucena, INC.</h2>
-              <p>Class Beyond Quezon</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="header-right">
-          <div class="logo">
-            <img src="../assets/BSITSACLI.png" alt="BSIT Logo" height="58" />
-            <div class="logo-text">
-              <h2>BS Information Technology</h2>
-              <p>ST. Anne College Of Lucena INC</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section-attendance">
-        <form class="form-attendance">
-          <div class="form-header">
-            <img src="../assets/saclilogo.png" alt="" height="80" />
-            <div class="form-header-text">
-              <h2>Welcome to Saint Anne College!</h2>
-              <p id="attendanceMessage">Please tap your ID card...</p>
-              <div class="error-message" id="errorMessage"></div>
-            </div>
-          </div>
-          <!-- RFID INPUT -->
-          <input
-            type="text"
-            class="rfid-input"
-            id="rfid_input"
-            name="RFIDInput"
-            placeholder="Your ID"
-            required
-            autocomplete="off"
-          />
-        </form>
-
-        <div
-          class="section-user-information hidden"
-          id="sectionUserInformation"
-        >
-          <div class="user-info">
-            <div class="user-image">
-              <img
-                id="userImage"
-                height="80"
-                src="../assets/User-placeholder.png"
-                alt="Profile Picture"
-              />
-            </div>
-            <div class="user-details">
-              <h3 id="userFullName">John Gregg Virina Felicisimo</h3>
-              <p id="userType">Student (2301-000512)</p>
-              <p id="userCourseAndYear">BSIT III</p>
-              <p class="user-message" id="tap-message">
-                You have already logged in
-              </p>
-            </div>
-
-            <div class="time-now">
-              <p id="timeNow"></p>
-            </div>
-            <div class="date-today">
-              <p id="dateToday"></p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="background">
+      <img src="../assets/saclinewbg.png" alt="Background Image" />
     </div>
 
-    <!-- TIME -->
-    <div class="footer-clock">
-      <div class="footer-clock-time">
-        <div class="time">
-          <p id="liveTime">June 6, 2025 (Wednesday) - 12:00 Am</p>
+    <div class="wrapper">
+      <div class="container">
+        <div class="section-ads">
+          <video id="adsVideo" muted autoplay playsinline></video>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="section-header">
+          <div class="header-left">
+            <div class="logo">
+              <img src="../assets/saclilogo.png" alt="Sacli Logo" height="64" />
+              <div class="logo-text">
+                <h2>St. Anne College Lucena, Inc.</h2>
+                <p>Class Beyond Quezon</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-attendance">
+          <form class="form-attendance">
+            <div class="form-header">
+              <img src="../assets/saclilogo.png" alt="" height="80" />
+              <div class="form-header-text">
+                <h2>Welcome to St. Anne College</h2>
+                <p id="attendanceMessage">Please tap your ID card...</p>
+                <div class="error-message" id="errorMessage"></div>
+              </div>
+            </div>
+            <!-- RFID INPUT -->
+            <input
+              type="text"
+              class="rfid-input"
+              id="rfid_input"
+              name="RFIDInput"
+              placeholder="Your ID"
+              required
+              autocomplete="off"
+            />
+          </form>
+
+          <div
+            class="section-user-information hidden"
+            id="sectionUserInformation"
+          >
+            <div class="user-info">
+              <div class="user-image">
+                <img
+                  id="userImage"
+                  height="80"
+                  src="../assets/User-placeholder.png"
+                  alt="Profile Picture"
+                />
+              </div>
+              <div class="user-details">
+                <h3 id="userFullName">John Gregg Virina Felicisimo</h3>
+                <p id="userType">Student (2301-000512)</p>
+                <p id="userCourseAndYear">BSIT III</p>
+                <p class="user-message" id="tap-message">
+                  You have already logged in
+                </p>
+              </div>
+
+              <div class="time-now">
+                <p id="timeNow"></p>
+              </div>
+              <div class="date-today">
+                <p id="dateToday"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-bsit">
+            <div class="logo">
+              <img src="../assets/BSITSACLI.png" alt="Sacli Logo" height="32" />
+              <div class="logo-text">
+                <p>
+                  &copy; 2025 BS Information Technology | All Rights Reserved.
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- TIME -->
+          <div class="footer-clock">
+            <div class="footer-clock-time">
+              <div class="time">
+                <p id="liveTime">June 6, 2025 (Wednesday) - 12:00 Am</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

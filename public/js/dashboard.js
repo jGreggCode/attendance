@@ -3,7 +3,7 @@ import { addModal } from "./utils/add-modal.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   setupProfileDropdownToggle();
-  addModal("addStdentBtn", "editProfileModal");
+  addModal("btnEditProfile", "editProfileModal");
 });
 
 document.addEventListener("DOMContentLoaded", () => {

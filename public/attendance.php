@@ -37,7 +37,11 @@ if (isset($_SESSION['user'])) {
   $profile_photo = $_SESSION['user']['profile_photo'];
   $user_type = $_SESSION['user']['user_type'];
   $rfid = $_SESSION['user']['rfid_code'];
-  $phone_number = $_SESSION['user']['phone_number'] ? '' : 'N/A';
+  $phone_number = $_SESSION['user']['phone_number'];
+  $program = $_SESSION['user']['course'];
+  $academic_year = $_SESSION['user']['academic_year'];
+  $semester = $_SESSION['user']['semester'];
+  $department = $_SESSION['user']['department'];
 }
 ?>
 
@@ -115,8 +119,16 @@ if (isset($_SESSION['user'])) {
                 <p><?php echo $email; ?></p>
               </div>
               <div class="profile-info">
+                <h4>Program</h4>
+                <p><?php echo $program . "( " . $department . " )"; ?></p>
+              </div>
+              <div class="profile-info">
+                <h4>Academic Year</h4>
+                <p><?php echo $academic_year . " / " . $semester ?></p>
+              </div>
+              <div class="profile-info">
                 <h4>Phone Number</h4>
-                <p><?php echo $phone_number; ?></p>
+                <p><?php echo $phone_number ? "" : "N/A"; ?></p>
               </div>
             </div>
           </div>

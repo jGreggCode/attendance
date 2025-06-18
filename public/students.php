@@ -140,11 +140,11 @@ if (isset($_SESSION['user'])) {
         <label for="course">Program:</label>
         <input type="text" id="course" name="course" required>
 
-        <label for="">What is this</label>
+        <!-- <label for="">What is this</label>
         <select name="" id="">
           <option value="">BS IT</option>
           <option value="">WOW</option>
-        </select>
+        </select> -->
 
         <label for="year_level">Year Level:</label>
         <input type="text" id="year_level" name="year_level" required>

@@ -2,6 +2,41 @@ let hideTimeout;
 let hideAnimateTimeout;
 
 document.addEventListener("DOMContentLoaded", () => {
+  const videoElement = document.getElementById("adsVideo");
+
+  const videos = ["ads/ad1.mp4", "ads/ad2.mp4", "ads/ad3.mp4"];
+
+  const shuffle = (arr) => {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
+  const shuffledVideos = shuffle([...videos]);
+  let currentIndex = 0;
+
+  const playNext = () => {
+    videoElement.classList.add("fade-out");
+
+    setTimeout(() => {
+      videoElement.src = shuffledVideos[currentIndex];
+      videoElement.load();
+
+      videoElement.play().catch((err) => console.error("Playback error:", err));
+
+      currentIndex = (currentIndex + 1) % shuffledVideos.length;
+
+      videoElement.classList.remove("fade-out");
+    }, 700); // same as transition duration
+  };
+
+  videoElement.addEventListener("ended", playNext);
+  playNext();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
   const liveTimeElement = document.getElementById("liveTime");
   const rfidInput = document.getElementById("rfid_input");
 
@@ -16,6 +51,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Uncomment this on production
     // rfidInput.value = "";
   }, 1000);
+
+  // Block Enter key
+  rfidInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Stop it from submitting or triggering anything
+      return false;
+    }
+  });
 
   rfidInput.addEventListener("input", () => {
     if (rfidInput.value.length === 10) {

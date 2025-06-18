@@ -43,11 +43,11 @@
           <div class="logo">
             <img src="../assets/saclilogo.png" alt="Sacli Logo" height="64">
             <div class="logo-text">
-              <h2>Saint Anne College Lucena INC.</h2>
+              <h2>St. Anne College Lucena Inc.</h2>
               <p>Class Beyond Quezon</p>
             </div>
             <div class="short-text">
-              <h2>Saint Anne College Lucena INC.</h2>
+              <h2>St. Anne College Lucena Inc.</h2>
               <p>Class Beyond Quezon</p>
             </div>
           </div>
@@ -55,7 +55,7 @@
         <div class="header-right">
           <ul>
             <li><a href="https://sacli.edu.ph/" target="_blank">Official Website</a></li>
-            <li><a href="./index.php">Attendance</a></li>
+            <li><a href="./gate.html">Attendance</a></li>
           </ul>
         </div>
       </div>
@@ -91,18 +91,18 @@
         </form>
       </div>
 
-      <!-- <div class="section-footer">
-        <div class="footer-links">
-          <a href="https://sacli.edu.ph/privacy-policy/" target="_blank">Privacy Policy</a>
-          <span>|</span>
-          <a href="https://sacli.edu.ph/terms-of-use/" target="_blank">Terms of Use</a>
-          <span>|</span>
-          <a href="https://sacli.edu.ph/sitemap/" target="_blank">Sitemap</a>
-          <p>&copy; 2025 | <a class="programmer-name" href="" target="_blank">jgreggcode</a></p>
-        </div>
-      </div> -->
-
     </div> 
+
+    <div class="footer-bsit">
+      <div class="logo">
+        <img src="../assets/BSITSACLI.png" alt="Sacli Logo" height="32" />
+        <div class="logo-text">
+          <p>
+            &copy; 2025 BS Information Technology | All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </div>
 
     <!-- For Sign In & Sign Up AJAX -->
     <script type="module" src="../public/js/signin.js"></script>

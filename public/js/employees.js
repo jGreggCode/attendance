@@ -2,6 +2,19 @@ import { setupProfileDropdownToggle } from "./utils/dropdown-logout.js";
 import { addModal } from "./utils/add-modal.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  const currentPage = window.location.pathname.split("/").pop();
+  const navLinks = document.querySelectorAll(".nav-link a");
+
+  navLinks.forEach((link) => {
+    const linkPage = link.getAttribute("href");
+    link.classList.toggle("active", linkPage === currentPage);
+
+    link.addEventListener("click", () => {
+      navLinks.forEach((l) => l.classList.remove("active"));
+      link.classList.add("active");
+    });
+  });
+
   setupProfileDropdownToggle();
   addModal("addStdentBtn", "editProfileModal");
   let studentTable;

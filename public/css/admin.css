@@ -318,6 +318,25 @@
   transition: color 0.3s ease;
 }
 
+.footer-bsit {
+  position: absolute;
+  bottom: 0;
+  padding: 15px;
+  width: 100%;
+  z-index: 1000;
+}
+
+.footer-bsit .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: white;
+  text-shadow: 2px 2px #000;
+  gap: 10px;
+  font-weight: bold;
+}
+
 /* Small Screen */
 @media (max-width: 990px) {
   /* BACKGROUND */

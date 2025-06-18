@@ -234,6 +234,8 @@ class User {
         'birthday' => $row['birthday'],
         'course' => $row['course'],
         'year_level' => $row['year_level'],
+        'academic_year' => $row['academic_year'],
+        'semester' => $row['semester'],
         'department' => $row['department'],
         'user_type' => $row['user_type'],
         'username' => $row['username'],
