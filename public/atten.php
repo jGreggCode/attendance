@@ -1,7 +1,7 @@
 <?php
 include_once "../includes/database/dbh.inc.php";
 
-$sql = "SELECT id, rfid_code, user_type, date, time_in, time_out FROM attendance;";
+$sql = "SELECT id, rfid_code, user_type, date, time_in, time_out, status, reason FROM attendance;";
 
 $stmt = $conn->prepare($sql);
 

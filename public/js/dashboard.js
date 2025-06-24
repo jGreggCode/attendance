@@ -31,13 +31,34 @@ document.addEventListener("DOMContentLoaded", () => {
   let attendanceData = [];
   let summary = [];
 
-  // ====== FETCH ATTENDANCE DATA ======
-  fetchAttendanceData();
+  document.getElementById("filterAttendance").addEventListener("click", () => {
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
 
-  async function fetchAttendanceData() {
+    if (!startDate || !endDate) {
+      alert("Please select both start and end dates.");
+      return;
+    }
+
+    fetchAttendanceData(startDate, endDate);
+  });
+
+  // ====== FETCH ATTENDANCE DATA ======
+  // Initial load (default to current month)
+  const today = new Date();
+  const defaultStart = new Date(today.getFullYear(), today.getMonth(), 1)
+    .toISOString()
+    .split("T")[0];
+  const defaultEnd = today.toISOString().split("T")[0];
+
+  document.getElementById("startDate").value = defaultStart;
+  document.getElementById("endDate").value = defaultEnd;
+  fetchAttendanceData(defaultStart, defaultEnd);
+
+  async function fetchAttendanceData(startDate, endDate) {
     try {
       const response = await fetch(
-        "../includes/controller/fetch_attendance.contr.php"
+        `../includes/controller/fetch_attendance.contr.php?start_date=${startDate}&end_date=${endDate}`
       );
       const data = await response.json();
 

@@ -23,21 +23,24 @@ document.addEventListener("DOMContentLoaded", () => {
     studentTable = $("#studentTable").DataTable({
       data: data,
       columns: [
+        { data: "id" },
         { data: "rfid_code" },
         { data: "user_type" },
         { data: "date" },
         { data: "time_in" },
         { data: "time_out" },
+        { data: "status" },
+        { data: "reason" },
         {
           data: null,
           render: (row) => `
-            <button class="btn btn-sm btn-edit editAttendanceBtn" data-id="${row.rfid_code}">Edit</button>
+            <button class="action-btn btn btn-sm btn-edit editAttendanceBtn" data-id="${row.id}">Edit</button>
             `,
           orderable: false,
           searchable: false,
         },
       ],
-      pageLength: 10,
+      pageLength: 50,
       language: {
         searchPlaceholder: "Search attendance...",
       },

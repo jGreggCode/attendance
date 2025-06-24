@@ -47,6 +47,12 @@ if (isset($_SESSION['user'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- WEB ICON -->
+  <link
+      rel="shortcut icon"
+      href="../assets/saclilogo.png"
+      type="image/x-icon"
+    />
   <link rel="stylesheet" href="../public/css/main.css" />
   <link rel="stylesheet" href="../public/css/dashboard.css" />
   <link rel="stylesheet" href="../public/css/students.css" />
@@ -72,30 +78,33 @@ if (isset($_SESSION['user'])) {
   <div class="student-header">
     <div class="student-top">
       <div class="left">
-        <div class="form-group custom-select-wrapper">
+        <!-- <div class="form-group custom-select-wrapper">
           <select name="courses" id="courses">
             <option value="selected" selected>All</option>
           </select>
           <i class="fa-solid fa-angle-down fa-sm custom-select-icon" id="profile" style="cursor: pointer;"></i>
-        </div>
-        <div class="student-add">
+        </div> -->
+        <!-- <div class="student-add">
           <button id="addStdentBtn"><i class="fa-solid fa-user-plus"></i> Add a student</button>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
 
   <div class="student-middle">
-    <div class="student-table-wrapper">
+    <div class="student-table-wrapper all-attendance" >
       <h2 class="table-heading">Manage All Attendance</h2>
       <table id="studentTable" class="display" style="width: 100%;">
         <thead>
           <tr>
+            <th>ID</th>
             <th>RFID</th>
             <th>User Type</th>
             <th>Date</th>
             <th>Time In</th>
             <th>Time Out</th>
+            <th>Status</th>
+            <th>Reason</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -132,8 +141,7 @@ if (isset($_SESSION['user'])) {
   <!-- JQUERY VENDOR -->
   <script src="../public/vendor/jquery/jquery.min.js"></script>
   <!-- Page Javascript Code -->
-  <script src="../public/js/dashboard.js"></script>
-  <script src="../public/js/signup.js"></script>
+  <script type="module" src="../public/js/dashboard.js"></script>
   <script src="../public/js/signout.js"></script>
   <script src="../public/js/attendance.js"></script>
 

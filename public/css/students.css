@@ -98,6 +98,10 @@
   font-family: "Poppins", sans-serif;
 }
 
+.student-table-wrapper.all-attendance {
+  width: 1000px;
+}
+
 #studentTable {
   padding-top: 10px;
 }

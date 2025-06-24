@@ -47,6 +47,12 @@ if (isset($_SESSION['user'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- WEB ICON -->
+  <link
+      rel="shortcut icon"
+      href="../assets/saclilogo.png"
+      type="image/x-icon"
+    />
   <link rel="stylesheet" href="../public/css/main.css" />
   <link rel="stylesheet" href="../public/css/dashboard.css" />
   <link rel="stylesheet" href="../public/css/students.css" />

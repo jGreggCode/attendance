@@ -19,8 +19,8 @@ $db = $conn;
 $fetchData = new FetchData($db);
 
 // Example start and end date (can be modified dynamically via JS)
-$startDate = date('2025-05-01');
-$endDate = date('Y-m-t');
+$startDate = $_GET['start_date'] ?? date('Y-m-01');
+$endDate = $_GET['end_date'] ?? date('Y-m-t');
 
 $attendance = $fetchData->getAttendance($rfid, $startDate, $endDate);
 $attendanceSummary = $fetchData->getAttendanceSummary($rfid);

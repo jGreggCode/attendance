@@ -128,7 +128,7 @@ if (isset($_SESSION['user'])) {
               </div>
               <div class="profile-info">
                 <h4>Phone Number</h4>
-                <p><?php echo $phone_number ? "" : "N/A"; ?></p>
+                <p><?php echo $phone_number; ?></p>
               </div>
             </div>
           </div>
@@ -183,6 +183,17 @@ if (isset($_SESSION['user'])) {
         <div class="top">
           <span></span>
           <h3>Attendance History</h3>
+        </div>
+
+        <!-- FILTER -->
+        <div class="date-range-filter">
+          <label for="startDate">Start Date:</label>
+          <input type="date" id="startDate" name="start_date" required>
+
+          <label for="endDate">End Date:</label>
+          <input type="date" id="endDate" name="end_date" required>
+
+          <button type="button" id="filterAttendance">Filter</button>
         </div>
 
         <!-- CALENDAR VIEW -->

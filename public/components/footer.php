@@ -12,7 +12,7 @@
       <a href="reports.php"><i class="fas fa-file-alt"></i> Reports</a> -->
     </div>
     <div class="footer-right">
-      <p>&copy; 2025 <strong>JGDEV</strong>. All rights reserved.</p>
+      <p>&copy; 2025 <strong>BS Information Technology</strong>. All rights reserved.</p>
     </div>
   </div>
 </footer>
