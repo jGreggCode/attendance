@@ -1,6 +1,8 @@
 import { showToast } from "./utils/toast.js";
+import { togglePasswordVisibility } from "./utils/password-visibility.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  togglePasswordVisibility("SIPassword", "SITogglePassword");
   document.getElementById("buttonSignIn").addEventListener("click", () => {
     console.log("Sign In function called");
     signin();

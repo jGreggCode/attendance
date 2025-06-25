@@ -1,7 +1,9 @@
 import { setupProfileDropdownToggle } from "./utils/dropdown-logout.js";
+import { setupDynamicAge } from "./utils/dynamic-age.js";
 import { addModal } from "./utils/add-modal.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  setupDynamicAge("birthday", "age");
   const currentPage = window.location.pathname.split("/").pop();
   const navLinks = document.querySelectorAll(".nav-link a");
 

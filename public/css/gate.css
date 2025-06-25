@@ -181,8 +181,9 @@ video#adsVideo {
 .section-user-information {
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 600px;
   font-size: 1.3rem;
+  padding: 15px 0;
   background-color: rgba(252, 252, 252, 0.8);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
@@ -234,10 +235,10 @@ video#adsVideo {
 
 .date-today {
   position: absolute;
-  top: 0;
+  top: -5px;
   right: 10px;
-  padding: 5px;
   font-size: 0.8rem;
+  font-weight: 600;
 }
 
 .section-user-information .user-info .user-image {
@@ -259,14 +260,15 @@ video#adsVideo {
 
 .time-now {
   position: absolute;
-  bottom: 0;
+  bottom: -5px;
   right: 10px;
-  padding: 5px;
   font-size: 1rem;
+  font-weight: 600;
 }
 
 .user-message {
-  font-size: 0.8rem;
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 /* FOOTER */

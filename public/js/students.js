@@ -1,7 +1,9 @@
 import { setupProfileDropdownToggle } from "./utils/dropdown-logout.js";
+import { setupDynamicAge } from "./utils/dynamic-age.js";
 import { addModal } from "./utils/add-modal.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  setupDynamicAge("birthday", "age");
   const currentPage = window.location.pathname.split("/").pop();
   const navLinks = document.querySelectorAll(".nav-link a");
 
@@ -20,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let studentTable;
   const coursesSelect = document.getElementById("courses");
+  const editCourses = document.getElementById("course");
 
   // Fetch and populate courses
   fetch("../includes/controller/fetching_data.contr.php")
@@ -28,12 +31,19 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Fetch Response:", data);
 
       const courseData = data.course;
-      if (courseData.length > 0) {
+      if (courseData && courseData.length > 0) {
         courseData.forEach((course) => {
-          const option = document.createElement("option");
-          option.value = course.course_name_shorten;
-          option.textContent = course.course_ini;
-          coursesSelect.appendChild(option);
+          // Create an option for the first select box
+          const option1 = document.createElement("option");
+          option1.value = course.course_name_shorten;
+          option1.textContent = course.course_ini;
+          coursesSelect.appendChild(option1);
+
+          // Create another option for the second select box
+          const option2 = document.createElement("option");
+          option2.value = course.course_name_shorten;
+          option2.textContent = course.course_name_shorten;
+          editCourses.appendChild(option2);
         });
       }
 

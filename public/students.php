@@ -138,19 +138,15 @@ if (isset($_SESSION['user'])) {
         <input type="text" id="last_name" name="last_name" required>
 
         <label for="age">Age:</label>
-        <input type="number" id="age" name="age" required>
+        <input type="number" id="age" name="age" required readonly>
 
         <label for="birthday">Birthday:</label>
         <input type="date" id="birthday" name="birthday" required>
 
         <label for="course">Program:</label>
-        <input type="text" id="course" name="course" required>
-
-        <!-- <label for="">What is this</label>
-        <select name="" id="">
-          <option value="">BS IT</option>
-          <option value="">WOW</option>
-        </select> -->
+        <select name="editCourses" id="course">
+          <option value="selected" selected></option>
+        </select>
 
         <label for="year_level">Year Level:</label>
         <input type="text" id="year_level" name="year_level" required>

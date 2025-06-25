@@ -194,6 +194,7 @@ if (isset($_SESSION['user'])) {
           <input type="date" id="endDate" name="end_date" required>
 
           <button type="button" id="filterAttendance">Filter</button>
+          <button type="button" id="downloadAttendance">Download Attendance</button>
         </div>
 
         <!-- CALENDAR VIEW -->

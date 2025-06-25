@@ -116,7 +116,7 @@ if (isset($_SESSION['user'])) {
 
   <section class="charts-content">
     <div class="charts-section">
-      <div class="chart">
+      <div class="chart" style="display: none;">
         <div class="chart-icon">
           <i class="fa-solid fa-ellipsis setting"></i>
         </div>

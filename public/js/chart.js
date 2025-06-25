@@ -100,7 +100,7 @@ export function buildBarChart(categories, values, container = "#barChart") {
     colors,
     series: [{ name: "Students", data: values }],
     chart: {
-      width: 550,
+      width: 1220,
       height: "100%",
       type: "bar",
       fontFamily: "Poppins",

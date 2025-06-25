@@ -1,6 +1,7 @@
 let hideTimeout;
 let hideAnimateTimeout;
 
+// ADS
 document.addEventListener("DOMContentLoaded", () => {
   const videoElement = document.getElementById("adsVideo");
 
@@ -36,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
   playNext();
 });
 
+// RFID AND LIVE TIME
 document.addEventListener("DOMContentLoaded", () => {
   const liveTimeElement = document.getElementById("liveTime");
   const rfidInput = document.getElementById("rfid_input");
@@ -168,12 +170,12 @@ async function handleRFIDScan(rfidCode) {
       sectionUserInformation.classList.add("animate-out");
       attendanceMessage.textContent = "Please tap your ID card...";
       timeNow.textContent = "";
-    }, 5000);
+    }, 10000);
 
     hideAnimateTimeout = setTimeout(() => {
       hideUserSection(sectionUserInformation);
       userImage.src = "";
-    }, 6000);
+    }, 11000);
   } catch (err) {
     showError(errorMessage, "Something went wrong.");
   }

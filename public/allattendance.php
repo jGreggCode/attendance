@@ -117,8 +117,8 @@ if (isset($_SESSION['user'])) {
       <span class="close-btn">&times;</span>
 
       <h2 id="formTitle">Edit Attendance</h2>
-      <form id="editPasswordForm">
-
+      <form id="editAttendance">
+        <input type="hidden" id="id" name="id">
         <label for="profile_image">Time In:</label>
         <input type="time" id="time_in" name="time_in" required>
         
@@ -128,11 +128,10 @@ if (isset($_SESSION['user'])) {
         <label for="profile_image">Reason:</label>
         <input type="text" id="reason" name="reason" required>
 
-        <button id="buttonSignUp" type="button" data-action="register">Register</button>
+        <button id="btnUpdateAttendance" type="button">Update</button>
       </form>
     </div>
   </div>
-</div>
 
   <?php
   include_once 'components/footer.php';
@@ -141,9 +140,8 @@ if (isset($_SESSION['user'])) {
   <!-- JQUERY VENDOR -->
   <script src="../public/vendor/jquery/jquery.min.js"></script>
   <!-- Page Javascript Code -->
-  <script type="module" src="../public/js/dashboard.js"></script>
   <script src="../public/js/signout.js"></script>
-  <script src="../public/js/attendance.js"></script>
+  <script type="module" src="../public/js/attendance.js"></script>
 
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

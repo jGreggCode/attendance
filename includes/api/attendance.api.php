@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rfid_code'])) {
 				]);
 				exit();
 			}
-	} else if ($existing['time_out'] === null) {
+	} else {
 			$result = $attendance->logTimeOut($existing['id'], $time);
 
 			if ($result['status'] === 'error') {
@@ -110,11 +110,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rfid_code'])) {
 					]);
 					exit();
 			}
-	} else {
-			echo json_encode([
-					'status' => 'warning',
-					'message' => 'You have already time in today.', 
-					'data' => $user
-			]);
-	}
+	} 
 }
