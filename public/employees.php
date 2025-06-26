@@ -78,11 +78,14 @@ if (isset($_SESSION['user'])) {
   <div class="student-header">
     <div class="student-top">
       <div class="left">
-        <div class="form-group custom-select-wrapper">
+        <div class="form-group custom-select-wrapper" style="display: none;">
           <select name="courses" id="courses">
             <option value="selected" selected>All</option>
           </select>
           <i class="fa-solid fa-angle-down fa-sm custom-select-icon" id="profile" style="cursor: pointer;"></i>
+        </div>
+        <div class="student-add">
+          <button id="deleteEmployees"><i class="fa-solid fa-trash"></i> Purge Inactive Accounts</button>
         </div>
         <div class="student-add">
           <button id="addStdentBtn"><i class="fa-solid fa-user-plus"></i> Add an Employee</button>
@@ -103,6 +106,7 @@ if (isset($_SESSION['user'])) {
             <th>Name</th>
             <th>Email</th>
             <th>Department</th>
+            <th>Created At</th>
             <th>Actions</th>
           </tr>
         </thead>

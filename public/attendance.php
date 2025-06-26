@@ -195,6 +195,8 @@ if (isset($_SESSION['user'])) {
 
           <button type="button" id="filterAttendance">Filter</button>
           <button type="button" id="downloadAttendance">Download Attendance</button>
+
+          
         </div>
 
         <!-- CALENDAR VIEW -->
@@ -235,6 +237,16 @@ if (isset($_SESSION['user'])) {
         </div>
       </div>
     </section>
+  </div>
+
+  <div id="downloadModal" class="modal-download">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Download Attendance</h2>
+      <p>Choose your preferred download format:</p>
+      <button id="downloadPdf">Download PDF</button>
+      <button id="downloadCsv">Download CSV</button>
+    </div>
   </div>
 
   <div id="editProfileModal" class="modal">

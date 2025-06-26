@@ -17,7 +17,7 @@ if (!isset($_SESSION['user'])) {
   exit();
 }
 
-if ($_SESSION['user']['user_type'] === 'Student') {
+if ($_SESSION['user']['user_type'] === 'Student' || $_SESSION['user']['user_type'] === 'Employee') {
   header('Location: attendance.php');
   exit();
 }

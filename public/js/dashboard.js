@@ -2,6 +2,43 @@ import { setupProfileDropdownToggle } from "./utils/dropdown-logout.js";
 import { addModal } from "./utils/add-modal.js";
 
 document.addEventListener("DOMContentLoaded", () => {
+  const downloadAttendanceBtn = document.getElementById("downloadAttendance");
+  const downloadModal = document.getElementById("downloadModal");
+  const modalContent = document.querySelector(".modal-download .modal-content");
+  const closeButton = document.querySelector(".close-button");
+  const downloadPdfBtn = document.getElementById("downloadPdf");
+  const downloadCsvBtn = document.getElementById("downloadCsv");
+
+  // When the "Download Attendance" button is clicked, show the modal
+  downloadAttendanceBtn.addEventListener("click", () => {
+    downloadModal.style.display = "block";
+    modalContent.style.opacity = "1";
+  });
+
+  // When the user clicks on <span> (x), close the modal
+  closeButton.addEventListener("click", () => {
+    downloadModal.style.display = "none";
+  });
+
+  // When the user clicks anywhere outside of the modal content, close it
+  window.addEventListener("click", (event) => {
+    if (event.target == downloadModal) {
+      downloadModal.style.display = "none";
+    }
+  });
+
+  // Event listener for the "Download PDF" button
+  downloadPdfBtn.addEventListener("click", () => {
+    window.open("../includes/report/dl-attendance-pdf.php", "_blank");
+  });
+
+  // Event listener for the "Download CSV" button
+  downloadCsvBtn.addEventListener("click", () => {
+    window.open("../includes/report/dl-attendance.csv.php", "_blank");
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
   setupProfileDropdownToggle();
   addModal("btnEditProfile", "editProfileModal");
 });

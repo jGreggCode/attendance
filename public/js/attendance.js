@@ -1,6 +1,10 @@
 import { setupProfileDropdownToggle } from "./utils/dropdown-logout.js";
 import { showToast } from "./utils/toast.js";
 
+document.getElementById("addStdentBtn").addEventListener("click", async () => {
+  window.open("../includes/report/dl-all-attendance-csv.php", "_blank");
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   setupProfileDropdownToggle();
   let studentTable;

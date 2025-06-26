@@ -84,9 +84,9 @@ if (isset($_SESSION['user'])) {
           </select>
           <i class="fa-solid fa-angle-down fa-sm custom-select-icon" id="profile" style="cursor: pointer;"></i>
         </div> -->
-        <!-- <div class="student-add">
-          <button id="addStdentBtn"><i class="fa-solid fa-user-plus"></i> Add a student</button>
-        </div> -->
+        <div class="student-add">
+          <button id="addStdentBtn"><i class="fa-solid fa-download"></i> Download CSV</button>
+        </div>
       </div>
     </div>
   </div>

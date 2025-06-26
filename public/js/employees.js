@@ -22,6 +22,34 @@ document.addEventListener("DOMContentLoaded", () => {
   let studentTable;
   initEmployeeTable();
 
+  document
+    .getElementById("deleteEmployees")
+    .addEventListener("click", async () => {
+      const confirmDelete = confirm(
+        "This will export and delete employees inactive for 5+ years. Continue?"
+      );
+      if (!confirmDelete) return;
+
+      // Step 1: Download CSV
+      window.open("../includes/report/generate-purge-report.php", "_blank");
+
+      // Step 2: Proceed with deletion after short delay
+      setTimeout(async () => {
+        try {
+          const res = await fetch(
+            "../includes/api/purge-inactive-employees.api.php",
+            { method: "POST" }
+          );
+          const json = await res.json();
+          alert(json.message);
+          if (studentTable) studentTable.ajax.reload();
+        } catch (err) {
+          alert("Error during deletion.");
+          console.error(err);
+        }
+      }, 2000); // Wait a bit for download to trigger
+    });
+
   document.getElementById("addStdentBtn").addEventListener("click", () => {
     document.getElementById("formTitle").textContent = "Register Account";
     [
@@ -52,13 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     studentTable = new DataTable("#studentTable", {
       ajax: (data, callback) => {
-        const course = document.getElementById("courses").value;
-
-        fetch(
-          `../includes/api/employees.api.php?course=${encodeURIComponent(
-            course
-          )}`
-        )
+        fetch(`../includes/api/employees.api.php`)
           .then((res) => res.json())
           .then((json) => callback({ data: json.data }))
           .catch((error) => {
@@ -90,11 +112,11 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         { data: "email" },
         { data: "department" },
+        { data: "created_at" },
         {
           data: null,
           render: (data, type, row) => `
             <button class="action-btn btn btn-sm btn-edit" data-id="${row.rfid_code}">Edit</button>
-            <button class="action-btn btn btn-sm btn-delete" data-id="${row.rfid_code}">Delete</button>
           `,
           orderable: false,
           searchable: false,
@@ -106,6 +128,9 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     });
   }
+
+  // Add this to line 120 if you want to make the particular employee deleted
+  // <button class="action-btn btn btn-sm btn-delete" data-id="${row.rfid_code}">Delete</button>
 
   document
     .getElementById("studentTable")
