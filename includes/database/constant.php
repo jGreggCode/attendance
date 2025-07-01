@@ -18,3 +18,11 @@ define('DB_PASSWORD', '');
 
 // DB name
 define('DB_NAME', 'saclitms');
+
+// dbname defaultdb
+// host saclitms-jgdev101613-saclitms.c.aivencloud.com
+// port 17891
+// user 17891
+// pass AVNS_77h-_Jzd_6qetaJPA7T
+// SSL mode required
+

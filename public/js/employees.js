@@ -17,6 +17,29 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  const interval = setInterval(() => {
+    const searchInput = document.querySelector("div.dataTables_filter input");
+    if (searchInput) {
+      clearInterval(interval);
+
+      searchInput.addEventListener("input", (e) => {
+        const val = e.target.value;
+
+        if (val.length > 10) {
+          // Get the last character typed (11th key)
+          const newChar = val.slice(-1);
+
+          // Replace the entire input with only the latest key
+          e.target.value = newChar;
+
+          // Retrigger DataTable filtering
+          const event = new Event("input", { bubbles: true });
+          e.target.dispatchEvent(event);
+        }
+      });
+    }
+  }, 100);
+
   setupProfileDropdownToggle();
   addModal("addStdentBtn", "editProfileModal");
   let studentTable;
@@ -30,24 +53,48 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       if (!confirmDelete) return;
 
-      // Step 1: Download CSV
-      window.open("../includes/report/generate-purge-report.php", "_blank");
+      try {
+        // Step 1: Fetch the file as a blob
+        const response = await fetch(
+          "../includes/report/generate-purge-report.php"
+        );
+        const blob = await response.blob();
 
-      // Step 2: Proceed with deletion after short delay
-      setTimeout(async () => {
-        try {
-          const res = await fetch(
-            "../includes/api/purge-inactive-employees.api.php",
-            { method: "POST" }
-          );
-          const json = await res.json();
-          alert(json.message);
-          if (studentTable) studentTable.ajax.reload();
-        } catch (err) {
-          alert("Error during deletion.");
-          console.error(err);
+        if (blob.size <= 207) {
+          return alert("There are no inactive users.");
         }
-      }, 2000); // Wait a bit for download to trigger
+        console.log(blob);
+
+        // Step 2: Trigger download via Blob (fully JS-controlled)
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "purge-report.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+
+        // Step 3: Ask to proceed
+        const confirmProceed = confirm(
+          "The report has been downloaded. Proceed with deletion?"
+        );
+        if (!confirmProceed) return;
+
+        // Step 4: Delete inactive employees
+        const res = await fetch(
+          "../includes/api/purge-inactive-employees.api.php",
+          {
+            method: "POST",
+          }
+        );
+        const json = await res.json();
+        alert(json.message);
+        if (studentTable) studentTable.ajax.reload();
+      } catch (err) {
+        alert("Something went wrong.");
+        console.error(err);
+      }
     });
 
   document.getElementById("addStdentBtn").addEventListener("click", () => {

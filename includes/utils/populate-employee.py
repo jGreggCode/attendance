@@ -21,13 +21,13 @@ cursor = conn.cursor()
 
 fake = Faker('en_PH')
 
-departments = ["SBAT", "SASH", "SIHTM", "SNAHS", "SCT"]
+departments = ["CC", "IBED", "SAHS", "SBAT", "SE", "SEAS", "SHS", "SMIHT", "TESDA", "ADMIN"]
 academic_year = "2024-2025"
 semester = "2"
 photo_url = "../assets/User-placeholder.png"
 used_rfids = set()
 
-for i in range(1, 21):
+for i in range(1, 11):
     while True:
         rfid_code = ''.join(random.choices('EMPLOYEE0987654321', k=10))
         if rfid_code not in used_rfids:
@@ -68,6 +68,6 @@ for i in range(1, 21):
 
 # Commit and close connection
 conn.commit()
-print("20 Employee inserted successfully.")
+print("10 Employee inserted successfully.")
 cursor.close()
 conn.close()

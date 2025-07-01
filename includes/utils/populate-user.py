@@ -22,19 +22,19 @@ cursor = conn.cursor()
 fake = Faker('en_PH')
 
 courses = [
-    "AB Comm", "AB Psychology", "BSed", "BS Accountancy", "BS Business Administration",
-    "BS Civil Engineering", "BS Criminology", "BS Ed", "BS Hospitality Management",
+    "AB Communication", "AB Psychology", "ABM", "Bachelor in Secondary Education", "BS Accountancy", "BS Business Administration",
+    "BS Civil Engineering", "BS Criminology", "BS Elementary Education", "BS Hospitality Management",
     "BS Industrial Engineering", "BS Information Technology", "BS Management Accounting",
     "BS Midwifery", "BS Medical Technology", "BS Nursing", "BS Physical Therapy",
-    "BS Tourism Management", "Dentistry", "TESDA Programs"
+    "BS Tourism Management", "Dentistry", "HE", "HUMSS", "ICT", "STEM"
 ]
-departments = ["SBAT", "SASH", "SIHTM", "SNAHS", "SCT"]
+departments = ["CC", "IBED", "SAHS", "SBAT", "SE", "SEAS", "SHS", "SMIHT", "TESDA"]
 academic_year = "2024-2025"
 semester = "2"
 photo_url = "../assets/User-placeholder.png"
 used_rfids = set()
 
-for i in range(1, 101):
+for i in range(1, 501):
     while True:
         rfid_code = ''.join(random.choices('0123456789', k=10))
         if rfid_code not in used_rfids:
@@ -77,6 +77,6 @@ for i in range(1, 101):
 
 # Commit and close connection
 conn.commit()
-print("100 students inserted successfully.")
+print("500 students inserted successfully.")
 cursor.close()
 conn.close()

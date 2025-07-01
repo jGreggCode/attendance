@@ -2,6 +2,32 @@ import { setupProfileDropdownToggle } from "./utils/dropdown-logout.js";
 import { setupDynamicAge } from "./utils/dynamic-age.js";
 import { addModal } from "./utils/add-modal.js";
 
+// Clear when search exceed 10
+document.addEventListener("DOMContentLoaded", () => {
+  const interval = setInterval(() => {
+    const searchInput = document.querySelector("div.dataTables_filter input");
+    if (searchInput) {
+      clearInterval(interval);
+
+      searchInput.addEventListener("input", (e) => {
+        const val = e.target.value;
+
+        if (val.length > 10) {
+          // Get the last character typed (11th key)
+          const newChar = val.slice(-1);
+
+          // Replace the entire input with only the latest key
+          e.target.value = newChar;
+
+          // Retrigger DataTable filtering
+          const event = new Event("input", { bubbles: true });
+          e.target.dispatchEvent(event);
+        }
+      });
+    }
+  }, 100);
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   setupDynamicAge("birthday", "age");
   const currentPage = window.location.pathname.split("/").pop();

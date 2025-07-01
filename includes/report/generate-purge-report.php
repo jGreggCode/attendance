@@ -10,12 +10,16 @@ $columns = $columnsStmt->fetchAll(PDO::FETCH_COLUMN);
 
 // Main query: all user columns + latest attendance
 $sql = "
-  SELECT u.*, MAX(a.date) AS last_attendance
-  FROM users u
-  INNER JOIN attendance a ON u.rfid_code = a.rfid_code
-  WHERE u.user_type = 'Employee'
-  GROUP BY u.rfid_code
-  HAVING last_attendance < :cutoffDate
+  SELECT 
+      u.*,
+      MAX(a.date) AS last_attendance
+    FROM users u
+    INNER JOIN attendance a ON u.rfid_code = a.rfid_code
+    WHERE u.user_type = 'Employee'
+    GROUP BY u.rfid_code, u.created_at
+    HAVING 
+      MAX(a.date) < :cutoffDate
+      AND u.created_at < :cutoffDate;
 ";
 
 $stmt = $conn->prepare($sql);

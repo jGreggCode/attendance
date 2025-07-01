@@ -6,17 +6,17 @@ if ($conn->connect_error) {
 }
 
 // User data
-$student_photo = 'https://avatar.iran.liara.run/public/1';
+$student_photo = '../../assets/Dev.png';
 $rfid_code = '0991782287';
-$user_id = '2301-000512';
+$user_id = 'admin';
 $first_name = 'John Gregg';
 $middle_name = 'Virina';
 $last_name = 'Felicisimo';
 $age = 25;
 $birthday = '2000-06-13';
-$course = 'BS Information Technology';
+$course = '';
 $year_level = 3;
-$department = 'SBAT';
+$department = 'Administrator';
 $user_type = 'Admin';
 $username = $user_id; // same as user_id
 $password = 'admin123'; // plain password to be hashed

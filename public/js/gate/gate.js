@@ -186,7 +186,9 @@ async function handleRFIDScan(rfidCode) {
       userImage.src = "";
     }, 11000);
 
-    if (result.status !== "warning") {
+    const enabled = false;
+
+    if (result.status !== "warning" && enabled) {
       try {
         const emailRes = await fetch("../includes/api/email.api.php", {
           method: "POST",
@@ -207,6 +209,8 @@ async function handleRFIDScan(rfidCode) {
       } catch (err) {
         console.error("Email API error:", err);
       }
+    } else {
+      console.log("Email is off");
     }
   } catch (err) {
     showError(errorMessage, "Something went wrong.");
@@ -220,7 +224,7 @@ function updateUserDetails(data, elements) {
   elements.userImage.src = data.image_url;
   elements.userFullName.textContent = data.full_name;
   elements.userType.textContent = `${data.user_type} (${data.user_id})`;
-  if (data.user_type === "Employee") {
+  if (data.user_type === "Employee" || data.user_type === "Admin") {
     elements.userCourseAndYear.textContent = data.department;
   } else {
     elements.userCourseAndYear.textContent = data.course_and_year;
