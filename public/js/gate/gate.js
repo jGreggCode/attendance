@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     rfidInput.focus();
     // Uncomment this on production
     // rfidInput.value = "";
-  }, 1000);
+  }, 1300);
 
   // Block Enter key
   rfidInput.addEventListener("keydown", (e) => {
@@ -132,6 +132,13 @@ async function handleRFIDScan(rfidCode) {
       day: "numeric",
     });
 
+    dateNow = today.toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
     if (result.status === "error") {
       showError(errorMessage, result.message);
       hideUserSection(sectionUserInformation);
@@ -162,6 +169,8 @@ async function handleRFIDScan(rfidCode) {
       userCourseAndYear,
     });
 
+    console.log(result.data);
+
     animateUserSection(sectionUserInformation);
 
     // Auto-hide info after timeout
@@ -176,6 +185,29 @@ async function handleRFIDScan(rfidCode) {
       hideUserSection(sectionUserInformation);
       userImage.src = "";
     }, 11000);
+
+    if (result.status !== "warning") {
+      try {
+        const emailRes = await fetch("../includes/api/email.api.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            action: result.status,
+            email: result.data.email,
+            type: result.data.userType,
+            fullname: result.data.full_name,
+            dateToday: dateNow,
+            nowTime: nowTime,
+          }),
+        });
+
+        const emailData = await emailRes.json();
+      } catch (err) {
+        console.error("Email API error:", err);
+      }
+    }
   } catch (err) {
     showError(errorMessage, "Something went wrong.");
   }
@@ -188,7 +220,11 @@ function updateUserDetails(data, elements) {
   elements.userImage.src = data.image_url;
   elements.userFullName.textContent = data.full_name;
   elements.userType.textContent = `${data.user_type} (${data.user_id})`;
-  elements.userCourseAndYear.textContent = data.course_and_year;
+  if (data.user_type === "Employee") {
+    elements.userCourseAndYear.textContent = data.department;
+  } else {
+    elements.userCourseAndYear.textContent = data.course_and_year;
+  }
 }
 
 // 🎯 Animation In

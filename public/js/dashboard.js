@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ====== FETCH ATTENDANCE DATA ======
   // Initial load (default to current month)
   const today = new Date();
-  const defaultStart = new Date(today.getFullYear(), today.getMonth(), 1)
+  const defaultStart = new Date(today.getFullYear(), 0, 1)
     .toISOString()
     .split("T")[0];
   const defaultEnd = today.toISOString().split("T")[0];

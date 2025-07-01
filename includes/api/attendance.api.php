@@ -47,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rfid_code'])) {
         'rfid_code' => $rfidid,
         'user_type' => $userType,
         'course_and_year' => $courseAndYear,
+        'department' => $userData["department"],
+        'email' => $userData["email"],
         'image_url' => $imageUrl
     ];
 
